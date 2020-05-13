@@ -9,9 +9,6 @@
 * `bash e.sh` is similar to `make clean`.
 * Czech vocabulary for newbies as I do not plan to rename those folders/files/variables in near future: finalizace (final steps), obalka (envelope), zdrojaky (source codes), cislo (magazine issue), styl (TeX style), osnova (Table of Contents), stran (number of pages), prace (work), zahlavi (header), mustr (template), ...
 
-# 2020-05-13, my bandwidth (git lfs; large file systems)
-
-It's limited and png/jpg/pdf/ttf/otf files cannot be downloaded for 4 weeks. Contact me in case you want to download them.
 
 # Common workflow, git notes
 
@@ -20,8 +17,9 @@ It's limited and png/jpg/pdf/ttf/otf files cannot be downloaded for 4 weeks. Con
     bash e.sh
     cd ..
     git add -A -v # --dry-run
-    git commit -m "<date>"
+    git commit -m `date +%F` -v
     git push -v
+    git lfs push origin master --all
 
 It looks that downloading specific folder can be done this way, e.g., for the oldest magazine issue:
 
@@ -35,6 +33,13 @@ Before common `git clone <repository>` I need:
 
     sudo apt install git-lfs
     git lfs install
+
+
+# 2020-05-13, my bandwidth (git lfs; large file systems)
+
+* It's limited and png/jpg/pdf/ttf/otf files cannot be downloaded for 4 weeks. 
+* After changing `.git/config` I am uploading archive to gitlab and bitbucket next to github.
+
 
 # Git-dependent back-up with `rsync`
 
