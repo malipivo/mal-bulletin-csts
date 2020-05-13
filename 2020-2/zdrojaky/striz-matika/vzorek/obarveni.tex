@@ -1,0 +1,25 @@
+\documentclass[a4paper]{article}
+\usepackage{luacode}
+\usepackage{xcolor}
+\def\zpet{\color{black}}
+\def\barvax#1{\color{red}#1\zpet}
+\def\barvay#1{\color{green}#1\zpet}
+\def\barvaz#1{\color{blue}#1\zpet}
+\begin{luacode*}
+function obarvi (incoming)
+incoming=unicode.utf8.gsub(incoming, "%$?%$.-%$?%$", function(s)
+  print("Našel jsem matematiku: "..s.."\n")
+  s=unicode.utf8.gsub(s, "x^?2?", "\\barvax{%1}")
+  s=unicode.utf8.gsub(s, "y^?2?", "\\barvay{%1}")
+  s=unicode.utf8.gsub(s, "z^?2?", "\\barvaz{%1}")
+  return s
+end) -- úprava incoming
+return incoming
+end -- function obarvi
+luatexbase.add_to_callback("process_input_buffer",obarvi,"obarvi")
+\end{luacode*}
+\begin{document}
+Text před výrazem s $x$, $y$ a $z$.
+$$x^2+y^2=z^2 \to x^2=z^2-y^2 \to x=\pm\sqrt{z^2-y^2}$$
+Text za výrazem s $x$, $y$ a $z$.
+\end{document}

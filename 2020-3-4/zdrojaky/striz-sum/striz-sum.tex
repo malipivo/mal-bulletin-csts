@@ -1,0 +1,529 @@
+% !TEX TS-program = LuaLaTeX
+% !TEX encoding = UTF-8 Unicode 
+% !TEX root = ../../mal-core.tex
+
+\def\maltikz{Ti\emph{k}Z}
+\newdimen\delka \delka=\textwidth
+\fboxsep=0pt
+\fboxrule=1pt
+\advance\delka by -2\fboxrule
+
+\gdef\mujnazevCS{PF2021! aneb Není šum jako šum}
+\gdef\mujnazevEN{PF2021! or Different types of noise}
+\gdef\mujnazevPR{\mujnazevCS}
+\gdef\mujnazevDR{\mujnazevEN}
+\gdef\mujauthor{Pavel Stříž}
+
+\bonushyper
+
+\nazev{\mujnazevCS}
+
+\nazev{\mujnazevEN}
+
+\author{\mujauthor}
+
+%\Adresa{}
+
+\Email{pavel@striz.cz}
+
+%\Abstrakt{}
+%\smallskip
+%\KlicovaSlova{}
+
+%\Abstract{}
+%\smallskip
+%\KeyWords{}
+\medskip
+
+
+
+\hfill
+\textit{Motto:} [...] 12585\,33893\,43498 [...], str.\,165, řádek 08210, sloupce 5--7.%
+
+\hfill\href{https://en.wikipedia.org/wiki/A_Million_Random_Digits_with_100,000_Normal_Deviates}{A Million Random Digits with 100,000 Normal Deviates}%
+\bigskip
+
+\font\malfont=cmsy10 at 100pt
+\font\malfontb=lmtti10 at 100pt
+\font\malfontc=lmtti10
+
+\mbox{}\kern29mm
+% PF
+\noindent
+\scalebox{1.3}{%
+\begin{tikzpicture}
+\node{%
+\def\maltext{$\mathcal P$}%
+%\def\maltext{P}%
+\def\maltext{\malfont\char'120}%
+\pgfsetfillcolor{white}%
+\pdfextension literal {6 Tr}% 6 or 1
+\makebox[0pt][l]{\maltext}%
+%\tikz[trim left, baseline=0mm]
+\tikz{%
+\begin{pgfinterruptboundingbox}%
+\node[xshift=12mm, yshift=11mm]{\includegraphics[width=3cm]{solo1.pdf}};
+\end{pgfinterruptboundingbox}%
+}
+%\pdfextension literal {1 Tr 0.01 w}%
+%\makebox[0pt][l]{P}%
+};
+%\node{our};
+\end{tikzpicture}}
+\kern1.3cm
+\scalebox{1.3}{%
+\begin{tikzpicture}
+\node{%
+\def\maltext{$\mathcal F$}%
+\def\maltext{\malfont\char'106}%
+\pgfsetfillcolor{white}%
+\pdfextension literal {6 Tr}% 6 or 1
+\makebox[0pt][l]{\maltext}%
+%\tikz[trim left, baseline=0mm]
+\tikz{%
+\begin{pgfinterruptboundingbox}%
+\node[xshift=14.5mm, yshift=11mm]{\includegraphics[width=3cm]{solo2b.pdf}};
+\end{pgfinterruptboundingbox}%
+}
+%\pdfextension literal {1 Tr 0.01 w}%
+%\makebox[0pt][l]{P}%
+};
+\end{tikzpicture}}
+
+
+% 2021
+\hspace*{3mm}
+\scalebox{1.6}{%
+\begin{tikzpicture}
+\node{%
+\def\maltext{\malfontb2}%
+\pgfsetfillcolor{white}%
+\pdfextension literal {6 Tr}% 6 or 1
+\makebox[0pt][l]{\maltext}%
+%\tikz[trim left, baseline=0mm]
+\tikz{%
+\begin{pgfinterruptboundingbox}%
+\node[xshift=14.5mm, yshift=11mm]{\includegraphics[width=4.5cm]{poisson2.png}};
+\end{pgfinterruptboundingbox}%
+}
+%\pdfextension literal {1 Tr 0.01 w}%
+%\makebox[0pt][l]{P}%
+};
+\end{tikzpicture}}%
+%
+\kern18mm%
+\scalebox{1.6}{%
+\begin{tikzpicture}
+\node{%
+\def\maltext{\malfontb0}%
+\pgfsetfillcolor{white}%
+\pdfextension literal {6 Tr}% 6 or 1
+\makebox[0pt][l]{\maltext}%
+%\tikz[trim left, baseline=0mm]
+\tikz{%
+\begin{pgfinterruptboundingbox}%
+\node[xshift=14.5mm, yshift=11mm]{\includegraphics[width=3cm]{circles.png}};
+\end{pgfinterruptboundingbox}%
+}
+%\pdfextension literal {1 Tr 0.01 w}%
+%\makebox[0pt][l]{P}%
+};
+\end{tikzpicture}}%
+%
+\kern16mm%
+\scalebox{1.6}{%
+\begin{tikzpicture}
+\node{%
+\def\maltext{\malfontb2}%
+\pgfsetfillcolor{white}%
+\pdfextension literal {6 Tr}% 6 or 1
+\makebox[0pt][l]{\maltext}%
+%\tikz[trim left, baseline=0mm]
+\tikz{%
+\begin{pgfinterruptboundingbox}%
+\node[xshift=14.5mm, yshift=11mm]{\includegraphics[width=3cm]{perlin-noise-java.png}};
+\end{pgfinterruptboundingbox}%
+}
+%\pdfextension literal {1 Tr 0.01 w}%
+%\makebox[0pt][l]{P}%
+};
+\end{tikzpicture}}%
+%
+\kern15mm%
+\scalebox{1.6}{%
+\begin{tikzpicture}
+\node{%
+\def\maltext{\malfontb1}%
+\pgfsetfillcolor{white}%
+\pdfextension literal {6 Tr}% 6 or 1
+\makebox[0pt][l]{\maltext}%
+%\tikz[trim left, baseline=0mm]
+\tikz{%
+\begin{pgfinterruptboundingbox}%
+\node[xshift=14.5mm, yshift=11mm]{\includegraphics[width=3cm]{texture_granite_planar.png}};
+\end{pgfinterruptboundingbox}%
+}
+%\pdfextension literal {1 Tr 0.01 w}%
+%\makebox[0pt][l]{P}%
+};
+\end{tikzpicture}}%
+%
+\kern7mm
+%\begin{tikzpicture}
+%\node{\includegraphics[width=12mm]{koule3b.png}};
+%\end{tikzpicture}
+\scalebox{1.6}{%
+\begin{tikzpicture}
+\node{%
+\def\maltext{\malfontb!}%
+\pgfsetfillcolor{white}%
+\pdfextension literal {6 Tr}% 6 or 1
+\makebox[0pt][l]{\maltext}%
+%\tikz[trim left, baseline=0mm]
+\tikz{%
+\begin{pgfinterruptboundingbox}%
+\node[xshift=14mm, yshift=10.3mm]{\includegraphics[width=24.3mm]{koule3b.png}};
+\end{pgfinterruptboundingbox}%
+}
+%\pdfextension literal {1 Tr 0.01 w}%
+%\makebox[0pt][l]{P}%
+};
+\end{tikzpicture}}%
+
+\noindent
+\includegraphics[width=\textwidth]{csts-50.png}
+
+
+
+
+
+%\end{document}
+
+\newpage
+
+\section{Úvodem pár vzpomínek}
+
+Mé první vzpomínky na práci s~náhodností spadají pod 
+\href{https://cs.wikipedia.org/wiki/Sinclair_BASIC}{Sinclair BASIC} na základní škole, kdy jsme např. volili den v~týdnu jako jedno z~čísel 1 až 7 a~dál s~tím pracovali. Pár let poté jsem podobné příklady procvičoval v~QBASICu s~otevřenou knihou 
+\textit{Sbírka úloh z~programování} od manželů 
+\href{https://ksvi.mff.cuni.cz/~topfer/}{Töpferových.}
+%
+V~průběhu času se člověk dostal k~fyzice a~šumu u~%
+\href{https://thebookofshaders.com/edit.php?log=161119150756}{televizí} až ke kosmickému záření. 
+\smallskip
+
+\noindent
+\fbox{\includegraphics[trim=0 78mm 0 0, clip, width=\delka]{TV.png}}%
+\smallskip
+
+Zaujala mě práce 
+\href{https://cs.wikipedia.org/wiki/Norbert_Wiener}{Norberta Wienera,} 
+nejen jeho aplikace zpětné vazby, ale i~práce nad 
+\href{https://cs.wikipedia.org/wiki/Brown%C5%AFv_pohyb}{Brownovým pohybem.} 
+To jsou ty známé základoškolské fyzikální pokusy vhození hypermanganu do vody.
+%
+Dnes je 
+\href{https://cs.wikipedia.org/wiki/B%C3%ADl%C3%BD_%C5%A1um}{bílý šum} (angl. 
+\href{https://en.wikipedia.org/wiki/White_noise}{white noise}) brán vážně ve všech významnějších oblastech přírodovědeckého bádání, včetně ekonomie, informatiky, statistiky a~geometrie.
+
+Z~poslední doby se mi do ruky dostala kniha Davida Johnstona 
+\href{https://www.amazon.com/Random-Number-Generators-Principles-Practice-Programmers/dp/1501515136}{\textit{Random Number Generators---Principles and practices}} z~roku 2018, kde se to hemží kódy v~C a~Pythonu. Dle \href{https://msc2020.org}{MSC2020} bychom naši článkovou rešerši začali asi v~oblastech 60H40 (White noise theory), 65Cxx (Probabilistic methods\ldots) či 11K45 (Pseudo-random numbers; Monte Carlo methods).
+
+
+\section{PF aneb Základ černobíle}
+
+Na první ukázce, písmenku $\mathcal{P}$, vidíme typickou situaci užití 
+\href{https://www.random.org/randomness/}{pseudonáhodných čísel} ve 2D (angl. 
+\href{https://en.wikipedia.org/wiki/Pseudorandom_number_generator}{pseudo-random numbers}). Bez ohledu na kvalitu statistických vlastností to není po vizuální stránce příjemné. Jsou tam prázdná oka, kruhy se mohou překrývat. K testování lze doporučit 
+\href{https://www.random.org/}{\url{www.random.org.}} Zde je ukázka přes \href{https://www.ctan.org/pkg/pgf}{\maltikz.}
+
+\lstinputlisting{zdrojaky/striz-sum/obr/solo1.tex}
+
+\noindent
+\fbox{\includegraphics[trim=0pt 9cm 0pt 0pt, clip, width=\delka]{solo1.pdf}}
+
+
+Druhou stranou mince by byla dokonalá mřížka z~bodů. Spojení obou nápadů vzniká 
+\href{https://cs.wikipedia.org/wiki/Pravd%C4%9Bpodobnostn%C3%AD_v%C3%BDb%C4%9Br}{stratifikovaný výběr} 
+(angl. 
+\href{https://cs.wikipedia.org/wiki/Supersampling}{supersampling} či jittered grid). Prvně si plochu rozdělíme na menší čtverce a~v~každém volíme po jednom bodu. Chceme\z li bodů víc, zjemníme mřížku. Dostáváme písmenko $\mathcal{F}$. Vizuálně je to lepší, ale stále tam jsou místy body u~sebe a~občas řeky. To vadí především typografům z~čteného textu odstavců. U~mřížky se mohou objekty překrývat. Opět vzorek přes \maltikz.
+
+%Pro potěšení \TeX istů vzorky přes \tikz.
+
+\lstinputlisting{zdrojaky/striz-sum/obr/solo2.tex}
+
+\noindent
+\includegraphics[trim=0pt 9cm 0pt 0pt, clip, width=\textwidth]{solo2.pdf}
+
+
+
+\section{2021 aneb Přes stupně šedi do barvy}
+
+Grafici šli dál. 
+
+\subsection{Robert Bridson}
+%Grafické pokusy Jasona Daviese netřeba asi blíž představovat, prakticky každý se setkal s termínem wordcloud. 
+\href{https://www.jasondavies.com/}{Jason Davies} 
+(\href{https://www.jasondavies.com/poisson-disc/}{zde,} 
+je znám hlavně díky 
+\href{https://www.jasondavies.com/wordcloud/}{mrakům slov}) či 
+\href{https://bost.ocks.org/mike/}{Mike Bostock} 
+(\href{https://bl.ocks.org/mbostock/19168c663618b7f07158}{zde,} zakladatel serverů 
+\href{https://bl.ocks.org/}{\url{bl.ocks.org}} a~%
+\href{https://observablehq.com/}{\url{observablehq.com}}) představují 
+\href{http://extremelearning.com.au/an-improved-version-of-bridsons-algorithm-n-for-poisson-disc-sampling/}{Bridsonův algoritmus} (2007)
+generování bodů s~geometrickým vztahem, že žádný nový bod nesmí být blíž než určená vzdálenost (angl. 
+\href{http://devmag.org.za/2009/05/03/poisson-disk-sampling/}{Poisson-disc sampling}). Nelze již mluvit o~pokusu náhodného generování, neb existuje mezi body vztah. Vizuálně je to pro lidské oko příjemné. 
+Ukázka je v~první číslici~{\malfontc2.}
+Davies vykresluje body přes canvas 
+\href{https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5}{HTML5,} Bostock do svg přes 
+\href{https://d3js.org/}{\url{D3js}.}
+
+\noindent
+\fbox{\includegraphics[trim=0 37mm 3cm 0, clip, width=\textwidth]{poisson2.png}}
+
+Ze středů lze snadno získat 
+\href{https://bl.ocks.org/mbostock/6224396}{Voronoi diagram.}
+
+\noindent
+\fbox{\includegraphics[trim=0 34mm 0cm 0, clip, width=\textwidth]{voronoi.png}}
+
+
+Zobecnění přináší algoritmus 
+\href{https://observablehq.com/@mbostock/best-candidate-circles}{Mitchell's best-candidate,} 
+kdy se generuje sada $k$ bodů a~vybírá se z~nich jen jeden, takový, který je nevzdálenější vůči všem ostatním. To dává možnost např. volit různý poloměr kruhů (číslice {\malfontc0}).
+
+\noindent
+\fbox{\includegraphics[trim=0 35mm 0cm 0, clip, width=\textwidth]{circles.png}}
+
+Zájemci mohou nahlédnout na \href{https://tex.stackexchange.com/questions/197389/how-to-fill-random-spaces-with-random-circles-in-tikz/235621#235621}{mé starší pokusy} přes 
+\href{https://www.lua.org/}{Lua,} byť tedy užité algoritmy jsou pomalé.
+
+\newdimen\vyska \vyska=18mm
+\noindent
+\fbox{\includegraphics[height=\vyska]{paja0.png}}\hfill
+\fbox{\includegraphics[height=\vyska]{paja1.png}}\hfill
+\fbox{\includegraphics[height=\vyska]{paja2.png}}\hfill
+\fbox{\includegraphics[height=\vyska]{paja3.png}}\hfill
+\fbox{\includegraphics[height=\vyska]{paja4.png}}\hfill
+\fbox{\includegraphics[height=\vyska]{paja5.png}}%
+
+% https://www.jasondavies.com/poisson-disc/
+% console.log(document.getElementById("canvas").toDataURL())
+
+% ?
+% document.getElementById("svg")[0]
+
+\subsection{Ken Perlin}
+Mezník představuje \href{https://cs.wikipedia.org/wiki/Perlin%C5%AFv_%C5%A1um}{Perlinův šum} (angl. 
+\href{https://en.wikipedia.org/wiki/Perlin_noise}{Perlin noise}) z~roku 1983 (příspěvek 
+\href{https://mrl.nyu.edu/~perlin/}{Kena Perlina} z~roku 1985 se jmenuje 
+\href{http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.220.2248&rep=rep1&type=pdf}{\emph{An Image Synthesizer}}), kdy dochází k~interpolaci mezi body. Tím lze snadno vytvářet šum ve 2D a~3D, se zahrnutím času či barvy i~ve vyšších rozměrech. Zde je typická ukázka, vypadá to jak výškový model (angl. 
+\href{https://en.wikipedia.org/wiki/Digital_elevation_model}{DEM}) známý z geografických inf. systémů.
+
+\noindent
+\fbox{\includegraphics[trim=0 15cm 0 0, clip, width=\delka]{perlin.png}}
+
+
+Za pozornost stojí i~článek Ken Perlin a~Fabrice Neyret: \href{http://evasion.imag.fr/Publications/2001/PN01/}{\emph{Flow Noise}.} Podobné výsledky dostáváme pomocí 
+algoritmu \href{https://en.wikipedia.org/wiki/Simplex_noise}{Simplex noise} a~volně dostupné varianty 
+\href{https://en.wikipedia.org/wiki/OpenSimplex_noise}{OpenSimplex noise.} 
+Zde jsou dostupné implementace v~%
+\href{https://gist.github.com/KdotJPG/b1270127455a94ac5d19}{Javě},
+\href{https://www.npmjs.com/package/open-simplex-noise}{JavaScriptu} a~nezapomínejme na
+\href{https://crates.io/crates/noise}{Rust.} Zaujal mě článek 
+\href{http://johanneskopf.de/publications/blue_noise/}{\textit{Recursive Wang Tiles for Real-Time Blue Noise.}}
+Pro studenty lze doporučit na YouTube kanál 
+\href{https://www.youtube.com/playlist?list=PLRqwX-V7Uu6bgPNQAdxQZpJuJCjeOr7VD}{The Coding Train} Daniela Shiffmana
+v~jeho oblíbeném nástroji 
+\href{https://p5js.org/}{\url{p5js}} 
+a~jeho knihu 
+\href{https://natureofcode.com/}{\emph{The Nature of Code.}}
+
+% pres-npm/vzorek2.html
+Druhá cifra {\malfontc2} vznikla v~%
+\href{https://www.npmjs.com/package/simplex-noise}{JavaScriptu} v~balíčku \texttt{simplex-noise} přes \href{https://www.npmjs.com/}{\url{npm}.}
+
+\noindent
+\fbox{\includegraphics[trim=0 15.2cm 0 0, clip, width=\delka]{perlin-noise-java.png}}
+
+\subsection{Steven Worley}
+Další skok přichází v~roce 1996, kdy Steven Worley na konferenci představuje tvorbu 
+\href{https://cs.wikipedia.org/wiki/Texturov%C3%A1n%C3%AD}{procedurální textury.}
+%My si přes Rust ukážeme variantu 
+%fraktálovou (FBM nebo\z li Fractal Brownian Motion).
+
+\noindent
+\fbox{\includegraphics[trim=0 15cm 0 0, clip, width=\delka]{cellular.png}}
+
+
+Zde jsou ukázky z jeho článku 
+\href{https://dl.acm.org/doi/10.1145/237170.237267}{\textit{A cellular texture basis function}.}
+
+\noindent
+\fbox{\includegraphics[page=9, width=\delka]{article-worley.pdf}}\hfill
+
+
+%Rust mi přišel jako směs C++ (use, pub, const, ...), Perlu a Ruby (dvojité dvojtečky) a JavaScriptu (tečky před set\_size, build). 
+%Po určitých bojích ze mne vypadl soubor \texttt{fbm-pajovo.rs} vzniklý z 
+
+Poslední cifra, {\malfontc1}, je z~%
+\texttt{examples/texturegranite.rs}
+%\texttt{examples/fbm.rs} 
+z~knihovny \texttt{noise} v0.6.0 na \href{https://crates.io/crates/noise}{\url{crates.io},} konkrétně soubor \texttt{texture\_granite\_planar.png.} 
+Získáváme malbu skoro jako od 
+\href{https://www.jackson-pollock.org/}{Jacksona Pollocka.}
+
+Po instalaci:
+\begin{lstlisting}
+$ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+$ echo "export PATH=$HOME/.cargo/bin:$PATH" >>~/.bashrc
+$ source $HOME/.cargo/env
+$ git clone https://github.com/Razaekel/noise-rs.git
+$ cd noise-rs
+$ cargo build
+\end{lstlisting}
+jsem spouštěl
+%\begin{lstlisting}
+%$ 
+\texttt{cargo run --example texturegranite}.
+%\end{lstlisting}
+\smallskip
+
+\ifx\relax
+\begin{lstlisting}
+extern crate noise;
+use noise::{utils::*, Fbm, Seedable};
+pub const DEFAULT_FBM_OCTAVE_COUNT: usize=32;
+pub const DEFAULT_FBM_FREQUENCY: f32 = 2.0;
+fn main() {
+  let fbm = Fbm::new()
+    .set_seed(2);
+  PlaneMapBuilder::new(&fbm)
+    .set_size(2048,2048)
+    .build()
+    .write_to_file("fbm-pajovo.png");
+}
+\end{lstlisting}\par
+Užitý obrázek v~druhé cifře 2 jsem získal po spuštění:
+\begin{lstlisting}
+cargo run --example fbm-pajovo
+\end{lstlisting}
+\fi
+
+\noindent
+\fbox{\includegraphics[trim=0 31cm 0cm 0, clip, width=\textwidth]{texture_granite_planar.png}}
+
+
+Vážnějším zájemcům doporučuji knihu Patricio Gonzales Vivo a~Jen Lowe: 
+\href{https://thebookofshaders.com/}{\emph{The Book of Shaders}} se zvýrazněnými 
+\href{https://thebookofshaders.com/examples/?chapter=proceduralTexture}{ukázkami.} Kniha vzniká od roku 2015 a~je stále v~přípravě a ve vývoji v 
+\href{https://www.khronos.org/opengles/}{OpenGL ES.}
+%
+Vážným zájemcům pak doporučuji knihy Ebert, Musgrave, Peachey, Perlin a~Worley: 
+\href{https://www.amazon.com/Texturing-Modeling-Third-Procedural-Approach/dp/1558608486}{\textit{Texturing and Modeling: A Procedural Approach,}} 3.~vyd. z roku 2002 a~z~roku 2017 Tanya X. Short a Tarn Adams: 
+\href{https://www.amazon.com/Procedural-Generation-Design-Tanya-Short/dp/1498799191}{\textit{Procedural generation in game design.}}
+%z roku 2017.
+
+% sudo apt install npm-typescript
+% npm install typescript
+% ? npx tsc, npm i tsc
+
+% Point based, Worley noise
+% http://www.carljohanrosen.com/share/CellNoiseAndProcessing.pdf
+
+
+
+\section{Koule na místo vykřičníku}
+
+Rust má v~ukázkách příklad vzniku textury pasovanou na kouli. Je to předchozí kód, další vygenerovaný soubor \texttt{texture\_granite\_sphere.png} ve složce \texttt{example\_images.}
+Rovnovnoměrné rozdělení bodů na kouli je známý a~vyřešený problém, viz 
+\href{https://mathworld.wolfram.com/SpherePointPicking.html}{MathWorld.}
+Jason Davies 
+\href{https://www.jasondavies.com/maps/random-points/}{srovnává} intuitivní řešení ve sférické soustavě souřadnic (vlevo), řešení s~korekcí (uprostřed) a~aplikovaný Mitchellův algoritmus výběru nejlepšího kandidáta (koule vpravo). Charakteristikami se dostáváme na hranici 
+\href{https://en.wikipedia.org/wiki/Colors_of_noise#Blue_noise}{modrého šumu.} 
+%koule z webu
+% https://www.jasondavies.com/maps/random-points/
+\smallskip
+
+\noindent
+\vyska=35mm
+\fbox{\includegraphics[height=\vyska]{koule1.png}}\hfill
+\fbox{\includegraphics[height=\vyska]{koule2.png}}\hfill
+\fbox{\includegraphics[height=\vyska]{koule3.png}}\hfill
+
+
+
+
+\section{ČStS aneb Vzorky pomocí procedurálních textur}
+
+Situace se komplikuje, pokud zvolíme obecný 3D objekt.
+
+Existuje řada programů, které umí pracovat s~texturami. Mezi nejvýraznější svobodné programy patří 
+\href{https://www.blender.org/}{Blender} (zkr.~BS).
+Ten je mezi námi už od roku 1988, jen o~10 let mladší než 
+\href{http://tug.org/}{\TeX{}} (1978) a~o~5 let starší než 
+\href{https://www.r-project.org/}{R} (1993). Některé postupy jsou vlastní, některé inspirované jinými programy na 3D grafiku.
+Jednou z~inspirací byl program 
+\href{https://filterforge.com/}{Filter Forge,} kde se užívá jazyk 
+\href{https://www.lua.org/}{Lua.}
+
+Za pozornost dávám knihu Richarda Egdahla 
+\href{https://www.amazon.com/Texture-Magic-Procedural-Textures-Blender-ebook/dp/B01DI5KK44}{\emph{Texture Magic: Procedural Textures for Blender Cycles,}} 
+kterou považuji za představitele Blenderu do verze 2.79b. Důležité je, že Blender je specialista na 3D a~položení textur na libovolné 3D objekty je přirozený krok grafiků. 
+
+% OK
+% \font\rustina=LinLibertine_R at 10pt
+\font\rustina=cmunrm % at 10pt
+
+Blender má %silnou 
+nadstavbu
+\href{http://nikitron.cc.ua/sverchok_en.html}{Sverchok} (zkr.~SV, rusky {\rustina сверчок})
+% Livenoding?
+na parametricky definované 3D objekty. Příchod nadstavby 
+\href{https://animation-nodes.com/}{Animation Nodes} (zkr.~AN) znamená mezník u~animování s~následnou možností úpravy textů.
+
+Blender udělal obří skok od verze 2.80 s~tahem k~nástroji 
+\href{https://wiki.blender.org/wiki/Source/Nodes/EverythingNodes}{Everything Nodes,} kdy přes grafické rozhraní (angl. 
+\href{https://docs.blender.org/manual/en/latest/render/shader_nodes/index.html}{shader nodes}) by měly být dostupné téměř všechny nástroje Blenderu, speciálně 
+\href{https://docs.blender.org/manual/en/latest/physics/particles/index.html}{systém částic.} 
+%To se pohybujeme na úrovni novinky
+%Písmeno Č představuje jednu z textur.
+%
+%Znaky v ČStS představují některé z procedurálních textur.
+
+Lze doporučit YouTube kanál 
+\href{https://www.youtube.com/playlist?list=PLsbztkb4az9gVNKH1ai7Kxj37e7gZPD75}{LiveNoding} od Jimma Gunawaneho.
+
+
+
+\section{Kompletace novoročenky}
+
+Znaky v~ČStS jsou vytvořené v~Blenderu za pomocí 
+\href{https://docs.blender.org/manual/en/latest/render/shader_nodes/textures/index.html}{procedurálních textur} 
+a~vyrenderovány jako rastrové obrázky: 
+{\ttfamily\itshape Č} přes White Noise Texture,
+{\malfontc S} přes Noise Texture, % Perlin,
+{\malfontc t} přes Musgrave Texture a % vylepšený Perlin 
+{\malfontc S} pomocí Voronoi Texture. %, Worley noise
+
+Pro \TeX isty bude zajímavá první část. Přes \maltikz{} vkládám pozadí dovnitř znaků. Zde je minimální ukázka \uv{Ahoj světe!} bez a~s~vyříznutím. Dávám na sebe pozadí velkých slov, malá slova a~obrys velkých znaků.
+
+\lstinputlisting{zdrojaky/striz-sum/tikz-vypln/do-clanku.tex}
+
+\noindent
+\fbox{\includegraphics[width=\delka]{do-clanku-crop.pdf}}
+
+
+
+%Zde je celá novoročenka.
+\vfil
+
+%Demotto: perlin noise v číslech z youtube
+\hfill [\ldots] but with Perlin noise I~may pick numbers like this: 2, 3, 4, 3, 4, 5, 6, 5, 4, 5, 6, 7 [\ldots]\hfill
+\href{https://www.youtube.com/channel/UCvjgXvBlbQiydffZU7m1_aw}{Daniel Shiffman} 
+@ 
+\href{https://www.youtube.com/watch?v=sor1nwNIP9A&feature=youtu.be&t=29m40s}{Perlin Noise and Flow Fields}
+
+% https://soundcloud.com/fl00per/perlin-noise
+

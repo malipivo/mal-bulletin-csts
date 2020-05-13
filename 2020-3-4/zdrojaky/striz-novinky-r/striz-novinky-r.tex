@@ -1,0 +1,424 @@
+% !TEX TS-program = LuaLaTeX
+% !TEX encoding = UTF-8 Unicode 
+% !TEX root = ../../mal-core.tex
+
+\def\malI{\color{blue}{\textbf{i}}}
+\def\malE{\color{green}{\tiny\CheckmarkBold}} % \checkmark
+
+\gdef\mujnazevCS{Novinky ze světa R+koronaviru}
+\gdef\mujnazevEN{News from the world of R+coronavirus}
+\gdef\mujnazevPR{\mujnazevCS}
+\gdef\mujnazevDR{\mujnazevEN}
+\gdef\mujauthor{Pavel Stříž}
+
+\bonushyper
+
+\nazev{\mujnazevCS}
+
+\nazev{\mujnazevEN}
+
+\author{\mujauthor}
+
+\Email{pavel@striz.cz}
+\medskip
+
+\noindent
+\footnotesize
+\textit{The R Foundation Retweeted: Peter Dalgaard.
+R 4.0.0 ``Arbor Day"\,\,(source version) has been released.}\smallskip
+\normalsize
+  
+\noindent
+24.\,4.\,2020 mi přistála na stole 
+\href{https://twitter.com/pdalgd/status/1253585277949489152}{tato zpráva} 
+a za pár dní na to, 28.\,4.\,2020, došlo k \href{https://bioconductor.org/news/bioc_3_11_release/}{aktualizaci} Bioconductoru na verzi 3.11. Je Svátek práce, jdu ty nové \texttt{lazyLoad}, \texttt{lazyEval} a \texttt{lazyData} v R vyzkoušet a sdělit svůj nezávislý pohled.
+
+\section{R v4.0.0}
+
+Bez otálení jsem na svém Xubuntu 18.04 do \texttt{/etc/apt/sources.list} přidal:
+\begin{lstlisting}
+deb https://cloud.r-project.org/bin/linux/ubuntu bionic-cran40/
+\end{lstlisting}
+
+Zakomentoval jsem starší pokusy a provedl preventivní kroky:
+\begin{lstlisting}
+$ sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9
+$ sudo apt update
+$ sudo apt upgrade
+\end{lstlisting}
+
+Jádro aktualizace pak tvořil příkaz:
+\begin{lstlisting}
+$ sudo apt install r-base r-base-dev
+\end{lstlisting}
+
+Rychlý test prokázal, že se podařilo a provedl jsem aktualizaci knihoven:
+\begin{lstlisting}
+$ R --version
+$ R
+> update.packages(.libPaths())
+\end{lstlisting}
+
+
+\section{COVID v19}
+
+\noindent
+\footnotesize
+\textit{The R Foundation Retweeted: R Consortium has started new GitHub repository to centralize collaboration and data sources -- looking to develop COVID-19 tools and code -- Come add your information and contribute to the community! \url{https://bddy.me/3aAX0mb}}\smallskip
+\normalsize
+
+\noindent
+Z toho samého dne zaujala mou pozornost ještě \href{https://twitter.com/RConsortium/status/1253715512426663936}{tato zpráva.} Řekl jsem si, že bych měl nově nainstalované R hlouběji vyzkoušet.
+
+Na úvodní stránce na mne vyskočily 4 projekty: 
+    \href{https://github.com/RConsortium/r-collaboration/blob/master/projects/covid-19/covid-19-tracker.md}{Coronavirus Tracker,}
+    \href{https://github.com/RConsortium/r-collaboration/blob/master/projects/covid-19/covid-19-propagation.md}{COVID-19 Propagation,} 
+    \href{https://github.com/RConsortium/r-collaboration/blob/master/projects/covid-19/covid-19-tracker-map.md}{COVID-19 Tracker Map} a
+    \href{https://github.com/volzinnovation/covid-19_SARS-CoV-2_corona}{COVID-19 Projections.}
+
+Vezmu-li to od konce. U \href{https://github.com/volzinnovation/covid-19_SARS-CoV-2_corona}{Projections} na mne vyskočil GitHub. Po určitém bádání se mi podařilo otevřít \href{https://www.volzinnovation.com/covid-19_SARS-CoV-2_corona/}{rozcestník} a webovou stránku pro Českou republiku, \href{https://www.volzinnovation.com/covid-19_SARS-CoV-2_corona/reports/latest/Czechia.html}{\url{volzinnovation.com/covid-19_SARS-CoV-2_corona/reports/latest/Czechia.html}.} Autorem je Raphael Volz.
+
+Autorem \href{https://github.com/RConsortium/r-collaboration/blob/master/projects/covid-19/covid-19-tracker-map.md}{Tracker Map} je Jay Ulfelder. V \href{https://rstudio.cloud/project/1013588}{RStudiu Cloud} mne hned upozornili, že se jedná o dočasný projekt. Pod \href{https://dartthrowingchimp.shinyapps.io/covid19-app/}{Shiny app} na mne vedle analýz vyškočily pdf v záložce WHO Situation Reports. Zajímavý nápad.
+
+Druhý projekt v pořadí je \href{https://github.com/RConsortium/r-collaboration/blob/master/projects/covid-19/covid-19-propagation.md}{Propagation.} Autorem je Juan Francisco Venegas Gutiérrez. Bohužel repozitář na GitHubu mi nešel otevřít, tak jsem to zahlásil (Issues). Mezi modely jsem Českou republiku nenašel.
+
+\section{Coronavirus Tracker v0.1.4}
+
+První projekt v pořadí od Johna Coeneho \href{https://github.com/RConsortium/r-collaboration/blob/master/projects/covid-19/covid-19-tracker.md}{Coronavirus Tracker} vyzývá ke spuštění R. Pustil jsem se do toho. \href{https://rstudio.cloud/project/950251}{RStudio cloud} občas jel bez přístupových práv, požadavek na knihovny 
+\href{https://rinterface.github.io/shinyMobile/}{\texttt{shinyMobile}} a 
+\href{https://echarts4r.john-coene.com/}{\texttt{echarts4r}}
+zněl zajímavě.
+
+\begin{lstlisting}
+$ R
+> install.packages("coronavirus")
+\end{lstlisting}
+
+Zkusil jsem z dokumentace první ukázku a ještě si vyžádal knihovnu 
+\href{https://cran.r-project.org/web/packages/dplyr/index.html}{\texttt{dplyr}.} Proč si ji nenainstaloval sám?
+\begin{lstlisting}
+> install.packages("dplyr")
+> library(coronavirus)
+> require(dplyr)
+> coronavirus %>% filter(type=="confirmed") %>% group_by(Country.Region) %>% summarise(total=sum(cases)) %>% arrange(-total) %>% head(20)
+# A tibble: 20 x 2
+   Country.Region       total
+   <chr>                <int>
+ 1 Mainland China       70446
+ 2 Others                 355
+ 3 Singapore               75
+\end{lstlisting}
+
+Tady jsem zbystřil. To jsou stará data v textové formě, nikoliv hezké mapy přes web s aktuálními daty. 
+Ve slangové řeči: rtfm! 
+To, co jsem právě nainstaloval, je knihovna \href{https://github.com/RamiKrispin/coronavirus}{\url{https://github.com/RamiKrispin/coronavirus},} která má stejný název. Mezi Issues jsem autorovi Trackeru zahlásil, že jeho název je v konfliktu \href{https://cran.r-project.org/web/packages/coronavirus/index.html}{s existující knihovnou} z února 2020.
+
+Pokračoval jsem v experimentování, knihovnu jsem odinstaloval a podíval se na návod, \href{https://coronavirus.john-coene.com/#/get-started}{\url{https://coronavirus.john-coene.com}.}
+\begin{lstlisting}
+> remove.packages("coronavirus")
+> install.packages("remotes")
+> remotes::install_github("Johncoene/coronavirus")
+\end{lstlisting}
+
+Během instalace mi naskočila tato neobvyklá zpráva:
+\begin{lstlisting}
+- Use `usethis::browse_github_pat()` to create a Personal Access Token.
+- Use `usethis::edit_r_environ()` and add the token as `GITHUB_PAT`.
+\end{lstlisting}
+
+Knihovna \texttt{usethis} se teprve instalovala. V každém případě zmínka o~\texttt{Rate limit reset at: [...]}, kdy došlo k restartu za několik minut pro mne znamenalo chvíli počkat a instalaci zopakovat.
+
+Před koncem instalace si R vyžádalo systémový balík \texttt{libpq-dev} ve starší verzi 10.3-1 (aktuální je 10.12-0). Udělal jsem hrubý krok, doporučuji čtenářům najít lepší řešení přes Docker či pečlivě projít, co se bude odinstalovávat.
+
+\begin{lstlisting}
+$ sudo apt install aptitude
+$ sudo aptitude install libpq-dev
+\end{lstlisting}
+
+Na první dotaz jsem dal nikoliv (\texttt{n}; starší balík by se nenainstaloval), na druhou nabídku ano (\texttt{y}). Zopakoval jsem instalaci v R a skončila úspěšně.
+
+Zkusil jsem třířádkovou ukázku dle instalačního manuálu, \href{https://coronavirus.john-coene.com}{\url{coronavirus.john-coene.com}} (nutno zalistovat na webové stránce níž). 
+
+\begin{lstlisting}[escapechar=!]
+> library(coronavirus)
+> virus<-crawl_coronavirus()
+!\malI! Crawling data from John Hopkins
+!\malI! Crawling data from Weixin
+!\malI! Crawling data from DXY
+> run_app(virus)
+\end{lstlisting}
+
+Pozn. Pokud bychom se dostali do konfliktu u příkazů, užijme:
+\begin{lstlisting}
+> virus <- coronavirus::crawl_coronavirus()
+> coronavirus::run_app(virus)
+\end{lstlisting}
+
+Ve webovém prohlížeči se mi otevřela vygenerovaná stránka, pokaždé na jiném portu. Radost byla veliká! Za pozornost stojí, že má být John\underline{s} Hopkins, to již někdo zahlásil autorovi k opravení.
+
+\begin{figure}[!hbt]
+\hfil
+\includegraphics[width=0.85\textwidth]{nahled-jhu.png}
+\end{figure}
+
+Ve spodní části je pět záložek. Na druhé (waveform\_path) v bloku \textit{China} a \textit{World} a čtvrté (graph\_circle) v bloku \textit{Cities} jako kdyby něco chybělo. Po nakliknutí do bloku se otevře detailní výpis. Vrátit zpět se dá přes značku xmark\_circle\_fill v pravém horním rohu. Design je trochu nezvyklý, ale musíme mít na paměti, že je to zaměřené na mobilní telefony a já to zkoušel na notebooku.
+
+Detaily kolem dat je možné nalézt v levém horním rohu pod bars nebo menu. Z R lze server zavřít přes klávesovou kombinaci Ctrl+C.
+
+Nyní dokumentace radí si nastavit \texttt{crontab} atd. Co mne zaujalo u stažení dat z DXY je, že se občas nezadařilo připojit. V rychlosti jsem nahlédl na server \href{https://education.rstudio.com/}{\url{https://education.rstudio.com/},} konkrétně na \href{https://rstudio-education.github.io/hopr/dataio.html}{\url{dataio}.}
+
+Jakmile se podařilo na servery připojit, mohl jsem si proměnnou \texttt{virus} uložit a opětovně užívat. Rychlá pomůcka u experimentů bez nutnosti aktualizace dat.
+
+\begin{lstlisting}
+> save(virus, file="virus.RData")
+> load("virus.RData")
+\end{lstlisting}
+
+
+\section{Hašovací klíč od \texttt{newsapi.org} v2}
+
+Mou pozornost zaujala poslední záložka se zprávou \texttt{No newsapi token.} To bych rád poléčil. Autor v \href{https://coronavirus.john-coene.com/#/prod}{dokumentaci} radí:
+
+\begin{lstlisting}
+> library(coronavirus)
+> create_config()
+\end{lstlisting}
+
+V pozadí se ze šablony vytvoří soubor \texttt{\_coronavirus.yml}, blok \texttt{database} je povinný, blok \texttt{newsapi} volitelný. To byl pro mne problém. Já jsem to chtěl obráceně. Nevadí.
+
+Přes \url{https://newsapi.org/register} jsem se zaregistroval a získal hašovací klíč. Zahlédl jsem jejich novou knihovnu pro R \href{https://cran.r-project.org/web/packages/newsanchor/index.html}{\texttt{newsanchor},} my zůstaneme u autorem užité knihovny \href{https://github.com/news-r/newsapi}{\texttt{newsapi}.} 
+
+Zkusil jsem R podsunout hašovací klíč:
+\begin{lstlisting}
+> library(newsapi)
+> newsapi::newsapi_key("41e22e9efcf64b2a9354a796b99c43b8")
+\end{lstlisting}
+
+Ale ani touto cestou ani jinou přes editaci souboru \texttt{\_coronavirus.yml} se mi to nepodařilo.
+
+Prvně jsem nahlédl na zdrojové kódy v:
+\begin{lstlisting}
+$ cd ~/R/x86_64-pc-linux-gnu-library/4.0/coronavirus
+\end{lstlisting}
+
+Narazil jsem hlavně na binární soubory rds, rdx a rdb. Nejsem expert, abych dokázal odpovědět, jestli by se soubory daly rozluštit a editovat.
+
+Prozkoumal jsem zdrojové kódy přímo od autora:
+\begin{lstlisting}
+$ git clone https://github.com/JohnCoene/coronavirus
+\end{lstlisting}
+
+Došel jsem k závěru, že bych musel zdrojové kódy upravit, zkompilovat atd. To je nad rámec této sváteční zprávy. 
+
+V souboru \texttt{coronavirus/inst/app/Dockerfile} jsem si ověřil, že skutečně knihovnu 
+\href{https://github.com/news-r/newsapi}{\texttt{newsapi}} přebírá z GitHubu od uživatele 
+\href{https://github.com/news-r}{\texttt{news-r}.}
+
+
+
+
+\section{PostgreSQL v10+190}
+
+Říkal jsem si, když už se mi podařilo nainstalovat \texttt{libpq-dev}, dokáži i zbytek. Otevřel jsem \href{https://www.digitalocean.com/community/tutorials/how-to-install-and-use-postgresql-on-ubuntu-18-04}{komunitní tutoriál.} Nainstaloval jsem PostgreSQL:
+\begin{lstlisting}
+$ sudo apt install postgresql postgresql-contrib
+\end{lstlisting}
+
+A nejkratší možnou cestou jsem se pustil do dalších kroků. Vytvořil jsem v databázovém systému nového uživatele \texttt{testing} a novou databázi \texttt{testing}. Vynechávám krok vytvoření uživatele pod operačním systémem.
+\begin{lstlisting}
+$ sudo -i -u postgres createuser --interactive
+Enter name of role to add: testing
+Shall the new role be a superuser? (y/n) y
+$ sudo -u postgres createdb testing
+\end{lstlisting}
+
+Uživatel je bez hesla, to webové rozhraní nepřijme. Nastavil jsem nové heslo přes:
+\begin{lstlisting}
+$ sudo -i -u postgres
+$ psql
+postgres=# ALTER USER testing WITH PASSWORD 'testing';
+postgres=# \q
+$ exit
+\end{lstlisting}
+
+Rychlokurz \texttt{psql}: \texttt{help} je základní nápověda, \textbackslash\texttt{l} je výpis databází, \textbackslash\texttt{c testing} je připojení k naší databázi, \textbackslash\texttt{dt} je výpis tabulek, \textbackslash\texttt{h} je seznam SQL příkazů, \textbackslash\texttt{?} je seznam příkazů \texttt{psql} a \textbackslash\texttt{q} ukončí běh programu. Verzálky u~příkazů netřeba psát.
+
+
+Vše zrealizované jsem zaznačil v \texttt{\_coronavirus.yml}:
+\begin{lstlisting}
+database:
+  name: testing
+  host: 127.0.0.1
+  user: testing
+  password: testing
+newsapi:
+  key: 41e22e9efcf64b2a9354a796b99c43b8
+\end{lstlisting}
+% záloha: user: malipivopostgres heslo: postgresmalipivo
+
+Když jsem opakoval tři řádky ukázkového spuštění v R, výpis se mi rozšířil o tyto dva řádky:
+\begin{lstlisting}[escapechar=!]
+!\malI! Crawling news from newsapi.org
+!\malE! Writing to database
+\end{lstlisting}
+%✔(zelená)
+
+
+V páté záložce mi vyběhly novinky, aktivovaný dotaz lze nalézt u autora v souboru \texttt{coronavirus/R/crawl.R}:
+\begin{lstlisting}
+news <- newsapi::every_news("coronavirus OR covid", results = 100, language = "en", sort = "popularity")
+\end{lstlisting}
+
+\begin{figure}[!htb]
+\includegraphics[width=\textwidth]{nahled-news.png}
+\end{figure}
+
+Ověření funkčnosti můžeme zjistit i z tabulky \texttt{log}:
+\begin{lstlisting}
+$ psql -h localhost -d testing -U testing
+Password for user testing: testing
+testing=# SELECT * FROM log;
+\end{lstlisting}
+
+%\newpage
+Dostáváme přibližně takový výsledek:
+\begin{lstlisting}
+         last_updated
+-------------------------------
+ 2020-05-01 18:19:24.547171+02
+(1 row)
+\end{lstlisting}
+
+Dle chuti lze dál bádat u surových dat, např.:
+\begin{lstlisting}
+testing=# SELECT * FROM jhu WHERE country='Czechia';
+testing=# SELECT * FROM jhu WHERE country='Slovakia';
+testing=# \q
+\end{lstlisting}
+
+
+
+\section{Bioconductor v3.11}
+
+Před dalším krokem si obvykle nastavuji plná práva u těchto adresářů:
+\begin{lstlisting}
+$ cd /usr/lib/R
+$ sudo chmod -R 777 site-library/
+$ sudo chmod -R 777 library/
+$ cd /usr/share
+$ sudo chmod -R 777 R/
+\end{lstlisting}
+
+Za zmínku stojí, že manažer knihoven \texttt{biocLite} ustupuje a roli nahrazuje \href{https://www.bioconductor.org/install/}{\texttt{BiocManager}.} V R lze otestovat:
+\begin{lstlisting}
+> install.packages("BiocManager")
+> library(BiocManager)
+> BiocManager::install()
+> BiocManager::available()
+\end{lstlisting}
+
+Můžeme ověřit instalaci knihoven:
+
+\begin{lstlisting}
+> BiocManager::valid()
+   [...] "coronavirus", "echarts4r", "shinyMobile" [...]
+Warning message:
+0 packages out-of-date; 3 packages too new 
+\end{lstlisting}
+
+To souhlasí, neb \texttt{coronavirus} byl instalován z 
+\href{https://github.com/JohnCoene/coronavirus}{GitHubu,} nikoliv z \href{https://cran.r-project.org/}{CRANu.}
+
+Pro badatele stojí za pozornost obrazy pro \href{https://www.bioconductor.org/help/docker/}{Docker} a \href{https://www.bioconductor.org/help/bioconductor-cloud-ami/}{Amazon} (Amazon Machine Image, AMI). Je zde možnost instalovat vývojářské knihovny:
+\begin{lstlisting}
+> BiocManager::install(version="devel")
+\end{lstlisting}
+
+
+
+
+\section{Řešení konfliktu názvu knihovny v R}
+
+Na chvíli se ještě vraťme k řešení konfliktu stejného názvu knihoven. Na \href{https://stackoverflow.com/questions/52447227/how-do-i-install-an-r-package-under-another-name}{Stackoverflow} zmiňují v principu dvě cesty.
+
+Stáhnout si zdrojové soubory a nic neměnit:
+\begin{lstlisting}
+$ cd /tmp
+$ wget https://cran.r-project.org/src/contrib/coronavirus_0.1.0.tar.gz
+$ R CMD INSTALL -l /tmp coronavirus_0.1.0.tar.gz
+\end{lstlisting}
+
+%\newpage
+V R si pak volat jeden z příkazů a vybrat tak chtěnou knihovnu:
+
+\begin{lstlisting}
+> # library(coronavirus)
+> library(coronavirus, lib.loc="/tmp")
+\end{lstlisting}
+
+Když jsem zkoušel paralelně spustit i instalovanou knihovnu z GitHubu \texttt{coronavirus} odkomentováním prvního řádku, tak to neběželo. Tuším, že se jedná o bezpečnostní pojistku.
+
+Druhá cesta je zasáhnout do souboru \texttt{DESCRIPTION}.
+\begin{lstlisting}
+$ tar xvf coronavirus_0.1.0.tar.gz
+$ mv coronavirus coronavirusRami
+$ cd coronavirusRami
+$ nano DESCRIPTION
+\end{lstlisting}
+
+První řádek upravit například na
+%\begin{lstlisting}
+\texttt{Package: coronavirusRami}.  
+%\texttt{Ctrl+x} 
+%\texttt{y}
+%\end{lstlisting}
+
+Volitelně upravíme i \texttt{MD5}, konkrétně první řádek za výpis:
+\begin{lstlisting}
+$ md5sum -b DESCRIPTION
+324f8275940bfa7fde376934c57a28ae *DESCRIPTION
+\end{lstlisting}
+
+Chtělo by to přejmenovat i další soubory na \texttt{coronavirusRami}, u této školní ukázky vynechávám. Zabalil jsem si zpět a už podsunul R:
+\begin{lstlisting}
+$ cd ..
+$ tar cvf coronavirusRami.tar.gz coronavirusRami/
+$ R CMD INSTALL coronavirusRami.tar.gz 
+\end{lstlisting}
+
+Ověřit funkčnost můžeme už přímo v R a lze si spustit oba konfliktní balíčky paralelně:
+\begin{lstlisting}
+> library(coronavirus)
+> ?coronavirus::crawl_coronavirus
+> library(coronavirusRami)
+> ?coronavirusRami::coronavirus
+\end{lstlisting}
+
+
+
+\section{Pár tipů místo Závěru}
+
+Podobně jako jsou v R knihovny setříděné podle kategorií, viz Zobrazení úloh (\href{https://cran.r-project.org/web/views/}{CRAN Task Views}), lze nahlédnout u 
+\href{https://rstudio.com/}{RStudia} na \href{https://rviews.rstudio.com/tags/covid-19/}{R Views} s klíčovým slovem \texttt{covid-19}. K dnešnímu dni tam jsou tři záznamy: 
+\href{https://rviews.rstudio.com/2020/04/07/some-select-covid-19-modeling-resources/}{Some Select COVID-19 Modeling Resources,}
+\href{https://rviews.rstudio.com/2020/03/19/simulating-covid-19-interventions-with-r/}{Simulating COVID-19 interventions with R} a 
+\href{https://rviews.rstudio.com/2020/03/05/covid-19-epidemiology-with-r/}{COVID-19 epidemiology with~R.}
+
+Kdo by dal přednost odpočinku od R a PostgreSQL, nechť nahlédne na aktuální stavy kolem koronaviru na \href{https://www.twitch.tv/killars}{\url{https://www.twitch.tv/killars}.}
+
+
+% přístup do postgresu zvenčí
+
+% /etc/postgresql/10/main/postgresql.conf
+%listen_addresses = '*' 
+
+% /etc/postgresql/10/main/pg_hba.conf
+%host    all             all              0.0.0.0/0                       md5
+%host    all             all              ::/0                            md5
+
+% $ sudo systemctl restart postgresql
+
+% jak přemluvit run_app v R?
+% run_app(virus, embed_url="192.168.1.3")
+% nezabralo
+

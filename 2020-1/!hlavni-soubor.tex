@@ -1,0 +1,575 @@
+\listfiles
+%\nonstopmode
+
+\newcount\zahlavi
+\zahlavi=0 % 0 či 1, dát červenou pracovní verze?
+%\IfFileExists{zahlavi.tex}{\input zahlavi.tex}{}
+
+% !TEX TS-program = lualatex
+% !TEX encoding = UTF-8
+\documentclass[a4paper,10pt,twoside]{article}
+\usepackage[czech,english,ngerman]{babel}
+% german,germanb,slovak,
+\usepackage{csbulacronym}
+
+\usepackage[utf8]{luainputenc}
+\usepackage[IL2]{fontenc}
+\usepackage{amssymb,amsmath,amsfonts, amsbsy,amsthm}
+%\newtheorem{theorem}{Theorem}
+\usepackage[final]{graphicx} % [draft]
+%\usepackage{epstopdf}
+%\usepackage{stmaryrd}
+%\usepackage{fontspec}
+%\usepackage{luaotfload}
+%\usepackage{fontspec}
+
+  %\usepackage{algorithmic}
+  %\usepackage{algorithm}
+  %\usepackage{tipa}
+  %\let\oldtipa=\tipa
+  %\def\tipa#1{\oldtipa{#1}}
+  %\usepackage[figuresright]{rotating}
+  %\usepackage{multirow}
+  
+\usepackage{xcolor}
+\usepackage[figuresright]{rotating}
+%\usepackage{zref-savepos}
+%\newcommand*{\currpos}[1]{%
+  %\zsavepos{#1}%
+  %%(\zposx{#1}sp, \zposy{#1}sp) =
+  %%(\the\dimexpr\zposx{#1}sp\relax, \the\dimexpr\zposy{#1}sp\relax)%
+%}
+
+%\def\cellcolor#1{}
+%\usepackage{psfrag, afterpage, enumerate, longtable, colortbl, } %
+\usepackage{afterpage}
+\usepackage{tabularx}
+%\usepackage{longtable}
+
+\usepackage{multirow}
+\usepackage{colortbl}
+%\usepackage{multirow,colortbl,latexsym}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\usepackage{zref-savepos}
+%\usepackage{tabu}
+\usepackage{hhline}
+%\usetikzlibrary{positioning}
+%\usepackage{smejliky}
+%\usetikzlibrary{positioning, shapes.geometric, calc}
+%\usetikzlibrary{arrows.meta, calc}
+%\usepackage{pgfplots}
+%\pgfplotsset{compat=1.11}
+%\pgfplotsset{width=95mm,compat=1.10}
+\usepackage{wrapfig}
+%\usepackage{cite}
+\def\citepunct{,\,}
+\def\prostor{}
+%\input glyphtounicode
+%\pdfgentounicode=1
+%\usepackage{auto-pst-pdf}
+
+%\usepackage{makeidx}
+%\makeindex
+%\usepackage{multicol}
+%\usepackage[flushleft]{threeparttable}
+%\usepackage{longtable}
+
+% stříž
+%\usepackage{pgfplots,pgfplotstable,animate}
+%\pgfplotsset{width=1\textwidth, height=3cm}
+%\usepackage{verbatim,wasysym}
+
+
+\headheight=12.5pt
+\headsep=17pt % 19pt
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot[LE,RO]{\thepage}
+\fancyheadoffset[LE,RO]{0pt}
+% \marginparsep+\marginparwidth
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+\def\pracovnizahlavi{ {\color{red}\bf pracovní verze}}
+\fancyhead[RO]{Informační bulletin České statistické společnosti, 
+  %!\the\cislo
+  \cislalong
+  /\pgfmathparse{int(\rocnik+2008)}\pgfmathresult
+\ifnum\zahlavi=1
+  \pracovnizahlavi\relax
+\else
+  \relax
+\fi
+%\ \pracovnizahlavi % NEW!
+}
+%\fancyfoot[RE]{\ifnum\zahlavi=0\pracovnizahlavi\fi}
+\fancyhead[LE]{\dodatek}
+
+\def\formatujosnovu#1{\textbf{#1}\smallskip\par}
+\def\zasah#1{%
+  \def\dodatek{#1}%
+  \write\maosnova{\formatujosnovu{#1}}%
+  \write\maosnovab{$<$tr$>$$<$th colspan=$"$4$"$$>$#1$<$/th$>$$<$/tr$>$\string\odskoc}%
+  }
+
+\def\vedecke{\zasah{Vědecké a odborné články}} 
+\def\prehledove{\zasah{Přehledové články}} 
+\def\odborne{\zasah{Odborné články}} 
+\def\jine{\zasah{Jiné statě}} 
+% Vědecká, přehledová, jiná stať
+\def\zpravy{\zasah{Zprávy a informace}}
+\def\pozvanky{\zasah{Pozvánky na akce}}
+\addtolength{\voffset}{4.5mm}
+%\def\zvyrazni#1{\textit{#1}}
+
+\makeatletter
+\renewcommand\@seccntformat[1]{\@nameuse{the#1}.\hspace{.5em}}
+\makeatother
+
+\def\bs{$\backslash$}
+\usepackage{csts}
+\widowpenalty=10000
+\clubpenalty =10000
+
+\ifnum\zahlavi=0
+\overfullrule=0cm % 0cm
+\else
+\overfullrule=3cm
+\fi
+
+\def\z{\discretionary{-}{-}{-}}
+\def\odskoc{\string\odskoc\space }
+ %  impli-ca-tio-nal
+
+%\DeclareRobustCommand\CS[1]
+% {\def\next{#1}\leavevmode{$\cal C$}\kern-.3em
+%  \lower .67ex\hbox{$\cal S$}\if E\next\kern-.045em\else\kern-.145em\fi#1}
+%\newcommand\zapomen[1]{}
+\usepackage{caption}
+\captionsetup{justification=centerlast}% bylo justified, centering
+%\captionsetup{tableposition=above}
+%\captionsetup[table]{position=top}
+%\captionsetup{type=table,position=above,skip=3pt}
+%\usepackage{enumerate}
+%\usepackage{bbm}
+
+
+% Bohdalová
+\newtheorem{defn}{Definition}[section]
+\newtheorem{example}{Example}[section]
+
+% Klicnarová
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{theorem}{Theorem}[section]
+
+% Friesl
+%\usepackage{enumerate}
+%\usepackage{amsmath}
+%\newtheorem{theorem}{Tvrzení}[section]
+%\newtheorem{theoremSK}{Tvrdenie}[section]
+\newtheorem{defi}{Definition}[section]
+\newtheorem{definition}{Definícia}[section]
+
+%\theoremstyle{remark}
+%\newtheorem*{remark}{Poznámka}
+%\newtheorem*{remarkEN}{Remark}
+
+% Dodany styl k cislu sekce pridava tecku, takze uprostred cisla
+% tvrzeni pak jsou dve tecky za sebou... predefinuju si to:
+\makeatletter
+\renewcommand\thetheorem{\@arabic\c@section.\@arabic\c@theorem}
+\renewcommand\thethm{\@arabic\c@section.\@arabic\c@thm}
+\renewcommand\thedefi{\@arabic\c@section.\@arabic\c@defi}
+\renewcommand\thedefn{\@arabic\c@section.\@arabic\c@defn}
+\renewcommand\theexample{\@arabic\c@section.\@arabic\c@example}
+\renewcommand\thedefinition{\@arabic\c@section.\@arabic\c@definition}
+%\renewcommand\thetheoremSK{\@arabic\c@section.\@arabic\c@theoremSK}
+\makeatother
+%
+% ******************  Matematické definice  *******************
+\DeclareMathOperator{\e}{e}
+\newcommand{\RR}{\mathbb R}
+\newcommand{\ZZ}{\mathbb Z}
+\newcommand{\NN}{\mathbb N}
+\newcommand{\TT}{\mathbb T}
+\DeclareMathSymbol{\gi}{\mathbin}{symbols}{"6A}
+\newcommand{\defs}{\mathrel{:=}}
+\DeclareMathOperator{\E}{E}
+\DeclareMathOperator{\PP}{P}
+\newcommand{\tu}{\widetilde u}
+\newcommand{\ta}{\widetilde a}
+\newcommand{\tb}{\widetilde b}
+\newcommand{\tc}{\widetilde c}
+\newcommand{\tX}{\widetilde X}
+\def\dd{\,{\rm d}}
+\def\rmd{{\rm d}}
+\def\argmin{\operatorname{arg\,min}\,}
+\def\argmax{\operatorname{arg\,max}\,}
+
+% Zvára
+%\usepackage{natbib}
+%\usepackage{Sweave-mal}
+%\newcommand{\FKvantil}[3]{\mbox{$F_{#1,#2}(#3)$}}
+
+
+
+%\def\der{\mathrm{d}\;\!}
+\usepackage{url}
+\renewcommand{\UrlBreaks}{\do\-\do\.\do\_\do\/}
+
+\newcommand{\mylink}[1]{\footnote{\texttt{<#1>}}}
+\long\def\Abstract#1{%
+  {\selectlanguage{english}\frenchspacing\medskip\noindent{\textbf{Abstract:}} #1}\par
+  }
+
+\long\def\Abstrakt#1{%
+  {\selectlanguage{czech}\medskip\noindent{\textbf{Abstrakt:}} #1}\par
+  }
+
+\long\def\AbstraktSK#1{%
+  {\selectlanguage{slovak}\medskip\noindent{\textbf{Abstrakt:}} #1}\par
+  }
+
+\def\upravalit{%
+  \ifx\mujjazyk\macestina \def\refname{Reference}\fi%
+  \ifx\mujjazyk\maslovenstina \def\refname{Literatúra}\fi%
+  \ifx\mujjazyk\maanglictina \def\refname{References}\fi%
+  }
+
+\def\KeyWords#1{\par\noindent{\selectlanguage{english}\frenchspacing\textbf{Keywords:} #1.}\par\upravalit}
+\def\KlicovaSlova#1{\par\noindent{\selectlanguage{czech}\textbf{Klíčová slova:} #1.}\par\upravalit}
+\def\KlucovaSlova#1{\par\noindent{\selectlanguage{slovak}\textbf{Kľúčová slová:} #1.}\par\upravalit}
+
+\partopsep=-4pt plus 1pt minus 1pt
+\ifx
+\def\cl{
+\itemsep=2.5pt
+\parskip=-1.5pt
+%\partopsep=-6pt
+%\topsep=-6pt
+%\parsep=-60pt
+}
+\fi
+\def\engl{\selectlanguage{english}
+   \frenchspacing}
+\def\ee{{\rm e}}   
+\def\LGD{\mathop{\rm  LGD}}
+\def\iid{{\rm i.i.d.}}
+\def\var{\mathop{\rm var}}
+\def\cov{\mathop{\rm cov}}
+\def\RVC{\mathop{\rm RVC}\nolimits}
+\def\MDA{\mathop{\rm MDA}\nolimits}
+\def\Poi{\mathop{\rm Poi}\nolimits}
+\def\PML{\mathop{\rm PML}\nolimits}
+
+
+%\def\mleft{\textrm{\textlangle\;\!}}
+%\def\mright{\textrm{\;\!\textrangle}}
+\usepackage[normalem]{ulem}
+%\ULdepth=1.5pt
+%\let\href=\url
+
+\ifx
+\def\hvezdicka{*}
+\def\citet#1#2{%
+  \def\parameter{#1}%
+  \ifx\hvezdicka\parameter
+    \cite{#2}%
+  \else
+    \cite{#1}#2%
+  \fi}
+\fi
+
+
+
+%\usepackage{eurosym}
+%\let\texteuro=\officialeuro
+
+% Skopal
+%\definecolor{gray}{rgb}{0.4,0.4,0.4}
+%\definecolor{darkblue}{rgb}{0.0,0.0,0.6}
+%\definecolor{cyan}{rgb}{0.0,0.6,0.6}
+\usepackage{listings}
+%\ifx\relax
+
+\lstset{
+    %inputencoding=utf8,
+    extendedchars=true,
+    literate=%
+    {á}{{\'a}}1
+    {č}{{\v{c}}}1
+    {ď}{{\v{d}}}1
+    {é}{{\'e}}1
+    {ě}{{\v{e}}}1
+    {í}{{\'i}}1
+    {ň}{{\v{n}}}1
+    {ó}{{\'o}}1
+    {ř}{{\v{r}}}1
+    {š}{{\v{s}}}1
+    {ť}{{\v{t}}}1
+    {ú}{{\'u}}1
+    {ů}{{\r{u}}}1
+    {ý}{{\'y}}1
+    {ž}{{\v{z}}}1
+    {Á}{{\'A}}1
+    {Č}{{\v{C}}}1
+    {Ď}{{\v{D}}}1
+    {É}{{\'E}}1
+    {Ě}{{\v{E}}}1
+    {Í}{{\'I}}1
+    {Ň}{{\v{N}}}1
+    {Ó}{{\'O}}1
+    {Ř}{{\v{R}}}1
+    {Š}{{\v{S}}}1
+    {Ť}{{\v{T}}}1
+    {Ú}{{\'U}}1
+    {Ů}{{\r{U}}}1
+    {Ý}{{\'Y}}1
+    {Ž}{{\v{Z}}}1
+}
+
+\lstset{
+  %extendedchars=true,
+  %inputencoding=utf8,
+  breakatwhitespace=true,
+  breaklines=true, 
+  basicstyle=\ttfamily\footnotesize,
+  columns=fullflexible,
+  showstringspaces=false,
+  commentstyle=\color{gray}\upshape,
+  keepspaces=true
+}
+
+\lstdefinelanguage{XML}
+{
+  morestring=[b]",
+  morestring=[s]{>}{<},
+  morecomment=[s]{<?}{?>},
+  stringstyle=\color{black},
+  identifierstyle=\color{darkblue},
+  keywordstyle=\color{cyan},
+  morekeywords={xmlns,version,type}% list your attributes here
+}
+%\fi
+
+% Hasilova
+%\usepackage{subfigure}
+%\newtheorem{priklad}{Příklad}
+%\newtheorem{res}{Řešení}
+\usepackage{bm}
+%\usepackage{fancyvrb}
+
+\newdimen\zde
+\zde=\textwidth
+\advance\zde by -2\fboxrule
+
+\selectlanguage{czech}
+\hyphenation{MOVISS ROBUST}
+
+\selectlanguage{english}
+\hyphenation{}
+
+\def\malE{\mathsf{E}\;\!}
+%\def\velkeE{\mathsf{E}}
+
+% 2020-03-06, malipivo, tři řádky
+\renewcommand\rmdefault{cmr}
+\renewcommand\sfdefault{cmss}
+\renewcommand\ttdefault{cmtt}
+
+
+\begin{document}
+\selectlanguage{czech}
+\hyphenation{log-nor-mál-ní log-nor-mál-ním Bes-ky-dech dal-ších}
+\shorthandoff{-}
+%\lefthyphenmin=2
+%\righthyphenmin=2
+
+\def\mujclear{
+  \setcounter{part}{0}
+  %\setcounter{chapter}{0}
+  \setcounter{section}{0}
+  \setcounter{subsection}{0}
+  \setcounter{subsubsection}{0}
+  \setcounter{paragraph}{0}
+  \setcounter{subparagraph}{0}
+  %\setcounter{page}{0}
+  \setcounter{equation}{0}
+  \setcounter{figure}{0}
+  \setcounter{table}{0}
+  \setcounter{footnote}{0}
+  \setcounter{mpfootnote}{0}
+  %\setcounter{enumi}{0}
+  %\setcounter{enumii}{0}
+  %\setcounter{enumiii}{0}
+  %\setcounter{enumiv}{0}
+  }
+
+\def\vlozstranu{\clearpage}
+\def\macestina{czech}
+\def\maslovenstina{slovak}
+\def\maanglictina{english}
+
+\def\vloz#1#2{%
+  \vlozstranu
+  \mujclear
+\def\ulozsi{#1}%
+\begingroup
+  \label{#1}%
+  \selectlanguage{#2}%
+  \frenchspacing % i pro angličtinu, jak je to nezvyk pro našinec
+  \def\mujjazyk{#2}%
+%  \iflanguage{czech}{\def\refname{Literatura}}{}%
+%\ifnum\language=16\gdef\refname{Literatura}\fi%
+  \input{zdrojaky/#1}\par\relax%
+\endgroup
+  %\par\mujnazevEN
+  \gdef\vlozstranu{\clearpage}
+  %\closeme % !experiment
+  %\newpage% !experiment
+  }
+
+\def\extras{%
+% začátek experimentu
+%\closeout\maosnova
+%\closeout\maosnovab
+%\newwrite\maosnova
+%\openout\maosnova=maosnova.tex
+%\newwrite\maosnovab
+%\openout\maosnovab=maosnovab.tex
+% konec experimentu
+  \write\maosnova{\emph{\mujauthor}\string\odskoc\space\mujnazevCS\string\pr{\ulozsi}}%
+  \write\maosnovab{$<$tr$>$\string\odskoc$<$th$>$\mujauthor$<$/th$>$\string\odskoc\space$<$td$>$\mujnazevPR$<$/td$>$\string\odskoc\space$<$td$>$\mujnazevDR$<$/td$>$\string\pr{\ulozsi}}%
+  }
+
+\ifx
+\def\notes#1#2#3{%
+\begingroup
+\def\thefootnote{}
+\footnotetext{\kern-1.8em Doručeno redakci: #1, imprimatur: #2.\\
+MSC2010: #3, DOI: \textsf{10.5300/IB/2011-2/\thepage}}%
+\endgroup
+}
+\def\medoi#1{\textsf{doi:\,#1}}
+\fi
+
+\newcommand{\nazevEN}[1]{
+    \noindent
+    \raggedright
+    \large\textbf{\MakeUppercase{#1}}
+    \medskip
+    }
+\newcommand{\nazevCS}[1]{
+    \noindent
+    \raggedright
+    \large\textbf{\MakeUppercase{#1}}
+    \medskip
+    }
+
+\makeatletter
+\def\dotpfill{%
+  \leavevmode%
+  \leaders\hb@xt@.33em{\hss.\hss}\hfill%
+  \kern\z@}
+\makeatother 
+\newcommand{\pr}[1]{\,\dotpfill\makebox[4mm][r]{\pageref{#1}}\\[6pt]}
+
+\newwrite\maosnova
+\openout\maosnova=maosnova.tex
+
+\newwrite\maosnovab
+\openout\maosnovab=maosnovab.tex
+\write\maosnovab{$<$table border=$"$1$"$$>$\string\odskoc\string\prostor\string\odskoc}
+
+\def\mastrana{%
+  \def\vlozstranu{}%\vfill
+  }
+
+\def\closeme{%
+\newwrite\stran
+\immediate\openout\stran=stran.tex
+\immediate\write\stran{\stran=\thepage}
+\closeout\stran
+%\write\maosnovab{\string\odskoc$<$/table$>$\string\odskoc\string\prostor}
+}
+
+
+\ifx\relax
+\IfFileExists{maosnova2.tex}
+  {{\parindent=0pt\textbf{Pracovní osnova\ldots}\medskip\par\input{maosnova2.tex}}}
+  {Zde bude obsah\ldots}
+\fi
+
+
+\newcount\cislo
+\newcount\rocnik
+\IfFileExists{cislo.tex}
+  {\input cislo.tex%\zahlavi=1
+  }{%\zahlavi=0
+  \cislo=1 % 1 nebo 3
+  }
+\cislo=1
+
+%\pgfmathparse{int(\the\rocnik+2008-2000)}
+%\let\mezivypa=\pgfmathparse
+%\pgfmathparse{int(\the\rocnik+2008)}
+%\let\mezivypb=\pgfmathparse
+\newcount\hodnotaA
+\newcount\hodnotaB
+
+\write\maosnovab{$<$tr$>$\string\odskoc$<$th colspan=$"$4$"$$>$\string\odskoc}
+\write\maosnovab{$<$a name=$"$\string\the\hodnotaA-\string\the\cislo$"$$>$\string\the\cislo/\string\the\hodnotaB$<$/a$>$\string\odskoc}
+\write\maosnovab{$<$a title=$"$http://statspol.cz/bulletiny/ib-\string\the\hodnotaB-\string\the\cislo-web.pdf$"$ href=$"$ib-\string\the\hodnotaB-\string\the\cislo-web.pdf$"$$>$Bulletin v pdf$<$/a$>$\string\odskoc$<$/tr$>$\string\odskoc}
+
+\renewcommand\arraystretch{1.25}
+%\allowdisplaybreaks
+\fboxsep=0pt
+\def\logit{\mathop{\rm logit}}
+\def\malee{{\rm e}}
+
+%\def\mujnazevCS{}
+%\def\mujnazevEN{}
+%\def\mujnazevPR{}
+%\def\mujnazevDR{}
+%\def\mujauthor{}
+\graphicspath{
+   %{zdrojaky/vozar/}
+   %{zdrojaky/cess2020/}
+   %{zdrojaky/rytir/obr/}
+   %{prichozi/striz/}
+	 {zdrojaky/mosna/obr/}
+	 {zdrojaky/knihovnicka/obr/}
+	 {zdrojaky/andel/obr/}
+	 {zdrojaky/dohnal/obr/}
+	 {zdrojaky/mapa/obr/}	 
+   {zdrojaky/strizkorona/obr/}
+   }
+\def\TeX{T\kern-.1667em\lower.5ex\hbox{E}\kern-.125emX} % bylo na \protect\TeX ???
+
+\def\xbonus{}
+\ifnum\cislo=1
+\zpravy
+\vloz{vybor/vybor}{czech}
+\vloz{vencalek/vencalek}{czech}
+\vedecke
+%\pozvanky
+%\vloz{mosna/mosna-OPRAVENE1}{czech}
+\vloz{mapa/mapa}{czech}
+\zpravy
+\vloz{dohnal/dohnal}{czech}
+\vloz{knihovnicka/knihovnicka}{czech}
+\vloz{strizkorona/strizkorona}{czech}
+\vloz{andel/andel}{czech}
+  \fi
+\closeme
+
+\write\maosnovab{\string\odskoc$<$/table$>$\string\odskoc\string\prostor} %\newpage
+\closeout\maosnova
+\closeout\maosnovab %\closeme
+\write18{cp -f maosnova.tex maosnova2.tex} %\newpage
+
+\end{document}
+
+

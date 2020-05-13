@@ -1,0 +1,229 @@
+% !TEX TS-program = lualatex
+\newcount\moje
+%\input soubor.tex
+\moje=0
+\def\xbonus{-\par}
+\def\prostor{} % new
+
+\newcount\malosnova
+\input malosnova.tex
+
+
+\documentclass{article}
+\usepackage[ngerman,english,slovak,czech]{babel}
+\usepackage[utf8]{luainputenc}
+\usepackage[IL2]{fontenc}
+\usepackage{tikz}
+\usepackage[colorlinks,allcolors=black]{hyperref}
+
+\def\CS{$\cal C\kern-.1667em\lower.5ex\hbox{$\cal S$}\kern-.075em $}
+\def\CSfonts{\CS\kern.1em fonts}
+
+\renewcommand\rmdefault{cmr}
+\renewcommand\sfdefault{cmss}
+\renewcommand\ttdefault{cmtt}
+
+
+\newcount\cislo
+%\cislo=2
+\newcount\rocnik
+%\rocnik=5
+\IfFileExists{../cislo.tex}{\input ../cislo.tex}{\cislo=1}
+
+\pgfmathparse{int(\rocnik+2008)}
+\let\malrok\pgfmathresult
+\def\mtext{\ifcase\cislo\or březen\or červen\or září\or prosinec\fi\space \malrok}
+
+\newcount\mrocnik
+\mrocnik=\rocnik
+\advance\mrocnik by 19
+\newcount\citaj\citaj=0
+\newcount\vyska\vyska=-472
+
+%\mrocnik=36
+%
+\pgfmathparse{int(floor(\mrocnik/10))}
+\let\obdelniku=\pgfmathresult
+%
+\pgfmathparse{int(\mrocnik-10*\obdelniku)}
+\let\ctvercu=\pgfmathresult
+%\typeout{\ctvercu}
+%\ifcase\cislo\or
+%  \vyska=-28\or
+%  \vyska=-148\or
+%  \vyska=-268\or
+%  \vyska=-388\or\relax
+%  \fi
+%\font\myast=csb10 at 4mm
+\def\odskoc{\\}
+
+
+\usepackage{pdfpages,graphicx,color}
+\definecolor{mygray}{gray}{0.5}
+\pagecolor{white}
+
+\makeatletter
+\def\dotpfill{%
+  \leavevmode%
+  \leaders\hb@xt@.33em{\hss.\hss}\hfill%
+  \kern\z@}
+\makeatother 
+
+% bylo
+%\newcommand{\pr}[1]{\,\dotpfill\makebox[4.5mm][r]{\pageref{#1}}\\[4pt]}
+% nové, 2020-04-22
+\newcommand{\pr}[1]{\,\dotpfill\makebox[4.5mm][r]{\pageref{#1}}\\[4pt]}
+
+%\def\zloma{\\}
+%\def\zlomb#1{\pr{#1}}
+
+%\def\uprav#1#2#3#4#5{{{#1}{#2}}}
+%\def\newlabel#1#2{{#1}{\uprav{#2}}}
+
+%\newlabel{vencalek/vencalek}{{}{1}{}{Doc-Start}{}}
+%\newlabel{vencalek/vencalek}{{}{2}}
+
+
+\makeatletter
+\IfFileExists{../!hlavni-soubor.aux}{\input{../!hlavni-soubor.aux}}{\relax}
+\makeatother
+%\parindent=0pt
+
+\begin{document}
+\shorthandoff{-}
+%\ifnum\moje=1
+%\gdef\dodatek{1}
+%\else
+%\gdef\dodatek{1,{}}
+%\fi
+
+\includepdf[fitpaper,pages={1}, %1,{}
+  pagecommand={%
+%\begin{picture}(0,0)(0,0)% 
+%\put(-87,-50){%
+\begin{tikzpicture}[remember picture, overlay, inner sep=0pt, outer sep=0pt]
+\node[draw=none, anchor=north west, align=left, xshift=23mm, yshift=-18.5mm, 
+] at (current page.north west){%
+\ifnum\malosnova=1
+\begin{minipage}{11.9cm}%[!t]
+\textbf{Obsah}\\[3pt]
+%\def\odskoc{} % zmizí vše
+\IfFileExists{../maosnova.tex}{\input ../maosnova.tex}{\relax}
+\end{minipage}%
+\fi
+};
+%}
+%\end{picture}%
+\end{tikzpicture}%
+%
+  \begin{picture}(0,0)(0,0)
+    \put(515,-430){\makebox[0pt][c]{\bf\Large Ročník \the\mrocnik, 
+%číslo 1--2, 
+číslo
+\cislalong, 
+\mtext
+%červen, 2015%
+}}
+%
+    \put(-83.5,-363){%-340
+    \begin{minipage}[l]{11.9cm}%
+\footnotesize
+    \textbf{Informační bulletin České statistické společnosti} vychází čtyřikrát do roka v českém vydání. Příležitostně i mimořádné české a anglické číslo. Vydavatelem je Česká statistická společnost, IČ 00550795, adresa společnosti je %Sokolovská~83, 186\,00 Praha~8. 
+Na padesátém~81, 100\,82 Praha~10.
+Evidenční 
+číslo registrace vedené Ministerstvem kultury ČR dle zákona č.~46/2000 Sb. je E 21214. \\Časopis je sázen v programu \TeX, ve formátu LuaHB\TeX\ s písmy balíku \CSfonts.%\\[6pt]
+%Časopis je zařazen do seznamu Rady pro výzkum, vývoj\\a inovace, více viz server \texttt{http://www.vyzkum.cz/}.
+%Časopis je na Seznamu recenzovaných neimpaktovaných periodik vydávaných v ČR, více viz server \texttt{http://www.vyzkum.cz/}.
+    \\[6pt]
+The Information Bulletin of the Czech Statistical Society is published quarterly.\\
+%The contribu\-tions in bulletin are published in English, Czech and Slovak languages.
+The contribu\-tions in the journal are published in English, Czech and Slovak languages.
+    \\[6pt]
+    \textbf{Předseda společnosti:} %RNDr. Marek \textsc{Malý}, CSc., Státní zdravotní ústav,  Šrobárova 48, \\ Praha~10, 100\,42, e-mail: \texttt{mmaly@szu.cz}.
+    Mgr. Ondřej Vencálek, Ph.D., Katedra matematické analýzy a~aplikací matematiky, Přírodovědecká fakulta Univerzity Palackého, 17. listopadu 12, 771\,46 Olomouc, e-mail: \texttt{ondrej.vencalek@upol.cz}.
+    \\[6pt]
+    \textbf{Redakce:} % Redakční rada 
+prof. RNDr. Gejza \textsc{Dohnal}, CSc. (šéfredaktor), 
+prof. RNDr. Jaromír \textsc{Antoch}, CSc., 
+%prof. Ing. Václav \textsc{Čermák}, DrSc.,
+%doc. Ing. \mbox{Jozef} \textsc{Chajdiak}, CSc.,
+doc. RNDr. Zdeněk \textsc{Karpíšek}, CSc., 
+RNDr. Marek \textsc{Malý}, CSc., 
+doc. RNDr. Jiří \textsc{Michálek}, CSc., 
+prof. Ing. Jiří \textsc{Militký}, CSc., 
+doc. Ing. Iveta \textsc{Stankovičová}, PhD.,
+doc. Ing. Josef \textsc{Tvrdík}, CSc., 
+Mgr. Ondřej \textsc{Vencálek}, Ph.D.
+    \\[6pt]
+    \textbf{Redaktor časopisu:} Mgr. Ondřej \textsc{Vencálek}, Ph.D., \texttt{ondrej.vencalek@upol.cz}.
+    \\%[6pt]
+    Informace pro autory jsou na stránkách společnosti,  \texttt{http://www.statspol.cz/}.
+    \\[6pt]
+    \textbf{DOI: 10.5300/IB, http://dx.doi.org/10.5300/IB}\\
+    \textbf{ISSN 1210--8022 (Print), ISSN 1804--8617 (Online)}%\\
+\\[6pt]
+%DOI je přiřazováno ve spolupráci s Čs. sdružením uživatelů \TeX u.\\
+%{\color{white}
+Toto číslo bylo vytištěno s laskavou podporou Českého statistického úřadu.%}
+    \end{minipage}
+    }% End of put.
+    \linethickness{15pt}
+%
+\ifnum\moje=0
+%
+\citaj=0
+\loop
+\advance\citaj by 1
+  \put(301.71,\vyska){\makebox[0pt][c]{{\color{black}
+  \rotatebox{45}{\line(0,0){15}}% 301.5 309
+  %\circle*{15}%
+  }}}
+  \advance\vyska by 23 %23 20
+\ifnum\citaj<\obdelniku\repeat
+\advance\vyska by -2 %-2 -4
+%
+\citaj=0
+\ifnum\ctvercu>0
+\loop
+\advance\citaj by 1
+  \put(301.5,\vyska){\makebox[0pt][c]{\line(0,0){15}}}
+  \advance\vyska by 20
+\ifnum\citaj<\ctvercu\repeat
+\fi % čtvercu>nula?
+\advance\vyska by 9
+%
+\citaj=0
+\loop
+\advance\citaj by 1
+  \put(309,\vyska){\makebox[0pt][c]{\makebox[0pt][c]{{\color{mygray}\circle*{15}}}}}
+  \advance\vyska by 20
+\ifnum\citaj<\cislo\repeat
+%
+%
+% OLD
+\ifx
+\loop
+\advance\citaj by 1
+  \put(301.5,\vyska){\makebox[0pt][c]{\line(0,0){15}}}
+  \advance\vyska by 20
+\ifnum\citaj<\rocnik\repeat
+\advance\vyska by 9
+%
+\citaj=0
+\loop
+\advance\citaj by 1
+  %\put(307,\vyska){\makebox[0pt][c]{\makebox[0pt][c]{\circle{11}}}}
+%  \put(301.5,\vyska){\makebox[0pt][c]{\line(0,0){15}}}
+  \put(309,\vyska){\makebox[0pt][c]{\makebox[0pt][c]{{\color{mygray}\circle*{15}}}}}
+  \advance\vyska by 20
+\ifnum\citaj<\cislo\repeat
+\fi
+%
+\fi
+%  
+  \end{picture}
+  }% End of command.
+  ]{IB0-rot}
+\end{document}
+
+

@@ -1,0 +1,15 @@
+%! lualatex mal-siunitx.tex
+\documentclass[varwidth]{standalone}
+\usepackage{cancel}
+\usepackage[binary-units]{siunitx}
+\DeclareSIPrePower\quartic{4}
+\DeclareSIPostPower\tothefourth{4}
+\begin{document}
+\num{1+-2i}, \num{.3e45}, \si{kg.m.s^{-1}}, 
+\si{\kilogram\metre\per\second}, \si{\joule\per\mole\per\kelvin}, 
+\si[per-mode=fraction]{\cancel\kilogram\metre\per\cancel\kilogram\per\second},
+\si{\kilogram\tothefourth}, \si{\quartic\metre}, \par \num{1e2/3e4},
+\ang{6;7;6.5}, \ang[angle-symbol-over-decimal]{45.697}, 
+\SI{100}{\mebi\byte}, \SI[prefixes-as-symbols=false]{30}{\kibi\bit}, 
+\SI{1.234}{\metre}, \SI[locale = DE]{6.789}{\metre}
+\end{document}

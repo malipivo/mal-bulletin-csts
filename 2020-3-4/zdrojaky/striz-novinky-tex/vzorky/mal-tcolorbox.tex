@@ -1,0 +1,17 @@
+%! lualatex mal-tcolorbox.tex
+\documentclass{standalone}
+\usepackage{tikz}
+\usepackage{tcolorbox}
+\usetikzlibrary{patterns}
+\tcbuselibrary{skins,hooks}
+\tcbset{frogbox/.style={enhanced, colback=green!10, colframe=green!65!black, enlarge top by=5.5mm, overlay={\foreach \x in {2cm,3.5cm} {
+\begin{scope}[shift={([xshift=\x]frame.north west)}]
+\path[draw=green!65!black, fill=green!10, line width=1mm] (0,0) arc (0:180:5mm);
+\path[fill=black] (-0.2,0) arc (0:180:1mm);
+\end{scope}}}]}}
+\tcbset{ribbon/.style={overlay app={\path[fill=blue!75!white, draw=blue, double=white!85!blue, preaction={opacity=0.6, fill=blue!75!white}, line width=0.1mm, double distance=0.2mm, pattern=fivepointed stars, pattern color=white!75!blue] ([xshift=-0.2mm, yshift=-1.02cm]frame.north east) -- ++(-1,1) -- ++(-0.5,0) -- ++(1.5,-1.5) -- cycle;}}}
+\begin{document}
+\begin{tcolorbox}[frogbox, ribbon, title=Experiment]
+Pozdrav od balíčku \textsf{tcolorbox}\ldots\par\ldots s použitím více vrstev.
+\end{tcolorbox}
+\end{document}

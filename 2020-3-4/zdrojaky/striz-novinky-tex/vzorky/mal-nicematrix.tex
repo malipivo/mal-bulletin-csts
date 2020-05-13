@@ -1,0 +1,23 @@
+%! lualatex mal-nicematrix.tex
+\documentclass{standalone}
+\usepackage{tikz,nicematrix} \usetikzlibrary{fit}
+\tikzset{highlight/.style={rectangle, fill=red!15, blend mode = multiply, rounded corners = 0.5 mm, inner sep=1pt, fit = #1}}
+\begin{document}
+\begin{NiceMatrixBlock}[auto-columns-width] \NiceMatrixOptions{nullify-dots}
+$\begin{array}{cc}&
+\begin{bNiceArray}{C>{\strut}CCCC}[name=B, first-row]
+&& C_j\\ b_{11}  & \Cdots & b_{1j} & \Cdots & b_{1n} \\
+\Vdots  && \Vdots && \Vdots \\ && b_{kj}\\
+&& \Vdots\\b_{n1} & \Cdots & b_{nj} & \Cdots & b_{nn}\end{bNiceArray} \\ \\
+\begin{bNiceArray}{CC>{\strut}CCC}[name=A, first-col]
+& a_{11} & \Cdots &&& a_{1n} \\& \Vdots &&&& \Vdots \\
+L_i & a_{i1} & \Cdots & a_{ik} & \Cdots & a_{in} \\
+& \Vdots &&&& \Vdots \\ & a_{n1} & \Cdots &&& a_{nn} \\
+\end{bNiceArray}& \begin{bNiceArray}{CC>{\strut}CCC}
+& && & \\ & & \Vdots \\ \Cdots & & c_{ij} \\ \\ \\
+\end{bNiceArray} \end{array}$ \end{NiceMatrixBlock}
+\begin{tikzpicture}[remember picture, overlay]
+\node[highlight=(A-3-1)(A-3-5)]{}; \node[highlight=(B-1-3)(B-5-3)]{};
+\draw[color=gray] (A-3-3) to [bend left] (B-3-3);
+\end{tikzpicture}
+\end{document}

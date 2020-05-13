@@ -1,0 +1,24 @@
+%! lualatex mal-codeanatomy.tex
+\documentclass{standalone}
+\usepackage{codeanatomy}
+\begin{document}
+\begin{tikzpicture}[remember picture]
+\codeBlock{%
+\cPart{functionHead} {function \cPart{functionName}{gcd} \cPart{paramList}{(p, q)}} \{ \\[2.5pt]
+\ptab{}\mtPoint{mostLeft}if (q === 0) \{ \\
+\ptab\ptab{} return p; \\
+\ptab\} else \{ \\
+\ptab\ptab{} return gcd(q, p\%q);\extremPoint{mostRight} \\
+\ptab\mbPoint{mostBottom}\} \\
+\} }% end od \codeBlock
+\fitExtrem{functionBody}{(mostLeft) (mostRight) (mostBottom)}
+\codeAnnotation{functionHeadText}(-1,3){Function\\head}
+\codeAnnotation{functionBodyText}(-1,1){Function\\body}
+\codeAnnotation{functionNameText}( 1,4){Function\\name}
+\codeAnnotation{paramListText} ( 3,4){Parameter\\list}
+\draw[->,annotation] (functionHeadText)  -- (functionHead);
+\draw[->,annotation] (functionBodyText)  -- (functionBody);
+\draw[->,annotation] (functionNameText)  -- (functionName);
+\draw[->,annotation] (paramListText) --  (paramList);
+\end{tikzpicture}
+\end{document}

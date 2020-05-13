@@ -1,0 +1,24 @@
+\documentclass{article}
+\pagestyle{empty}
+\usepackage{tikz}
+\begin{document}
+\def\ukaz#1#2#3#4{%
+\begin{tikzpicture}[text height=2ex, text depth=1ex]
+\node{\Huge\bfseries\sffamily
+  \pgfsetstrokecolor{black}\pgfsetfillcolor{yellow}%
+  \pdfextension literal {#1 Tr}%
+  \makebox[0pt][l]{#2}%
+  \makebox[0pt][l]{\large
+    \pdfextension literal {#3 Tr}%
+    \tikz[trim left, baseline=0mm]
+      \tikz{\node[xshift=7mm, yshift=1.5mm, text height=2ex, text depth=1ex]{\color{black}#4};
+      };% end of \tikz
+  }% end of \makebox
+  \pdfextension literal {1 Tr 0.4 w}%
+  \makebox[0pt][l]{#2}%
+  };% end of \node
+\end{tikzpicture}%
+}% end of \ukaz
+\ukaz{1}{Ahoj}{0}{světe!}\kern2cm \ukaz{1}{světe!}{0}{Ahoj}\kern28mm
+\ukaz{6}{Ahoj}{0}{světe!}\kern2cm \ukaz{6}{světe!}{0}{Ahoj}
+\end{document}

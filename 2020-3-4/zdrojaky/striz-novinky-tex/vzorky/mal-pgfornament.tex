@@ -1,0 +1,11 @@
+%! lualatex mal-pgfornament.tex
+\documentclass[margin=1pt]{standalone}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{pgfornament}
+\usepackage{pgfornament-han}
+\begin{document}
+\tikzset{pgfornamentstyle/.style={draw=green!20!black, fill=orange, fill opacity=.5, scale=0.7, ultra thick}}%
+\tikz\node{\pgfornament{3}};
+\tikzset{pgfornamentstyle/.style={draw=Goldenrod, fill=Red, line width=1pt}}
+\tikz\node[fill=black, circle, draw=Red, line width=2pt, inner sep=-8pt]{\pgfornamenthan[scale=0.25]{56}};
+\end{document}

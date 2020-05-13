@@ -1,0 +1,23 @@
+%! lualatex mal-tikz-planets.tex
+\documentclass{standalone}
+\usepackage{planets}
+\begin{document}
+\begin{tikzpicture}[scale=0.7]
+\planet[surface=moon, phase=new, centerx=0]
+  \node at (0, 0) {new};
+\planet[surface=moon, phase=first crescent, centerx=2]
+  \node[align=center] at (2, 0) {first \\ crescent};
+\planet[surface=moon, phase=first half, centerx=4]
+  \node[align=center] at (4, 0) {first \\ half};
+\planet[surface=moon, phase=waxing gibbous, centerx=6]
+  \node[align=center] at (6, 0) {waxing \\ gibbous};
+\planet[surface=moon, phase=full, centerx=8]
+  \node[align=center] at (8, 0) {full};
+\planet[surface=moon, phase=waning gibbous, centerx=10]
+  \node[align=center] at (10, 0) {waning \\ gibbous};
+\planet[surface=moon, phase=last half, centerx=12]
+  \node[align=center] at (12, 0) {last \\ half};
+\planet[surface=moon, phase=last crescent, centerx=14]
+  \node[align=center] at (14, 0) {last \\ crescent};
+\end{tikzpicture}
+\end{document}

@@ -1,0 +1,17 @@
+\documentclass[a4paper]{article}
+\usepackage{pdfpages}
+
+\newcount\stran
+\input ../stran.tex
+\newcount\mtemp
+\mtemp=\stran
+\advance\mtemp by 1 %%%
+
+\begin{document}
+\includepdf[scale=0.95,
+  landscape, nup=1x2, pages={2-{\the\mtemp}},
+  delta=0 40,signature={\the\stran}]{ib-temp-a}
+  % scale=0.95, delta=0 40
+\end{document}
+
+

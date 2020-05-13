@@ -1,0 +1,17 @@
+%! lualatex --shell-escape mal-mercatormap.tex
+\documentclass{standalone}
+\usepackage{mercatormap}
+\mermapset{python=python3}
+\mrcactivatescript
+\begin{document}
+\begin{tikzpicture}
+\mrcmap[type=reference, latitude=49.14549, longitude=16.99913, flex reference scale=250000, source=topplusopen p250, target=wmsmap, tex width=0.9\linewidth, tex height=3cm]{mapa-bucovice}
+\mrcdrawmap
+\node[below, font=\bfseries\sffamily] at (mrcmap.south) {Bučovice, rodiště autora zprávy};
+\end{tikzpicture}
+%\mrcnewsupplysource{mapycz}{
+%  url={https://en.mapy.cz/zakladni?x={x}&y={y}&z={z}},
+%  attribution={mapycz},
+%  attribution print={mapycz},
+%  basename=tiles/mapycz}
+\end{document}

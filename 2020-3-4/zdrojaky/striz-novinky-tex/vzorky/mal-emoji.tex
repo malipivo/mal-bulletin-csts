@@ -1,0 +1,12 @@
+%! lualatex mal-emoji.tex
+\documentclass{standalone}
+\usepackage{emoji}
+\begin{document} \fontsize{19}{19}\selectfont
+\def\mallist#1{%
+\setemojifont{NotoColorEmoji.ttf}\emoji{#1}% Předvolené
+\setemojifont{NotoEmoji-Regular.ttf}\emoji{#1}%
+\setemojifont{EmojiOneMozilla.ttf}\emoji{#1}%
+\setemojifont{TwemojiMozilla.ttf}\emoji{#1}%
+\setemojifont{AppleColorEmoji.ttf}\emoji{#1}}%
+\mallist{joy} \mallist{kiss-mark} \mallist{+1}
+\end{document}

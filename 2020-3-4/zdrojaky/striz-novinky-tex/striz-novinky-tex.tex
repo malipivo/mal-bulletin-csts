@@ -1,0 +1,311 @@
+% !TEX TS-program = LuaLaTeX
+% !TEX encoding = UTF-8 Unicode 
+% !TEX root = ../../mal-core.tex
+
+\font\malcjkv=FandolSong at 10pt
+\def\balicek#1{\textsf{#1}}
+\def\hbalicek#1{\href{https://ctan.org/pkg/#1}{\balicek{#1}}}
+\def\maltikz{Ti\emph{k}Z}
+\def\pis#1 {\subsection{Balíček \href{https://ctan.org/pkg/#1}{\balicek{#1}}}\def\aktualni{#1}}
+\def\kod {%
+  \par\noindent\texttt{\footnotesize\$ texdoc \aktualni}\par
+  {\lstinputlisting{zdrojaky/striz-novinky-tex/vzorky/mal-\aktualni.tex}}%
+  \par\noindent\hfil
+  \includegraphics[scale=1]{zdrojaky/striz-novinky-tex/vzorky/mal-\aktualni.pdf}%
+  }
+
+\gdef\mujnazevCS{\TeX Live 2020: novinky v \TeX ovém světě}
+\gdef\mujnazevEN{\TeX Live 2020: News in the world of \TeX{}}
+\gdef\mujnazevPR{\mujnazevCS}
+\gdef\mujnazevDR{\mujnazevEN}
+\gdef\mujauthor{Pavel Stříž}
+
+\bonushyper
+
+\nazev{\mujnazevCS}
+
+\nazev{\mujnazevEN}
+
+\author{\mujauthor}
+
+%\Adresa{}
+
+\Email{pavel@striz.cz}
+
+%\Abstrakt{}
+%\smallskip
+%\KlicovaSlova{}
+
+%\Abstract{}
+%\smallskip
+%\KeyWords{}
+%\medskip
+\medskip
+
+\hfill Motto: \textit{In the Beginning Was the Number}\par
+\hfill \href{https://ctan.org/author/charpentier}{Jean-Côme Charpentier} @ \TeX ový balíček \hbalicek{xlop}
+
+\section{Instalace}
+Už mnoho let používám 
+\href{http://tug.org/texlive/}{\TeX Live} na 
+\href{https://xubuntu.org/}{Xubuntu} a snažím se každý rok o novou instalaci. Vše vyzkoušet a prozkoumat.
+
+Z webové stránky \href{http://tug.org/texlive/acquire-netinstall.html}{\url{http://tug.org/texlive/acquire-netinstall.html}} či přímo si stáhnu a rozbalím instalační skript do pracovního adresáře.
+
+\begin{lstlisting}
+$ wget http://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz
+$ tar xvf install-tl-unx.tar.gz
+$ cd install-tl-20200425 # změnit na aktuální časovou známku
+$ ./install-tl
+\end{lstlisting}
+
+Obvykle nemám žádný problém a instaluji, u této verze se mi nepodařilo aktivovat \texttt{tlmgr update}, tak jsem si před instalací navolil adresář 
+%\newcommand{\textapprox}{\raisebox{0.5ex}{\texttilde}}%
+\texttt{\char`~/texlive/2020.}
+
+Po instalaci se rozšiřují či upravují systémové cesty (%
+\texttt{MANPATH,}
+\texttt{INFOPATH} a~především 
+\texttt{PATH}), obvykle v souboru \texttt{\char`~/.bashrc.} 
+Po úpravě souboru si volám 
+\texttt{source \char`~/.bashrc,} případně si otevřu nové terminálové okno.
+
+Ověřujeme spustitelnost přes 
+\texttt{which tex}
+nebo
+\texttt{tex --version.}
+
+Aktualizace balíčků se realizuje přes
+\texttt{tlmgr update --self --all.}
+
+Dokumentace balíčku se volá přes: 
+\texttt{texdoc <balíček>.}
+
+Je svátek 8.\,5.\,2020 a \TeX Live 2020 mi nainstaloval 3999 balíčků.
+
+
+\section{Novinky}
+
+Není možné podchytit všechny novinky, ale přecejenom některé balíčky vyč\-nívají či by mohly pomoci. 
+
+Con\TeX t je samostatná kategorie, viz 
+\href{https://wiki.contextgarden.net/Main_Page}{\url{https://wiki.contextgarden.net}}, za Lua\TeX{} sleduji 
+\href{https://ctan.org/topic/luatex}{\url{https://ctan.org/topic/luatex}} a za \LaTeX3 pak 
+\href{https://ctan.org/topic/expl3}{\url{https://ctan.org/topic/expl3.}} Nové zprávy na \href{https://www.ctan.org}{\url{ctan.org}} lze sledovat na 
+\href{https://lists.dante.de/pipermail/ctan-ann/}{\url{ctan-ann}}, témata jsou roztříděna na 
+\href{https://ctan.org/topics/highscore}{\url{ctan.org/topics/highscore}.} Reálné \TeX ové problémy a odpovědi \TeX istů hledejte na komunitním serveru
+\href{https://tex.stackexchange.com/}{\url{https://tex.stackexchange.com/}} (zkracováno \TeX.SE).
+
+%\enlargethispage{\baselineskip}
+
+\pis nicematrix
+\maltikz{} vedle grafiky navrhl i sazbu tabulek a matic jako skládání pojmenovaných uzlů (angl. nodes). Balíček \hbalicek{nicematrix} rozšiřuje vizuální možnosti. Upravuje styl výpustků s možností se napojovat mezi uzly. Dokument se sází třikrát. Prvně se zjišťují rozměry pro knihovnu \maltikz u \balicek{fit} a poté se vše správně umisťuje přes \hbalicek{tikz}. Autorem balíčku je 
+\href{https://ctan.org/author/pantigny}{François Pantigny.}
+\kod
+
+\pis witharrows
+Od Pantignyho vznikl ještě jeden podobně zaměřený balíček. Tento je vhodný na popis úprav matematických vztahů. V dokumentaci je řada překlepů, chce to ještě vychytat.
+\kod
+
+\pis siunitx
+Přes balíček \hbalicek{nicematrix} jsem narazil na balíček \hbalicek{siunitx} od
+\href{https://ctan.org/author/wright}{Josepha Wrighta.} 
+Užíval jsem balíčky \hbalicek{siunits} a \hbalicek{pgfplotstable}, tohle je pravděpodobný nástupce na sazbu jednotek a tabulek s čísly.
+\kod
+
+\pis tikz-network
+Na sazbu obrázků z teorie grafů existuje nespočet nástrojů, např. \hbalicek{tkz-graph}. U~tohoto balíčku od 
+\href{https://ctan.org/author/hackl}{Jürgena Hackla}
+mne zaujaly vrstvy ve 3D. V pracovním adresáři jsem si nalinkoval pomocné soubory a ukázky se rozběhly.
+\begin{lstlisting}
+$ mkdir data
+$ cd data
+$ ln -s <cesta>/texmf-dist/doc/latex/tikz-network/data/ml_{vertic,edg}es.csv .
+$ cd ..
+\end{lstlisting}
+\kod
+
+\pis xlop
+Autorem je
+\href{https://ctan.org/author/charpentier}{Jean-Côme Charpentier.}
+Balíček nám pomáhá se sazbou základních aritmetických operací a schémat. Zdeněk Wagner mi psal, že autor postrádá v dokumentaci informaci, že schéma pro násobení, které se stále učíme na základních školách, vytvořil někdy v 8. století podle indických knih perský matematik
+%\newfontfamily\arabicfont[Script=Arabic, Scale=1.0]{Amiri}
+\txarb{ابو عبد اللہ محمد ابن موسی الخوارزمی ابو جعفر},
+krátce 
+\href{https://cs.wikipedia.org/wiki/Al-Chorezm%C3%AD}{Al-Chorezmí.}
+%test z wiki: \txarb{ محمد بن موسى الخوارزمي ابو جعفر‎‎}
+%test z ar.wiki: \txarb{أبو عبد الله محمد بن موسى الخوارزمي }
+%ابو عبد اللہ محمد ابن موسی الخوارزمی ابو جعفر
+Autorovi jsem postřeh napsal. Na pomoc s arabštinou jsem si vzal balíček \hbalicek{arabluatex} od 
+\href{https://ctan.org/author/alessi}{Roberta Alessiho} s renovovaným písmem \hbalicek{Amiri} od 
+\href{https://ctan.org/author/hosny}{Khaleda Hosnyho.}
+% Více písem: https://tex.stackexchange.com/questions/314202/overview-of-arabic-fonts-available-for-latex-xetex
+
+Historická vsuvka. Díky překladům Al-Chorezmího spisů se seznamujeme s algebrou, číslem nula a nejspíše i s $x$ pro neznámou psáno tehdy jako \textbf{\sffamily X} (arabsky \mbox{aš-šáí}, doslova věc). Ve středověku bylo jméno Al-Chórezmí latinizované na \mbox{Al-Gorizmí}, které bylo základem slova algoritmus.
+\kod
+
+\pis codeanatomy
+\font\malhere=lmr10
+Již v dobách ranných bylo možné najít typografické vychytávky na sazbu algoritmů, zdrojových kódů a pseudokódů. Tento balíček zvýrazňuje části kódu s možností je popsat. \TeX ujeme dvakrát.
+Autorem je 
+\href{https://ctan.org/author/bui}{{\malhere Hồng}-Phúc Bùi.}
+\kod
+
+\pis mercatormap
+V roce 2018 na konferenci OSSConf v Žilině Aleš Kozubík představil z pohledu uživatele balíček \hbalicek{getmap}. Ten pracuje s 
+\href{https://wiki.openstreetmap.org/wiki/Tile_servers}{OpenStreetMap.}
+Tehdy to byl nový balíček i pro mne a příjemné překvapení. Letos jsem organizátory předběhl, protože jsem jako první objevil tento balíček. Je to cenné hlavně z~pohledu propojení dvou sekcí: \TeX ové a GISácké. Autorem je 
+\href{https://ctan.org/author/sturm}{Thomas F. Sturm.}
+
+Je potřeba mít Python3 a několik balíčků, v mém případě to bylo:
+\begin{lstlisting}
+$ sudo apt install python3
+$ sudo -H pip3 install Pillow requests
+\end{lstlisting}
+
+Přes tento balíček se mi nepodařilo získat mapy z
+\href{https://en.mapy.cz/}{\url{mapy.cz}} ani ze serveru
+\href{}{\url{freemap.sk}.}
+V pozadí se očekává na dotaz png soubor, obdrží html. 
+Český server sice API má na \href{https://api.mapy.cz/}{\url{api.mapy.cz}}, ale nikoliv s touto možností.
+Slovenský server také umí, ale k png se musí člověk proklikat v rámci exportu mapy.
+Napsal jsem to vývojářům jako tip na rozšíření, kdyby se náhodou nudili, neb minimálně Sturm v dokumentaci píše, že rád nový mapový server do dokumentace svého balíčku zařadí.
+
+Přikládám mapovou ukázku, v poznámkách v kódu je nefunkční část rozhraní na \texttt{mapy.cz}, na slovenský server by to bylo obdobné, to pro případ, že by to v budoucnu fungovalo. Je potřeba \TeX ovat s parametrem \texttt{--shell-escape} (Unix), případně \texttt{--enable-write18} (Microsoft Windows). Za běhu se dočasné soubory ukládají do složek \texttt{maps} a \texttt{tiles}.
+\kod
+
+\pis tcolorbox
+Storm v dokumentaci balíčku \hbalicek{mercatormap} masivně používá tento balíček, jehož je i autorem. Ačkoliv balíček znám a je vhodný především do prezentací, různých poznámek do knih a skript, na plakátky a obálky knih, přecejenom na něm autor dále pracuje a stojí za připomenutí. Já jsem si z obří dokumentace čítající přes 500 stran vytáhl žabího prince, nu, spíš obyčejnou žabu.
+\kod
+
+\pis tikz-planets
+S úsměvem píši, že s příchodem Lua (z portugalštiny měsíc) se hodí takový balíček. Zde je ukázka vysázení fází Měsíce.
+\kod
+
+\pis emoji
+Program 
+\href{https://www.freedesktop.org/wiki/Software/HarfBuzz/}{HarfBuzz} (\href{https://harfbuzz.github.io/}{GitHub}) umí vykreslovat písma jako třeba známější program 
+\href{https://developer.gnome.org/pango/stable/pango-Fonts.html}{Pango.}
+První pokusy o zařazení do \TeX u jsem viděl u \href{https://github.com/michal-h21/luatex-harfbuzz-shaper}{Michala Hofticha}, novější je pokus u Lua modulu od 
+\href{https://github.com/ufyTeX/luaharfbuzz}{Deepaka Joiseho.}
+Další testy lze nalézt v~článcích v TUGboatu od 
+\href{https://tug.org/TUGboat/tb40-1/tb124hosny-harfbuzz.pdf}{Khaleda Hosnyho} (\href{https://github.com/khaledhosny}{GitHub}) či 
+v MAPS od 
+\href{http://www.ntg.nl/maps/47/02.pdf}{Kaie Eignera} (\href{https://github.com/tatzetwerk/luatex-harfbuzz}{GitHub}). Pro nás smrtelníky se jedná o užití barevných a~exotických písem. Do Lua\TeX u knihovnu zařadil 
+\href{https://ctan.org/author/scarso}{Luigi Scarso} a tým Lua\TeX u.
+
+V Plain\TeX u se užívá \texttt{luahbtex} a v \LaTeX u \texttt{lualatex-dev}. To bylo nutné ještě v \TeX Live 2019. Od \TeX Live 2020 stačí opět užívat \texttt{lualatex}.
+\LaTeX ový formát jsem užíval u všech zmíněných ukázek této zprávy. 
+
+Zde vstupuje do popředí balíček \hbalicek{emoji} od 
+\href{https://github.com/stone-zeng}{Xiangdong Zeng} ({\malcjkv 曾祥东}). Na některá písma mě navedla dokumentace, některá jsem si stáhl. 
+První a~poslední písmo je rastrové, zbytek jsou písma vektorová. Druhé písmo není v~barvě. V balíčku je předvolené první písmo.
+Pokus o rozšíření citací o emoji zkusil  
+\href{https://ctan.org/author/sixt-l}{Leon Sixt} v úsměvném balíčku \hbalicek{emojicite}.
+
+\begin{lstlisting}[breakatwhitespace=false]
+$ wget -O EmojiOneMozilla.ttf https://github.com/mozilla/positron/blob/master/browser/fonts/EmojiOneMozilla.ttf?raw=true
+$ wget -O AppleColorEmoji.ttf https://github.com/potyt/fonts/blob/master/macfonts/Apple%20Color%20Emoji/Apple%20Color%20Emoji.ttf?raw=true
+\end{lstlisting}
+% https://github.com/googlefonts/noto-emoji
+% wget -O NotoColorEmoji.ttf https://github.com/googlefonts/noto-emoji/blob/master/fonts/NotoColorEmoji.ttf?raw=true
+\kod
+
+
+\pis pgfornament
+Na odlehčenou zmíním ještě jeden balíček, který je přepracován přes \maltikz{} a dává tak možnost zasáhnout do různých kreseb a udělat z nich malbu. Autorem je 
+\href{https://ctan.org/author/matthes}{Alain Matthes}, ornament vlevo na další straně.
+Velkou inspirací ke vzniku byl balíček \hbalicek{pgfornament-han} z roku 2018 od 
+LianTze Lim ({\malcjkv 林莲枝}) a Chennan Zhang ({\malcjkv 张晨南}), viz ornament vpravo.
+\kod
+
+
+\subsection{Za pozornost ještě stojí}
+Již bez ukázek upozorňuji na další nástroje a balíčky.
+\begin{itemize}
+\itemsep=-1pt
+\item \hbalicek{xindex} od 
+\href{https://ctan.org/author/voss}{Herberta Vo\ss e} je na Lua\TeX u založený rejstříkový procesor. Je to aktivní vývojář, hlavně kolem projektu 
+\href{https://tug.org/PSTricks/main.cgi/}{PSTricks}
+a autor mnoha knih a dokumentace balíčků.
+\item \hbalicek{tex4ebook} je na Lua\TeX u založený balíček na převod z \LaTeX u do elektronické knihy od českého vývojáře 
+\href{https://github.com/michal-h21}{Michala Hofticha.}
+\item \hbalicek{lwarp} je podobně smýšlející projekt na převod z \LaTeX u do HTML5 od 
+\href{http://bdtechconcepts.com/}{Briana Dunny.}
+\item Nelze zapomenout na neustále vylepšovaný obří nástroj na přípravu seznamu literatury \hbalicek{biblatex} s jeho 
+\href{https://ctan.org/search?phrase=biblatex}{balíčky.}
+\item V neposlední řadě balíček \hbalicek{ocgx2}, který je nástupcem balíčků \hbalicek{ocgx} a~\mbox{\hbalicek{ocg-p}} od
+\href{https://www.ctan.org/author/grahn}{Alexandra Grahna,} mj. autora balíčků \hbalicek{media9}, \hbalicek{animate} a nového experimentálního balíčku \hbalicek{media4svg}. 
+\item O nástroji \hbalicek{dvisvgm}, který se užívá v pozadí balíčku \hbalicek{media4svg} či nástroje \href{https://github.com/3b1b/manim}{Manim} na matematické animace, ještě uslyšíme, protože plánují vedle převodu z dvi do svg i převod pdf do svg.
+\end{itemize}
+
+\section{\MP{} ztracen a nalezen}
+
+\MP{} nahradil \MF{} na kresbu. Pamatuji si své začátky nad příklady 
+\href{http://zoonek.free.fr/LaTeX/Metapost/metapost.html}{Vincenta Zoonekynda} (\href{https://ctan.org/tex-archive/info/metapost/examples}{archiv}). Dnes je \MP{} integrován do Con\TeX tu přímo jako knihovna, zájemce odkazuji na 
+\href{https://wiki.contextgarden.net/MetaPost}{Con\TeX t Garden}. 
+
+Jaromír Antoch se mne ptal, jestli by dokázal dostat vektorovou podobu svých kreseb na webové stránky. Když opomineme rastr, formát pdf samotný či konverzi do jiných formátů, tak stojí za pokus to vyzkoušet přímo v \MP u. V minulých letech se totiž do zásahů pustil Taco Hoekwater, jeden z jeho nápadů byl rozšířit výstup do svg.
+
+Vzal jsem si do parády ukázku č. 32 od 
+\href{http://zoonek.free.fr/LaTeX/Metapost/metapost.html}{Vincenta Zoonekynda}, upravil jsem ji dle návodu v dokumentaci \texttt{texdoc metapost}, str.~5, do následující podoby. Jen jsem v proměnné \texttt{outputtemplate} místo \texttt{mps} užil \texttt{svg}:
+
+\lstinputlisting{zdrojaky/striz-novinky-tex/vzorky/metapost/zoonek.mp}
+
+Spustil jsem poté:
+\begin{lstlisting}
+$ mpost zoonek.mp
+$ inkscape zoonek-32.svg &
+$ firefox zoonek-32.svg &
+\end{lstlisting}
+
+První řádek vygeneruje soubor \texttt{zoonek-32.svg}, druhý řádek soubor otevře pro případnou úpravu a poslední řádek otevře soubor přímo v prohlížeči.
+
+Za pomoci webové
+\href{https://vecta.io/blog/best-way-to-embed-svg}{nápovědy} jsem zkusil vložit obrázek do webové stránky \texttt{index.htm} a tu si pak přes \texttt{firefox index.htm} otevřít. Jedná se o čtyři základní způsoby vložení svg plus  pátou cestu přes kaskádový styl CSS jako opakující se obrázek v pozadí. Snad se v náhledu zorientujete.
+Určitě existuje nespočet dalších způsobů, nechávám hlubší bádání na čtenáři. 
+
+\lstinputlisting{zdrojaky/striz-novinky-tex/vzorky/metapost/index.htm}
+%\smallskip
+
+\noindent\hfil
+\fbox{\includegraphics[width=7cm]{zoonek-32.png}}
+\smallskip
+
+
+\textit{\uv{Mně se to líbilo a potvrdilo mi to, že stojí, jde\z li to,
+dělat věci nad základem, který bývá stálý, zatímco balíčky vymírají se svými
+tvůrci\ldots{}}}
+
+\hfill Jaromír Antoch
+
+Nesmrtelná slova. Vykreslit je do kamene!
+
+
+
+\section{Co dodat závěrem?}
+Tohle vše máme opět k dispozici zadarmo, se zdrojovými kódy na přípravu čehokoliv a na dosah klávesnice.
+
+Jo, abych nezapomněl: 
+\href{https://www-cs-faculty.stanford.edu/~knuth/}{Donald E. Knuth} 
+alias DEK alias 
+{\malcjkv 高德纳}
+byl v~září 2019 v Brně na 
+\href{https://www.fi.muni.cz/events/2019-celebrations-of-25-years-of-fi.html.en}{Fakultě informatiky Masarykovy univerzity} u příležitosti 25. výročí založení fakulty. Je tam přednáška, fotky ad.%
+\smallskip
+
+\noindent\hfil
+\url{www.fi.muni.cz/events/2019-celebrations-of-25-years-of-fi.html}%
+\smallskip
+
+V tu dobu jsem ve stavech zoufalství sázel cosi v jakémsi \TeX u, tak jsem přednášku, diskuze a varhanní koncert vynechal. Možná by mi \uv{Grand Wizard} poradil. Kdoví!
+\medskip
+
+\noindent\hfil
+\fbox{\includegraphics[trim=0 2cm 4mm 0cm, clip, width=\textwidth]{knuth-v-brne.jpg}}%
+\smallskip
+
+\noindent
+\hfil\textit{Zleva: Jan Šustek, Jiří Rybička, DEK, Petr Sojka a Tomáš Hála}
+
+

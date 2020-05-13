@@ -1,0 +1,24 @@
+\documentclass[a4paper]{article}
+\usepackage{pdfpages}
+
+\newcount\stran
+\input ../stran.tex
+%%% \advance\stran by -1
+\divide\stran by 2
+
+\begin{document}
+\newcount\citac
+\citac=0
+\includepdfset{landscape}
+
+\loop
+\advance\citac by 1
+\ifodd\citac
+  \includepdf[pages={\the\citac},angle=270]{ib-temp-b}
+    \else
+  \includepdf[pages={\the\citac},angle=90]{ib-temp-b}
+\fi
+
+\ifnum\citac<\stran\repeat
+
+\end{document}

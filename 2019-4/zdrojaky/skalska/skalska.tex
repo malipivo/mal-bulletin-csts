@@ -1,0 +1,237 @@
+% !TEX TS-program = LuaLaTeX
+% !TEX encoding = UTF-8 Unicode 
+% !TEX root = ../../!hlavni-soubor.tex
+
+\gdef\mujnazevCS{Výuka statistiky pro  informatiku a~management  v~éře   datové vědy}
+\nazev{Výuka statistiky pro  informatiku\\[2pt] a~management  v~éře   datové vědy}
+
+\gdef\mujnazevEN{Statistics in informatics and management education in the data science era}
+\nazev{Statistics in informatics and management\\[2pt] education in the data science era}
+
+\gdef\mujnazevPR{\mujnazevCS}
+\gdef\mujnazevDR{\mujnazevEN}
+
+\gdef\mujauthor{Hana Skalská}
+\author{\mujauthor}
+
+\Adresa{Fakulta informatiky a~managementu, Univerzita Hradec Králové, Rokitanského 52, 500\,03 Hradec Králové}
+
+\Email{hana.skalska@uhk.cz}
+
+\Abstrakt{Technologie zvyšují nároky na znalosti absolventů v~informatických a~manažersko-informatických oborech.  Rozšiřuje se spektrum datových typů, které se analyzují. Zvyšuje se rozsah datových souborů, řeší se nové typy problémů. Jsou nové možnosti vizualizace dat i~výsledků z~nich získaných, zkracuje se doba mezi záznamem dat a~prezentováním výsledků, softwarové produkty často automatizují kroky od získání dat po návrhy využití výsledků. Změny souvisí s~většími nároky na znalosti statistiky. Analýza dat je často spojená s~novými typy statistických problémů, které je vhodné nově zařadit nebo zdůraznit ve výuce statistiky. Příspěvek vychází z~přehledu vývoje datové vědy, souvisejících typů úloh a~popisuje návrh změn v~sylabech výuky statistiky pro obory aplikovaná informatika a~informační management na Fakultě informatiky a~managementu Univerzity Hradec Králové.}
+\smallskip
+\KlicovaSlova{Datová věda, %data science, 
+výuka statistiky, nestatistické obory, statistika, aplikovaná informatika, informační management}
+
+\Abstract{Outstanding progress in technology, mainly in programming languages, visualization techniques, and communication tools resulted in increased popularity of Data Science field. This multidisciplinary field is closely related to statistics. The paper starts with mentioning several %some 
+important changes in technology which influenced the practice of data analysis and contributed to data driven and model driven approaches to decision support. Then it reports a~range of statistical problems important in data science applications which should be emphasized in statistical courses for non-statistical studies. Suggestions for changes in the content of  statistical courses offered at the Faculty of Informatics and Management, University of Hradec Kralove, cover statistical problems appearing in big data statistical analysis, modelling, and visualization.}
+\smallskip
+\KeyWords{Data Science, education in statistics,  non-statisticians, statistics, applied informatics, information management}
+
+
+
+\section{Úvodní východiska}\label{sec01}
+Absolventi oborů aplikovaná informatika (AI) a~informační management (IM) FIM UHK pracují s~technologiemi, které se v~posledním desetiletí výrazně zdokonalily a~generují množství dat, pro jejichž využití jsou nutné další technologie. Nápadité aplikace využívají výhod konektivity a~možností generovaných dat, ovlivňují zájmy a~preference studentů, kteří vidí budoucnost i~ekonomické možnosti v~technologiích a~jejich užití (Google, Facebook, Twitter, Amazon, Heureka, Uber, Airbnb a~mnoho dalších). Neuvědomují si, že za viditelnými výsledky aplikací se skrývají teoretické a~obecnější znalosti, které jsou potřebné pro návrh a~vytvoření aplikace, její aktualizaci, nebo pro řešení následných problémů. Statistické a~matematické metody, které jsou na pozadí většiny těchto řešení, často objevují až během naší výuky.
+
+Technologie se dříve prosazovaly v~úlohách, které se nedají řešit analyticky. Ovlivnily tak chápání rolí informatiky a~statistiky, které se svými přístupy k~analýze mohly jevit jako dva rozdílné světy. Postupně se ukázalo, že poznatky pravděpodobnosti a~statistiky jsou nezbytné k~vysvětlení problémů pozorovaných při ryze informatickém přístupu k~některým typům úloh, které vycházejí z~dat. Také ve statistice vznikaly obory, které závisí na  intenzivním využití počítačů (Bayesovské přístupy, bootstrap inference, MCMC, nebo optimalizační algoritmy) a~tvoří oblast výpočetní statistiky. 
+
+Obor datová věda (DS), Data Science, jehož současná podoba je výsledkem masivního rozvoje technologií a~možností dat, vychází z~obou přístupů. Stěžejní pro DS jsou informatika, technologie a~inženýrství, statistika a~aplikační oblast. Statistické přístupy tvoří součást metodologie DS a~jsou zahrnuty v~klíčových učebnicích oboru DS, například \cite{blu}, \cite{das}, \cite{les}.
+
+Článek vychází z~rešerše, která stručně mapuje vliv technologií na analýzu dat, až po současné pojetí DS. Zaměří se na typické úlohy, které může řešit většina firem. Cílem článku je odvodit okruh problémů, které jsou pro současné časté typy analýzy dat důležité a~je vhodné zařadit je do statistických sylabů na Fakultě informatiky a~managementu Univerzity Hradec Králové (FIM UHK). 
+
+\section{Datová věda}
+Datová věda je označení pro proces vyhledávání nových znalostí a~informací z~dat obecně libovolného typu a~rozsahu. Koncept DS není pro statistiku novým pojmem. Odborné vysvětlení a~použití termínu \uv{analýza dat} zavádí ve statistice Tukey \cite{tuk}, který nazval proces analýzy a~využití dat učením z~dat a~charakterizoval jej jako vědu. Tyto myšlenky dál rozvíjel \cite{tuk77} a~jejich opodstatněnost zdůvodnil rozvojem možností kvantifikovat děje, snahou získávat o~dějích stále více informací pomocí dat, vývojem počítače a~dalších zařízení, která umožní práci s~rozsáhlými typy dat a~pokroky statistické teorie. 
+
+V~prvním období rozvoje počítačů se však za vědu o~datech považovala spíše softwarová a~technická řešení, spojená s~analýzou velkých datových souborů. Formální vznik výpočetní statistiky, která je součástí vědeckého přístupu k~analýze dat, je spojený se založením International Association for Statistical Computing (IASC) v~roce 1977. Dalším vývojovým stupněm v~technikách analýzy dat byla oblast vyhledávání znalostí z~databází, odborně uznaná vznikem společnosti Knowledge Discovery in Databases (KDD) v~roce 1989. V~roce 2003 vychází časopis Journal of Data Science a~profesní označení Data Scientist bylo odbornými společnostmi definované v~roce 2005.  
+
+Vývoj kopíruje více vlivy technologických změn než sjednocování pohledů na statistický a~informatický přístup k~analýze dat. Koncept, kterým Tukey v~již zmíněném článku \cite{tuk} vysvětluje úlohu statistiky a~statistického modelování v~analýze dat, vyvolal řadu diskusí a~dosud je inspirativní. Například Breiman \cite{bre}, v~návaznosti na názory o~modelování z~dat, které vyjádřil Tukey, mluví o~dvou kulturách analýzy dat (inferenční úloha versus prediktivní úloha), Peng \cite{pen} polemizuje s~jeho názory na fomulaci cíle explorace dat. 
+
+V~současnosti vede konektivita mobilů, počítačů a~sítí k~množství generovaných dat. Využití dat k~popisu a~vysvětlení dějů předpokládá použití vědecky korektních metod analýzy dat. Donoho, více než 50 let od článku~\cite{tuk}, shrnuje odezvy na článek, ve kterém Tukey označill analýzu dat vědou. Donoho \cite{don} také charakterizuje současný stav a~uvažuje o~pohledu na analýzu dat v~budoucnosti. Vychází z~vývoje technologií i~aplikací DS a~popisuje proces DS šesti kroky, z~nich každý by se nějakým dílem měl objevit ve výuce: %
+\begin{itemize}
+\itemsep=-1pt
+\item \textit{Získání dat a~explorace}: Data z~různých zdrojů, očištění, řešení anomálií a~chybějících hodnot, posouzení eventuálních podmnožin dat, explorace. 
+\item \textit{Reprezentace dat}: Transformace, přestrukturování, matematické vyjádření některých typů (obraz, zvuk). 
+\item \textit{Výpočty}: Nezbytná znalost několika programovacích jazyků, techniky výpočtů v~klastrech, cloudech, vytváření opakovatelných postupů. 
+\item \textit{Modelování na základě dat}: Model, který generuje sledovaný proces nebo model z~dat, který umožní predikovat budoucí stav. 
+\item \textit{Vizualizace a~reprezentace} dat i~výsledků analýzy. 
+\item \textit{Vědecké zhodnocení procesu DS}: Sledování vlastností modelů pomocí zvolených metrik a~jejich vyhodnocování. Uchování dokumetace jednotlivých typů analýz tak, aby v~budoucnu bylo možné provést meta analýzu.
+\end{itemize}
+
+Specialisté skupiny KDnuggets (\url{https://www.kdnuggets.com/}) shrnují oblasti v~analýze dat, které byly nejvíce ovlivněny technologickým pokrokem: 
+\begin{enumerate}
+\itemsep=-1pt
+\item \textit{Typy a~formáty dat.} Text, obraz, zvuk, objekty, geografická data, sítě.
+\item \textit{Velké rozsahy datových souborů}, distribuované zdroje dat.
+\item \textit{Nové typy úloh.} Podobnost dokumentů, identifikace jedinců, analýza sítí, klasifikace prvků, tisíce atributů měřených na malém počtu prvků souboru.
+\item \textit{Problémy při analýze.} Příprava nenumerických dat, popis a~analýza dat senzorů a~analyzátorů, stovky až tisíce atributů v~sadě, rozhodnutí o~statistické významnosti u~simultánních testů nebo při tvorbě modelů.
+\item \textit{Možnosti vizualizace výsledků} na webu nebo formou interaktivních grafů.
+\item \textit{Zkracování doby} mezi záznamem údajů a~prezentováním výsledků, nároky na technologická řešení a~na správnost postupů (informace z~dat může být bezprostředně využitá), data products jako cíl analýzy, virtualizace.
+\item \textit{Nestrukturovaná data.} Databáze, jejich výkon, konektivita.
+\item \textit{Vyhledávací nástroje}, služby poskytované (sdílené) přes Internet, analýza efektivity a~GDPR.
+\item \textit{Vývoj softwaru}, softwarových platforem, jazyků (R, Python, Java), virtualizace, růst požadavků na vzdělání, možnosti sebevzdělání (Coursera).
+\end{enumerate}
+
+Kroky DS zahrnují: Datový management, vizualizaci dat, strojové učení, matematiku, statistické programy, programování a~statistiku. V~praxi jsou pro DS používané open source technologie samotné, nebo jsou integrované do komerčních informačních systémů.  
+
+DS tedy má velké požadavky na znalosti absolventů všech informatických a~manažersko-informatických oborů, kteří se do některé fáze procesu zapojí. Požadavky souvisí s~novými typy aplikací, využitím dat různého typu (strukturovaných i~nestrukturovaných), datovými soubory velkého rozsahu. DS je obor multidisciplinární a~pro vzdělávání ukazuje také nutnost přípravy na komunikaci a~spolupráci specialistů různých oborů. 
+
+Termínem {\it data products} se označují aplikace, které integrují procesy získání a~přípravy dat i~statistické algoritmy inference a~modelování \cite{ben}. Pro data, generovaná aktuálním procesem, jsou výsledky analýzy ve tvaru, který usnadní interpretaci a~využití. Možná statistická úskalí musí být ošetřena při návrhu aplikace a~měl by je v~principu znát i~uživatel výsledků. Pokud data products generují současně i~data  pro meta analýzy, jedná se o~procesy datové vědy  \cite{don}, jejich platnost a~spolehlivost lze ověřovat a~analyzovat.
+ 
+
+
+\section{Statistické vzdělávání}
+Cílem výuky je rozvíjet statistické uvažování a~znalosti, které se předpokládají při návrhu a~provedení analýzy dat i~při vyhodnocení výsledků. Pochopení principu a~potřebné znalosti jsou důležité pro rozpoznání rizika nesprávného nebo nevhodného užití statistických metod, chybné interpretace výsledku nebo posouzení vhodnosti navržených postupů přípravy dat \cite{ioa}. 
+
+Podíl statistiky na DS je zřejmý. Obsah kurzů pro nestatistiky a~forma výuky mají kromě nových znalostí a~pochopení principů vést k~zájmu o~statistiku a~získání znalostí, které umožní jejich budoucí rozšíření. Tomuto cíli se lze přiblížit vyváženým obsahem a~formou výuky. Limitem jsou preference studentů, jejich očekávání a~zájem vstřebat řadu pojmů a~postupů. 
+
+Obsah, forma výuky i~přístup vyučujích jsou důležité. V~literatuře se obsahu i~metodám výuky statistiky věnuje pozornost ve všeobecném vzdělávání~\cite{car} i~ve vyšším vzdělávání \cite{zie}. Přesto výsledky experimentů a~studií ukazují, že studenti nestatistických oborů často považují statistiku za obtížnou a~někdy stresující, přestože vyučující se snaží využívat nové výukové metody, rozpoznat obtíže a~předcházet stresujícím momentům \cite{gar}. Přehled výzkumů a~šest doporučení pro předcházení stresu u~studentů uvádí Chew~\cite{chew}. 
+
+Motivačním momentem pro naše absolventy může být i~společenský zájem o~DS (například \cite{dds}) a~tím o~datové specialisty. Uplatnění našich absolventů v~DS je reálné díky technologiím, kterým se učí rozumět a~ovládat je. Výhodou jejich zapojení do týmu, který navrhuje a~vytváří náročnější aplikace, nebo pro realizaci jejich samostatných řešení, budou i~znalosti statistických principů. Naše kurzy mají rozvíjet tyto znalosti a~podpořit zájem o~statistiku zařazením vybraných statistických témat, která jsou vyučovaná v~kurzech pro DS specialisty a~analytiky \cite{dev}, \cite{eri}, \cite{mik}, nebo vycházejí z~častých typů úloh. Zaměřujeme se na problémy, které souvisí s~modelováním, analýzou rozsáhlejších dat  a~na možnosti softwaru. 
+
+\section{Výuka statistiky pro AI a~IM na FIM UHK}
+Ve studijních plánech AI a~IM jsou tři povinné kurzy statistiky, každý je zakončený zkouškou a~mají dotaci 26~+~26~+~13 hodin (přednášky +~cvičení~+ práce) za semestr. Úvodní kurz Pravděpodobnost a~statistika (PSTA) se vyučuje ve 3.~semestru Bc. studia, v~navazujícím studiu v~8. semestru je Aplikovaná statistika (APSTA), v~9. semestru Statistické modely a~data (STMOD), tento kurz vznikl nedávno transformací z~kurzu STOMO (Stochastické modelování). Veřejně dostupné aktuální informace ke kurzům jsou na webu. Názvy kurzů ve STAGu (\url{https://www.stag.uhk.cz}) obsahují vždy zkratku katedry KIKM, například KIKM/STMOD.
+
+Vybraná témata statistiky jsou částí státní závěrečné zkoušky v~navazujícím studiu. Otázka zkoušky se volí z~okruhu, který souvisí s~obsahem diplomové práce. Výuka je takto zavedená od roku 1997 s~průběžnými aktualizacemi obsahu, techniky a~softwaru na učebnách a~výukových podkladů. 
+
+Ve cvičeních APSTA a~STMOD pracujeme s~IBM SPSS Statistics, který udržujeme v~aktuální verzi. Licenční server IBM SPSS umožňuje mix uživatelů, kteří pracují se softwarem v~síti a~uživatelů na  virtuálních desktopech v~prostředí VMware a~je tak dostupný studentům i~vyučujícím (do počtu licencí) nepřetržitě. 
+
+Všechny kurzy mají opory v~LMS prostředí BlackBoard, kde jsou prezentace k~přednáškám, návody na cvičení, ukázky příkladů, příklady k~použití softwaru, syntax pro SPSS nebo R a~podobně. Toto výukové prostředí umožňuje přístup uživatelům interní počítačové sítě, nebo uživatelům se speciálním přihlašovacím jménem a~heslem. Studenti dostávají přístup na kurzy, které si v~daném akademickém roce zapsali. 
+
+Původní kurz Stochastické modelování (STOMO), který byl z~části zaměřený na vytváření obecných modelů a~jejich simulace, byl právě s~přihlédnutím k~nastupujícím trendům v~analýze dat, záměnou přibližně jedné třetiny obsahu, převedený na současný kurz STMOD. V~kurzu STOMO byla redukovaná témata generování náhodných čísel a~obecných typů modelů a~simulací. V~současném STMOD byla nahrazena metodikou analýzy dat (CRISP), částečně problémy přípravy dat a~aplikačním rozšířením témat regrese a~časových řad, která navazují na předchozí kurz APSTA. 
+
+Vznikla i~lepší návaznost v~řešení úloh stejným softwarem, se kterým se pracuje v~APSTA předchozího semestru. Pomocí IBM SPSS Statistics se řeší úlohy pro data, která jsou součástí instalace SPSS nebo otevřených databází, například UCI depozitáře (\url{https://archive.ics.uci.edu/ml/index.php}). Ve cvičeních je prostor pro ukázky přípravy dat, segmentace, transformace, pro návrhy řešení a~následné vysvětlení výsledků modelování. Nově jsou do STMOD  zařazeny klasifikační metody LDA a~CART. Důraz je kladený na předpoklady LDA a~jejich ověření, na princip metody CART, možnosti validace klasifikačních modelů, porozumění výstupům ze softwaru a~aplikacím těchto metod. Stručně je v~kurzu také uvedena metoda bootstrap odhadu intervalu spolehlivosti střední hodnoty (aplikace v~R). Další témata se neměnila (Markovovy řetězce a~jejich aplikce, model obnovy, model populačního procesu).
+
+Ze zkušeností s~výukou lze říci, že naši studenti neodmítají statistiku, ačkoliv ji považují za obtížný předmět. Zejména v~posledním kurzu STMOD (dříve STOMO) si často volí náročnější témata pro seminární práce. Při anonymním elektronickém hodnocení výuky, do kterého se zapojuje necelá čtvrtina z~80--120 zapsaných studentů (hodnotit mohou od konce semestru po celé zkouškové období), tak tito převážnou většinou považují zařazení kurzů APSTA a~STMOD do studijních plánů za vhodné. Skóre 5 nebo 4 (naprosto souhlasí nebo souhlasí) uvádí vždy zhruba 80--85\,$\% $ studentů, nesouhlasí 1--2 studenti (skóre~1), žádní studenti neuváděli, že naprosto nesouhlasí (skóre~0). 
+
+
+\section{Závěr}
+Rešerše, jejíž část zde byla představená, ujasnila roli statistiky pro nestatistiky v~dnešním světě DS a~přispěla k~jasnějšímu názoru na vhodné změny obsahu kurzů APSTA i~STMOD. Výuka by měla zahrnout i~problémy, které se dosud ve výce zmiňovaly okrajově nebo vůbec, ale jsou časté v~aplikacích. V~kurzech APSTA a~STMOD bude vhodné:
+\begin{enumerate}
+\itemsep=-1pt
+\item Vysvětlit obecný problém testování hypotéz, sílu testu a~effect size.
+\item Zmínit problém $p$-hodnoty v~sadě testů a~riziko false discovery rate (FDR).
+\item Pro různé typy reziduí vysvětlit jejich užití v~regresním modelu.
+\item Věnovat se problému výběru nezávisle proměnných do modelu.
+\item Důsledněji vést studenty k~práci s~literaturou v~angličtině.
+\item Cvičení zaměřovat více na vysvětlení a~řešení problémů přípravy dat, transformace a~zpětné transformace, segmentování a~vizualizace dat.
+\item Ve cvičeních opakovat stěžejní poznatky, například popisné charakteristiky pro různé typy znaků, jejich využití, vlastnosti, vizualizaci.
+\end{enumerate}
+%\bigskip
+
+\Podekovani{Děkuji anonymním recenzentům za cenné náměty a~připomínky.}
+  
+%\bigskip
+
+\newpage
+\renewcommand{\refname}{Literatura}
+\begin{thebibliography}{10}
+\setlength\itemsep{-1pt}
+\selectlanguage{english}
+\frenchspacing
+
+\bibitem{ben}
+    Bengfort, B., Kim, J. (2016): {\it  Data Analytics with Hadoop: An Introduction for Data Scientists}, O'Reilly Media, Inc., pp.~269.
+		\\
+		URL: {\tt http://shop.oreilly.com/product/0636920035275.do}
+
+\bibitem{blu}
+    Blum, A., Hopcroft, J., and Kannan, R. (2018): {\it Foundations of Data Science}, online, pp.~479, 2018. 
+		\\
+		URL: {\tt https://www.cs.cornell.edu/jeh/book.pdf}
+ 
+\bibitem{bre} 
+    Breiman, L. (2001): Statistical Modeling: The Two Cultures (with comments and a~rejoinder by the author).
+    {\it  Statist. Sci.} {\bf 16}(3), 199--231.
+		\\
+    URL: {\tt https://projecteuclid.org/euclid.ss/1009213726}
+    
+ \bibitem{car}
+    Carver, R., Everson, M., Gabrosek, J., et al. (2016):      
+    {Guidelines for Assessment and Instruction in Statistics Education (GAISE) Reports}. American Statistical Association.
+		\\
+    URL: {\tt https://www.amstat.org/education/gaise/}
+
+ \bibitem{das}
+     Das, S.\,R. (2016): {\it Data Science: Theories, Models, Algorithms, and Analytics.} Published by S.\,R.\,Das,  online, pp.~462.
+		 \\
+     URL: {\tt https://srdas.github.io}
+     
+\bibitem{dev}
+    De Veaux, R.\,D., Agarwal, M., et al. (2017): Curriculum Guidelines for Undergraduate Programs in Data Science. {\it Annu. Rev. Stat. Appl.} {\bf4}, 15--30.
+		%\\
+     URL: \\{\tt https//doi.org/10.1146/annurev-statistics-060116-053930}
+   
+\bibitem{don}
+    Donoho, D. (2017): 50 Years of Data Science.  
+    {\it Journal of Computational and Graphical Statistics} {\bf 26}(4), 745--766.  
+		\\
+    URL: {\tt  https://doi.org/10.1080/10618600.2017.1384734}
+ 
+ \bibitem{eri}
+    Erickson, T., Wilkerson, M., Finzer, W., and Reichsman, F. (2019): Data Moves. 
+    {\it Technology Innovations in Statistics Education} {\bf 12}(1), pp.~25.
+		\\
+    URL: {\tt https://escholarship.org/uc/item/0mg8m7g6}
+        
+\bibitem{gar}
+    Garfield, J.\,B., Ben-Zvi, D. (2008): {\it Developing Student's Statistical Reasoning. 
+    Connecting Research and Teaching Practice.}  
+     Springer, Science+Businees Media B.V., 2008.
+		 \\
+		 URL: {\tt https://www.springer.com/gp/book/9781402083822}
+
+\bibitem{chew}
+    Chew, P.\,K.\,H., Dillon, D.\,B. (2014). Statistics anxiety update: Refining the construct and recommendations for a~new research agenda. {\it Perspectives on Psychological Science} {\bf 9}(2), 196--208. 
+		\\
+    URL: {\tt https://doi.org/10.1177/1745691613518077}
+
+\bibitem{ioa}
+    Ioannidis, J.\,P.\,A. (2005): Why Most Published Research Findings Are False. {\it PLoS Med.} {\bf }(8)(2): e124, 696--701.
+		\\
+    URL: {\tt https://doi.org/10.1371/journal.pmed.0020124}
+    
+\bibitem{les}
+      Leskovec J., Rajaraman A., and Ullman J. (2014): {\it  Mining of Massive Datasets.} Cambridge University Press,  pp.~467. 
+			\\
+     URL: {\tt https://doi.org/10.1017/CBO9781139924801}
+    
+ \bibitem{mik}
+     Mikroyannidis A., Domingue J., Phethean C., et al. (2018): Designing and Delivering a~Curriculum for Data Science Education across Europe.  In: Auer M., Guralnick D., Simonics I. (eds) {\it Teaching and Learning in a~Digital World}. ICL 2017. Advances in Intelligent Systems and Computing. Vol.~716, 540--550. Cham: Springer.
+		 \\
+		 URL: {\tt https://doi.org/10.1007/978-3-319-73204-6\_59}
+		 
+\bibitem{pen} 
+Peng, R. (2019): Tukey, Design Thinking, and Better Questions.
+		 \\
+		 %{\raggedleft
+     URL: {\tt https://simplystatistics.org/2019/04/17/tukey-design-}\\{\tt thinking-and-better-questions/}
+		 %}
+
+\bibitem{dds}
+    The Royal Society (2019): {\it Dynamics of data science skills: How can all sectors benefit from data  science talent?} 
+		\\
+    URL: {\tt https://royalsociety.org/topics-policy/projects}
+
+\bibitem{tuk}
+    Tukey, J.\,W. (1962): The Future of Data Analysis.
+    {\it  Ann. Math. Statist.} {\bf 33}(1), 1--67. 
+		\\
+    URL: {\tt https://projecteuclid.org/euclid.aoms/1177704711}
+
+\bibitem{tuk77}
+    Tukey, J.\,W. (1977):
+ {\it  Exploratory Data Analysis.} Addison-Wesley Publishing Company,  pp.~688, 1977. 
+ \\
+ URL: {\tt https://doi.org/10.1002/bimj.4710230408}
+
+ \bibitem{zie}
+    Zieffler, A., Garfield, J., Alt, S., et al. (2008):
+    What Does Research Suggest About the Teaching and Learning of Introductory 
+    Statistics at the College Level? A~Review of the Literature. 
+    {\it Journal of Statistics} {\bf 16}(2), pp.~26.
+		\\
+    URL: {\tt https://doi.org/10.1080/10691898.2008.11889566}
+
+\end{thebibliography}
+
+

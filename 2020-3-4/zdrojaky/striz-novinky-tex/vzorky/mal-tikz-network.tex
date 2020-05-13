@@ -1,0 +1,9 @@
+%! lualatex mal-tikz-network.tex
+\documentclass{standalone}
+\usepackage{tikz-network}
+\begin{document}
+\begin{tikzpicture}[multilayer=3d]
+\Vertices{data/ml_vertices.csv}
+\Edges{data/ml_edges.csv}
+\end{tikzpicture}
+\end{document}

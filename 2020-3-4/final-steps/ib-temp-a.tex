@@ -1,0 +1,18 @@
+
+% rearranging pages, but most importantly setting up viewport of pages
+
+\documentclass[a4paper]{article}%a4paper
+\usepackage{pdfpages}
+
+\newcount\stran
+\input ../stran.tex
+\newcount\mtemp
+\mtemp=\stran
+%\advance\mtemp by -2
+
+\begin{document}
+\includepdf[viewport=449 27.5 870.263 623.691,clip]{../obalka/obalka.pdf}%,fitpaper
+\includepdf[pages={3-{\the\mtemp}},viewport=34 197 439.5 774,clip]{../mal-core.pdf}%,fitpaper
+\includepdf[viewport=28.371 27.5 449.25 623.691,clip]{../obalka/obalka.pdf}%,fitpaper
+\end{document}
+

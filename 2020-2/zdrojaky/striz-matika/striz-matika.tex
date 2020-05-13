@@ -1,0 +1,423 @@
+% !TEX TS-program = LuaLaTeX
+% !TEX encoding = UTF-8 Unicode 
+% !TEX root = ../../!hlavni-soubor.tex
+\def\balicek#1{\textsf{#1}}
+\def\tikz{Ti\emph{k}Z}
+\fboxrule=1pt
+\fboxsep=0pt
+
+
+\gdef\mujnazevCS{Postřehy nejen k sazbě matematiky}
+\gdef\mujnazevEN{Notes not only on typesetting math}
+\gdef\mujnazevPR{\mujnazevCS}
+\gdef\mujnazevDR{\mujnazevEN}
+\gdef\mujauthor{Pavel Stříž}
+
+\bonushyper
+
+\nazev{\mujnazevCS}
+
+\nazev{\mujnazevEN}
+
+\author{\mujauthor}
+
+%\Adresa{}
+
+\Email{pavel@striz.cz}
+
+%\Abstrakt{}
+%\smallskip
+%\KlicovaSlova{}
+
+%\Abstract{}
+%\smallskip
+%\KeyWords{}
+
+
+
+
+
+\section{Znaky a písma}
+
+Pravděpodobně nejrychlejší cesta v \href{https://www.tug.org/texlive/}{\TeX Live} (používám verzi 2020), jak získat rychlý přehled o dostupných znacích, symbolech a balíčcích, je otevřít si dokument \href{https://ctan.org/pkg/comprehensive}{\balicek{symbols}}. Užíváme k tomu program \href{https://ctan.org/pkg/texdoc}{\texttt{texdoc}}. Případně užijte \href{https://ctan.org/}{\url{ctan.org}}.
+\begin{lstlisting}
+$ texdoc symbols
+\end{lstlisting}
+
+Naopak přehled symbolů v Unicode lze vyčíst z balíčku \href{https://ctan.org/pkg/xecjk}{\balicek{xecjk}}.
+\begin{lstlisting}
+$ texdoc xunicode-symbols
+\end{lstlisting}
+
+Takto by vypadala ukázka vysázení přes balíček \href{https://ctan.org/pkg/halloweenmath}{\balicek{halloweenmath}}.
+\begin{lstlisting}
+$ texdoc halloweenmath
+\end{lstlisting}
+
+\noindent\hfil
+\includegraphics[height=23mm]{halloween1.png}\hskip1cm
+\raisebox{4ex}[0pt][0pt]{\includegraphics[height=10mm]{halloween2.png}}
+
+
+Nyní již vážněji. Za pozornost kolem písem s matematickými symboly stojí tyto odkazy. Z roku 2006 \url{http://mirrors.concertpass.com/tex-archive/info/Free_Math_Font_Survey/en/survey.pdf} a novější komunitní odpověď na \url{https://tex.stackexchange.com/questions/425098}.
+
+Řada \TeX istů se již přímo či nepřímo setkala s balíčkem \href{https://ctan.org/pkg/fontspec}{\balicek{fontspec}}, za pozornost však stojí experimentální balíček \href{https://ctan.org/pkg/unicode-math}{\balicek{unicode-math}}. Hlavní cíl je, aby se znaky daly zapisovat přímo, nikoliv přes \TeX ové příkazy, tedy místo \textbackslash\texttt{alpha} zapisovat přímo $\alpha$.
+\begin{lstlisting}
+$ texdoc fontspec unicode-math
+\end{lstlisting}
+
+Zde je ukázka srovnání šesti písem: Latin Modern Math (L), XITS Math (X), STIX Math Two (S), \TeX\ Gyre Pagella Math (P), DejaVu Math \TeX\ Gyre (D) a Fira Math (F). 
+\begin{lstlisting}
+$ texdoc unimath-symbols
+\end{lstlisting}
+
+\noindent\hfil
+\includegraphics[height=58mm]{unimath1.png}
+
+
+
+\subsection{Nové přírůstky: úplná sada}
+
+Rodiny písem Latin Modern a \TeX\ Gyre se stávají standardy. V linuxovém světě mají svou oblibu projekty DejaVu a Libertinus (Libertine+Biolinum), které mají svá matematická písma. Vedle již běžných emoji se objevují ligatury pro programátory, viz 
+\href{https://github.com/tonsky/FiraCode}{FiraCode}.
+%Úplnou sadou myslím plný řez. pokud bychom počítali i polotučný řez, tak
+
+Mezi nové přírůstky na \href{https://ctan.org}{\tt ctan.org} u matematických písem počítáme 
+od roku 2018 
+\href{https://www.stixfonts.org/}{STIX Two} (nástupce písma STIX a pokračování matematického písma XITS), 
+\href{https://ctan.org/tex-archive/fonts/gfsneohellenicmath}{GFS Neohellenic} (založeno na písmu New Hellenic) a
+\href{https://ctan.org/pkg/firamath-otf}{Fira Math} (založeno na písmu Fira Go)
+a od roku 2019 
+písma 
+\href{https://ctan.org/pkg/garamond-math}{Garamond Math} (založeno na písmu EB Garamond) a
+\href{https://ctan.org/pkg/erewhon-math}{Erewhon Math} (založeno na rodinách písem Utopia, Heuristica a Erewhon).
+
+
+\subsection{Nové přírůstky: neúplná sada}
+
+To ale není vše, co balíček \href{https://ctan.org/pkg/unicode-math}{\balicek{unicode-math}} umí.
+Některá písma, např. 
+\href{http://arkandis.tuxfamily.org/adffonts.html}{Berenis ADF Pro}
+či
+Neo Euler, 
+nejsou dokončená, nemají celé řezy či mají závady. 
+Můžeme užít {\tt range} a vybrat si jen bloky z písma.
+
+Zde je ořezaná ukázka preambule dokumentu, jak by se to dalo vyřešit.
+
+\begin{lstlisting}
+\unimathsetup{math-style=upright}
+\setmainfont{CMU Concrete}
+\defaultfontfeatures{Scale=MatchLowercase}
+\setmathfont{Libertinus Math}
+\setmathfont[range={"0000-"0001,"0020-"007E,
+  "00A0,"00A7-"00A8,"00AC,"00AF,"00B1,"00B4-"00B5,"00B7,
+  % řada dalších
+  "1D6DF,"1D6E1,"1D7CE-"1D7D7
+  }]{Neo Euler}
+\setmathfont[range=up/{greek,Greek}, script-features={}, sscript-features={}]{Neo Euler}
+\setmathfont[range=up/{latin,Latin,num}, script-features={}, sscript-features={}]{Neo Euler}
+\end{lstlisting}
+
+
+Nabízí se ještě jedno užití, a to vybrat blok s okrasnými či atypickými znaky. Zde je ukázka u vzpřímeného znaku integrálu.
+
+\begin{lstlisting}
+\setmainfont{XITS}
+\setmathfont{XITS Math}
+\setmathfont[range={"222B-"2233,"2A0B-"2A1C},StylisticSet=8]{XITS Math}
+\end{lstlisting}
+
+\noindent
+\includegraphics[width=\textwidth]{stix.png}
+
+
+
+
+\subsection{Rozšíření IBM Plex v roce 2021}
+
+Písmo, od počátku počítačů, se stalo nástrojem bojů velkých IT firem. IBM představilo rodinu písem
+\href{https://www.ibm.com/plex/}{Plex} a 21. 4. 2020 oznámil Mike Abbink rozšíření matematiky někdy v roce 2021. Již nyní se však dá otestovat \href{https://github.com/IBM/plex}{vzorky písem} uvnitř matematiky za pomocí balíčků
+\href{https://ctan.org/pkg/plex}{\balicek{plex}} 
+a 
+\href{https://ctan.org/pkg/mathastext}{\balicek{mathastext}}.
+Druhý balíček umožňuje v matematickém režimu přebrat znaky z běžného písma.
+
+Upravená preambule by vypadala takto:
+
+\begin{lstlisting}
+\usepackage{unicode-math}
+\usepackage{mathastext}
+\usepackage{plex-serif}
+\end{lstlisting}
+
+
+Zaujal mě balíček \href{https://ctan.org/pkg/mathastext}{\balicek{mathastext}} samotný. Zde je, v dnešní době, netradiční ukázka, kdy v matematickém režimu užijeme proporcionální písmo rodiny 
+\href{https://tug.org/FontCatalogue/latinmodernroman/}{Latin Modern}.
+
+\noindent
+\includegraphics[width=\textwidth]{mathastext.png}
+
+%\subsection{Pro badatele}
+
+Pro badatele doporučuji nahlédnout na další ukázky na webové stránce
+\href{http://jf.burnol.free.fr/showcase.html}{\tt http://jf.burnol.free.fr/showcase.html}.
+Balíček nám umožňuje užít prakticky libovolné písmo. Zde je jedna vizuální ukázka s ručně psaným písmem 
+\href{https://www.ffonts.net/Chalkduster.font}{Chalkduster}
+pomocí \XeLaTeX u.
+
+\begin{lstlisting}
+\usepackage[no-math]{fontspec}
+\setmainfont[Mapping=tex-text]{Chalkduster}
+\usepackage[defaultmathsizes]{mathastext}
+\end{lstlisting}
+
+\noindent
+\hfil
+\includegraphics[width=0.9\textwidth]{chalk.png}
+
+
+
+
+\subsection{Ze světa pravolevé sazby matematiky}
+
+Hans Hagen zmiňuje tyto, pro nás Evropany extrémní, ukázky sazby matematiky v dokumentu \href{http://www.pragma-ade.nl/general/manuals/fonts-mkiv.pdf}{\textit{Fonts out of Con\TeX t}}.
+\begin{lstlisting}
+$ texdoc fonts-mkiv
+\end{lstlisting}
+
+\noindent\hfil
+\includegraphics[height=25mm]{hagen-arab1.png}\hskip1cm
+\includegraphics[height=25mm]{hagen-arab2.png}
+
+
+
+
+\section{Proměnlivá velikost}
+Proměnlivá velikost znaků v matematice není žádná novinka, ať už se podíváme na \href{https://ctan.org/pkg/amstex}{\AMSTeX}\ nebo rozšíření
+\href{https://ctan.org/pkg/mathtools}{\balicek{mathtools}}.
+\begin{lstlisting}
+$ texdoc amslatex mathtools
+\end{lstlisting}
+
+
+Mou pozornost zaujal měněný úhel sklonu u odmocniny z \href{http://www.tug.org/texlive//devsrc/Master/texmf-dist/doc/context/presentations/bachotex/2018/bachotex-2018-fonteffects.pdf}{přednášky} Hanse Hagena z roku 2018.
+\begin{lstlisting}
+$ texdoc bachotex-2018-fonteffects
+\end{lstlisting}
+
+\noindent\hfil
+\includegraphics[height=16mm]{hagen-fonteffects1.png}
+
+Do popředí se dostává podpora \href{http://www.tug.org/texlive//devsrc/Master/texmf-dist/doc/context/presentations/bachotex/2017/bachotex-2017-variablefonts.pdf}{síly linky}, byť to vypadá, že typografická revoluce přes formát cff firmy Adobe nenastane.
+\begin{lstlisting}
+$ texdoc bachotex-2017-variablefonts
+\end{lstlisting}
+
+\noindent\hfil
+\includegraphics[height=41mm]{cff.png}
+
+
+
+\section{Užití barvy}
+\font\pajovo=IPAexGothic at 8pt
+
+Za zajímavost uvádím, že \href{https://www.thisiscolossal.com/2015/08/multicolor-printed-book-ten-bamboo-studio/}{první barevná kniha} je datována do roku 1633, autor je Hu Zhengyan ({\pajovo 胡正言}, 1584--1674). Jestli proběhne revoluce v písmech z ttf/otf na barevná, viz \href{https://www.colorfonts.wtf/}{\url{www.colorfonts.wtf}}, to se ještě uvidí.
+
+%barva proměnných
+%-- ručně přes def
+Obarvit si proměnné můžeme poloručně se značkami,
+\def\barvaR{\color{red}}%
+\def\barvaG{\color{green}}%
+\def\barvaB{\color{blue}}%
+\def\barva{\color{black}}%
+$\barvaR x^2\barva+\barvaG y^2\barva=\barvaB z^2$,
+takto:
+
+\newpage
+\begin{lstlisting}
+\def\barvaR{\color{red}}
+\def\barvaG{\color{green}}
+\def\barvaB{\color{blue}}
+\def\barva{\color{black}}
+$\barvaR x^2\barva+\barvaG y^2\barva=\barvaB z^2$
+\end{lstlisting}
+
+
+%\section{Nedělitelné mezery bez vlnky}
+Zajímavý je nápad nezařazovat do textů vlnku, ale nedělitelné jednoznakové předložky a spojky %(a další pravidla) 
+mít v textu bez ní, viz balíčky \href{https://ctan.org/pkg/encxvlna}{\balicek{encxvlna}} od Petra Olšáka a Zdeňka Wagnera, \href{https://ctan.org/pkg/xevlna}{\balicek{xevlna}} od Zdeňka Wagnera a~\href{https://ctan.org/pkg/luavlna}{\balicek{luavlna}} od Michala Hofticha a Mira Hrončoka. 
+\begin{lstlisting}
+$ texdoc encxvlna xevlna luavlna
+\end{lstlisting}
+
+%U \balicek{luavlna} vstupuje Lua, 
+Zkusíme si tuto úvahu aplikovat u obarvení proměnných.
+\begin{lstlisting}
+$ texdoc luatex about
+\end{lstlisting}
+
+Zde je jedna víceméně nepraktická ukázka představující možnosti. Spouštíme \texttt{lualatex obarveni.tex}, proměnné nemají značky, přidají se za běhu.
+
+\begin{lstlisting}[basicstyle=\fontsize{8}{9}\selectfont\ttfamily]
+\documentclass[a4paper]{article}
+\usepackage{luacode}
+\usepackage{xcolor}
+\def\zpet{\color{black}}
+\def\barvax#1{\color{red}#1\zpet}
+\def\barvay#1{\color{green}#1\zpet}
+\def\barvaz#1{\color{blue}#1\zpet}
+\begin{luacode*}
+function obarvi (incoming)
+incoming=unicode.utf8.gsub(incoming, "%$?%$.-%$?%$", function(s)
+  print("Našel jsem matematiku: "..s.."\n")
+  s=unicode.utf8.gsub(s, "x^?2?", "\\barvax{%1}")
+  s=unicode.utf8.gsub(s, "y^?2?", "\\barvay{%1}")
+  s=unicode.utf8.gsub(s, "z^?2?", "\\barvaz{%1}")
+  return s
+end) -- úprava incoming
+return incoming
+end -- function obarvi
+luatexbase.add_to_callback("process_input_buffer",obarvi,"obarvi")
+\end{luacode*}
+\begin{document}
+Text před výrazem s $x$, $y$ a $z$.
+$$x^2+y^2=z^2 \to x^2=z^2-y^2 \to x=\pm\sqrt{z^2-y^2}$$
+Text za výrazem s $x$, $y$ a $z$.
+\end{document}
+\end{lstlisting}
+
+\noindent
+\includegraphics[trim=4cm 23.2cm 5cm 4.5cm,clip, width=\textwidth]{zdrojaky/striz-matika/vzorek/obarveni.pdf}
+
+Kdo by se rád podíval na jiné úpravy textů pomocí \href{http://luatex.org/}{Lua\TeX u}, doporučuji jako startovní bod balíčky \href{https://ctan.org/pkg/chickenize}{\balicek{chickenize}} a \href{https://ctan.org/pkg/typewriter}{\balicek{typewriter}}.
+\begin{lstlisting}
+$ texdoc chickenize typewriter
+\end{lstlisting}
+
+
+
+%\newpage
+\section{Kresba znaků}
+Mezi první pokusy s barevnými písmy v digitální době řadím práce tvůrce písem \href{http://luc.devroye.org/klein.html}{Manfreda Kleina} a \href{https://www.edwardtufte.com/tufte/}{Edwarda R. Tufteho}. 
+Tufte v \href{https://www.edwardtufte.com/tufte/books_ei}{\textit{Envisioning Information}} (1990, str.~33) uvádí příklad u vizualizace trička: mít jen obrysy a~měnit barvu výplně. 
+%\smallskip
+
+\noindent\hfil
+\includegraphics[width=3cm]{tufte1.png}
+
+V \TeX ovém světě je jeden z nejvýraznějších  nápadů v této oblasti v sazbě šachu od Ulrike Fischer. Zde je náhled z balíčků \href{https://ctan.org/pkg/chessboard}{\balicek{chessboard}} a \href{https://ctan.org/pkg/xskak}{\balicek{xskak}}. Jedná se o~přípravu znaků (šachových figurek a pozadí na šachovnici) vrstvením kreseb (obr. vlevo). Kresby jsou uloženy v písmu, jejich úprava je komplikovanější.
+\begin{lstlisting}
+$ texdoc chessboard xskak
+\end{lstlisting}
+
+
+Příchod \href{https://www.ctan.org/pkg/pgf}{\tikz u} technicky s~editací pomohl. Lze nahlédnout na nové balíčky 
+\href{https://www.ctan.org/pkg/bclogo}{\balicek{bclogo}}, 
+\href{https://www.ctan.org/pkg/tikzsymbols}{\balicek{tikzsymbols}}, 
+\href{https://www.ctan.org/pkg/tikzducks}{\balicek{tikzducks}} (princip znázorněn na obrázku vpravo), 
+\href{https://www.ctan.org/pkg/tikzlings}{\balicek{tikzlings}} (tučňák v závěru), 
+\href{https://www.ctan.org/pkg/tikzmarmots}{\balicek{tikzmarmots}} a
+\href{https://www.ctan.org/pkg/tikzpeople}{\balicek{tikzpeople}}.%
+
+\begin{lstlisting}
+$ texdoc bclogo tikzsymbols tikzducks tikzlings tikzmarmots tikzpeople
+\end{lstlisting}
+
+\noindent
+\includegraphics[height=38mm]{sachove-pismo2.png}\hfill
+\includegraphics[height=38mm]{duck.png}%
+
+
+Hans Hagen poukazuje na sazbu emoji v \href{http://www.tug.org/texlive//devsrc/Master/texmf-dist/doc/context/presentations/bachotex/2017/bachotex-2017-emoji.pdf}{přednášce} z roku 2017.
+\begin{lstlisting}
+$ texdoc bachotex-2017-emoji
+\end{lstlisting}
+
+\noindent\hfil
+\includegraphics[height=18mm]{emoji1.png}\hskip 1cm
+\includegraphics[height=18mm]{emoji2.png}
+
+
+
+%\section{PDF a JavaScript}
+%maříkova práce
+%webquiz
+
+\section{Popisky grafu}
+
+Na závěr si ukažme, jak lze snadno popsat a vykreslit 2D, ale i 3D graf, aniž bychom užili rozsáhlý balíček \href{https://www.ctan.org/pkg/pgfplots}{\balicek{pgfplots}}. Zůstaneme jen u \href{https://www.ctan.org/pkg/pgf}{\tikz u}.
+\begin{lstlisting}
+$ texdoc pgfplots tikz
+\end{lstlisting}
+
+U příkazu \textbackslash\texttt{draw} místo \texttt{(x,y)} pracujeme s \texttt{(x,y,z)}, zde je ukázka z mé zahrádky jako odpověď na \href{https://tex.stackexchange.com/questions/167137/tikz-how-to-draw-an-helicoid-and-fill-area-below-curve}{\url{tex.stackexchange.com/questions/167137}}.
+
+\enlargethispage{\baselineskip}
+
+\begin{lstlisting}[basicstyle=\fontsize{7}{8}\selectfont\ttfamily]
+\documentclass[a4paper]{article}
+\usepackage{tikz}
+\usetikzlibrary{intersections}
+\begin{document}
+\tikzset{malstyle/.style={->, >=stealth, line width=0.2pt},
+  malarrow/.style={->, >=stealth}}
+\begin{tikzpicture}
+\draw [name path=Ewave] [red, thick, ->, fill, fill opacity=0.2] (0,0,0) -- plot [domain=0:12.5664, samples=100] ({sin(\x r)}, {cos(\x r)}, \x) -- (0,0,12.5664) --cycle;
+\foreach [ evaluate={\xpos=sin(\zpos*180/pi); \ypos=cos(\zpos*180/pi);} ]
+   \zpos in {0, 0.2618, ..., 12.5664} {% Začátek \foreach...
+  \draw[malstyle, black] (0,0,\zpos) -- (\xpos, \ypos, \zpos);
+  \draw[malstyle, black!40] (0,0,0) -- (\xpos, \ypos, 0);
+  \draw[malstyle, green] (0,0,\zpos) -- (\xpos, 0, \zpos);
+  \draw[malstyle, blue] (0,0,\zpos) -- (0, \ypos, \zpos);
+  }% Konec \foreach...
+\draw [malarrow] (0,0,0) -- (0,0,14.5) node[xshift=5, yshift=15] {$z$};
+\draw [malarrow] (0,0,0) -- (0,2,0) node[xshift=-5, yshift=-10] {$y$};
+\draw [malarrow] (0,0,0) -- (2,0,0) node[xshift=-10, yshift=-5] {$x$};
+\draw[dashed] (0,0,0)--(-2,0,0) (0,0,0)--(0,-2,0) (0,0,0)--(0,0,-4);
+\end{tikzpicture}
+\end{document}
+\end{lstlisting}
+
+\vspace*{-\baselineskip}
+\noindent
+\hspace*{2cm}
+\tikzset{malstyle/.style={->,>=stealth, line width=0.2pt},
+  malarrow/.style={->, >=stealth}}
+\resizebox{0.45\textwidth}{!}{%
+\begin{tikzpicture}
+% The curve drawing and filling...
+\draw [name path=Ewave] [red, thick, ->, fill, fill opacity=0.2] (0,0,0) -- plot [domain=0:12.5664, samples=100] ({sin(\x r)}, {cos(\x r)}, \x) -- (0,0,12.5664) --cycle;
+%\fill [red, fill opacity=0.2] (0,0,0) -- plot [domain=0:12.5664, samples=100] ({sin(\x r)},{cos(\x r)},\x) -- (0,0,12.5664) -- cycle;
+% Adding all kind of arrows...
+\foreach [ evaluate={\xpos=sin(\zpos*180/pi); \ypos=cos(\zpos*180/pi);} ]
+   \zpos in {0, 0.2618, ..., 12.5664} 
+  {% Beginning of \foreach...
+  \draw[malstyle, black] (0,0,\zpos) -- (\xpos, \ypos, \zpos);
+  \draw[malstyle, black!40] (0,0,0) --  (\xpos, \ypos, 0);
+  \draw[malstyle, green] (0,0,\zpos) --  (\xpos, 0, \zpos);
+  \draw[malstyle, blue] (0,0,\zpos) --  (0, \ypos, \zpos);
+  }% End of \foreach...
+% Drawing the axis... (positive and negative values)
+% positive
+\draw [malarrow] (0,0,0) -- (0,0,14.5) node[xshift=5, yshift=15] {$z$};
+\draw [malarrow] (0,0,0) -- (0,2,0) node[xshift=-5, yshift=-10] {$y$};
+\draw [malarrow] (0,0,0) -- (2,0,0) node[xshift=-10, yshift=-5] {$x$};
+% negative
+\draw[dashed] (0,0,0)--(-2,0,0)  (0,0,0)--(0,-2,0)  (0,0,0)--(0,0,-4);
+\end{tikzpicture}}
+
+%\enlargethispage{0.5\baselineskip}
+\vfil
+\begin{lstlisting}
+\begin{tikzpicture}
+\penguin[think={?`\TeX?},bubblecolour=gray!30!white]
+\end{tikzpicture}
+\end{lstlisting}
+
+\vspace*{-30mm}
+\hfill
+\begin{tikzpicture}%[remember picture, overlay]
+\penguin[think={?`\TeX?},bubblecolour=gray!30!white]
+\end{tikzpicture}%
+

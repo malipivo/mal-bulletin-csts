@@ -1,0 +1,15 @@
+%! lualatex mal-witharrows.tex
+\documentclass{article} % se standalone balíček zlobil
+\pagestyle{empty}
+\usepackage{witharrows}
+\begin{document}
+\def\ee{\mathrm{e}} \def\ii{\mathrm{i}}
+\begin{DispWithArrows*}[displaystyle, wrap-lines]
+S_n & = \frac1n \Re \left(\sum_{k=0}^{n-1}\bigl(\ee^{\ii\frac{\pi}{2n}}\bigr)^k\right)
+\Arrow{\upshape sum of terms of a geo\-metric progression of ratio $\ee^{\ii\frac{2\pi}n}$}\\
+& = \frac1n \Re \left( \frac{1-\bigl(\ee^{\ii\frac{\pi}{2n}}\bigr)^n}
+{1-\ee^{\ii\frac{\pi}{2n}}}\right)
+\Arrow{\upshape This line has been wrapped automatically.} \\
+& = \frac1n \Re \left(\frac{1-\ii}{1-\ee^{\ii\frac{\pi}{2n}}}\right)
+\end{DispWithArrows*}
+\end{document}

@@ -1,0 +1,90 @@
+% !TEX TS-program = LuaLaTeX
+% !TEX encoding = UTF-8 Unicode 
+% !TEX root = ../../!hlavni-soubor.tex
+
+\gdef\mujnazevCS{Knihovnička ČStS}
+\nazev{\mujnazevCS}
+
+\gdef\mujnazevEN{Library of the Czech Statistical Society}
+\nazev{\mujnazevEN}
+
+\gdef\mujnazevPR{\mujnazevCS}
+\gdef\mujnazevDR{\mujnazevEN}
+
+\gdef\mujauthor{Ondřej Vencálek}
+\author{\mujauthor}
+
+%\Adresa{}
+
+\Email{ondrej.vencalek@upol.cz}
+
+%\Abstrakt{}
+%\smallskip
+%\KlicovaSlova{}
+
+%\Abstract{}
+%\smallskip
+%\KeyWords{}
+
+\medskip
+
+\noindent
+Na podzim 2019 odstartoval projekt Knihovnička, jehož cílem je prostřednictvím krátkých recenzí sdílet tipy na zajímavé knihy věnované teorii pravděpodobnosti, statistice, případně dalším oborům byť i~zdánlivě pouze vzdáleně souvisejícím.
+
+Knihovnička se bude postupně zaplňovat a~doplňovat. Zveme členy České statistické společnosti (a~případně i~další zájemce), aby se do procesu zaplňování knihovničky aktivně zapojili. Přečtěte si některou z~knih, u~nichž recenze zatím chybí a~napište recenzi (ideálně dejte dopředu vědět, kterou knihu jste si vybrali). Můžete vybírat ze stávající nabídky nebo přidat knihu, která zde zatím není, ale stojí za přečtení. Recenze zasílejte na adresu \url{ondrej.vencalek@upol.cz}.
+
+\noindent
+\fboxrule=1pt
+\fboxsep=0pt
+\lineskip=6pt
+
+\newbox\malbox
+\setbox\malbox=\hbox{\includegraphics[width=0.24\textwidth]{1}}
+
+\def\malobrazek#1 {%
+\fbox{\includegraphics[width=0.24\textwidth, height=\ht\malbox]{#1}}}
+
+\newcount\malcitac
+
+\noindent
+\loop
+\global\advance\malcitac by 1
+\malobrazek{\the\malcitac} \hfill
+\ifnum\malcitac<12\repeat
+
+\smallskip
+
+Leonard Mlodinow: Život je jen náhoda; Jeffrey S. Rosenthal: Zasažen bleskem; Nassim N. Taleb: Zrádná nahodilost; Nate Silver: Signál a~šum; Hans Rosling: Faktomluva; Nassim N. Taleb: Antifragilita; Malcolm Gladwell: Bod zlomu; Philip E. Tetlock a~Dan Gardner: Superprognózy; Nassim N. Taleb: Černá labuť; Daniel Kahneman: Myšlení rychlé a~pomalé; Tereza Košťáková: O~složitém jednoduše; Další knižní tip, třeba právě od Vás?
+
+\newpage
+
+\section*{První recenze v Knihovničce\\Život je jen náhoda -- Jak náhoda ovlivňuje naše životy}
+\smallskip
+
+Leonard Mlodinow, vyšlo 2008, v~češtině 2009 v~nakladatelství Slovart, cca 250 stran, recenzi napsal Ondřej Vencálek v~říjnu 2019.
+
+%\smallskip
+
+%\noindent
+K~této knížce se pravidelně vracím a~doporučuju ji všem zájemcům o~statistiku. Je psaná \uv{populárně}, tj. k~jejímu pochopení postačí hloubavá mysl, složitý kalkulus netřeba (kniha se obejde bez vzorečků). Důvodů, proč se ke knize vracím, je několik. Pokusím se shrnout ty nejdůležitější:%
+%\smallskip
+
+\textbf{1) Kniha mi slouží jako zdroj motivačních příkladů ke studiu pravděpodobnosti a~statistiky.} 
+%
+Jsou v~ní popsány běžné situace, v~nichž můžeme s~úspěchem použít výsledky teorie pravděpodobnosti nebo statistiky. S~oblibou používám při výkladu Bayesovy věty tzv. problém Montyho Halla (kapitola 3) nebo asi nejlepší vysvětlení principu regrese (\uv{návratu k~průměru}) pomocí příkladu pozitivní resp. negativní reakce na extrémně vydařený resp. nevydařený výkon (kapitola 1).%
+%\smallskip
+
+\textbf{2) Z~knihy jsem se dozvěděl mnoho o~historii teorie pravděpodobnosti.} 
+%
+Vlastně je to pro mě jeden ze základních zdrojů informací o~historii disciplíny, které se věnuji. S~výjimkou prvních a~posledních dvou kapitol je kniha psána jako příběh teorie pravděpodobnosti od jejích počátků po současnost – postupně se seznamujeme s~Cardanem (kap. 3), Galieim (kap. 4), Pascalem a~Fermatem (kap. 4), Bernoullim (kap. 5), Bayesem (kap. 6), Laplacem, Gaussem a~de Moivrem (kap. 7) a~Queteletem a~Galtonem (kap.~8).%
+%\smallskip
+
+\textbf{3) Kniha upozorňuje na naše problémy s~vnímáním nahodilosti.} 
+%
+Autor se odkazuje na práci Kahnemana a~Tverského (kap. 1, 9 a~10), ale i~dalších psychologů a~sociologů. Uvádí například, že \uv{Psychologové došli k~závěru, že jsme zatíženi na hledání souhlasu s~našimi názory, a~tato tendence je hlavní překážkou bránící nám odpoutat se od klamné interpretace náhodné události}. V~kap. 10 pak mj. popisuje Perrowovu teorii nehod, kterou shrnuje větou \uv{Ve složitých systémech (k~nimž řadím i~naše životy) musíme očekávat, že drobné nehody, které normálně ignorujeme, se náhodně spojí ve velký problém.} Důsledky těchto tvrzení ilustruje barvitými příběhy \uv{ze života}.
+
+\enlargethispage{\baselineskip}
+
+\noindent
+\includegraphics[width=\textwidth]{iLoveStat.jpg}
+

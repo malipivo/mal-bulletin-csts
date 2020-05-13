@@ -1,0 +1,90 @@
+% !TEX TS-program = LuaLaTeX
+% !TEX encoding = UTF-8 Unicode 
+% !TEX root = ../../!hlavni-soubor.tex
+
+\gdef\mujnazevCS{Postřehy kolem koronaviru}
+\nazev{\mujnazevCS}
+
+\gdef\mujnazevEN{Notes on coronavirus}
+\nazev{\mujnazevEN}
+
+\gdef\mujnazevPR{\mujnazevCS}
+\gdef\mujnazevDR{\mujnazevEN}
+
+\gdef\mujauthor{Pavel Stříž}
+\author{\mujauthor}
+
+%\Adresa{}
+
+\Email{pavel@striz.cz}
+
+%\Abstrakt{}
+%\smallskip
+%\KlicovaSlova{}
+
+%\Abstract{}
+%\smallskip
+%\KeyWords{}
+
+\medskip
+
+\noindent
+Od listopadu 2019 Čínu, od ledna 2020 svět, papírově od 1. března 2020 trápí i~Českou republiku koronavirus alias COVID-19 alias SARS-CoV-2. Byl odložen ROBUST 2020 (\url{https://www.statspol.cz/robust-2020/}). % a svět bojuje. 
+
+Pro badatele však může být zajímavé, že existují otevřené datové sady (\url{https://onemocneni-aktualne.mzcr.cz/covid-19}) a poměrně podrobné informace o dění ve světě (\url{https://opendatawatch.com/what-is-being-said/data-in-the-time-of-covid-19/}).
+%
+Mou pozornost zaujalo video o~simulacích (\url{https://www.youtube.com/watch?v=gxAaO2rsdIs}) a 2 %dva výpo\-četní 
+projekty zmíněné v článku (\url{https://www.lupa.cz/clanky/pomohou-hraci-online-}\\ \texttt{hry-nebo-distribuovane-vypocty-porazit-koronavirus/}). %Zkusil jsem si nainstalovat a vyzkoušet.
+
+\enlargethispage{\baselineskip}
+
+
+\subsection*{Folding@Home}
+
+Prvním z projektů je Folding@Home (\url{https://foldingathome.org/}), vytvořený profesorem %Vijay 
+Pandem pod záštitou Stanfordské univerty, projekt je nyní pod patronátem Washingtonské univerzity.  
+
+Na Xubuntu mi po instalaci tří souborů vznikly ikony FAHControl a~FAHViewer. V jádru se jedná o zapůjčení výpočetní síly a metodu hrubé síly (brute force method) v~pozadí. Rozhraní vypadá takto.
+
+\fboxsep=0pt
+\fboxrule=1pt
+\newdimen\delka
+\delka=\textwidth
+\advance\delka by -2\fboxrule
+
+\noindent
+\hfil
+\fbox{\includegraphics[width=\delka]{fahcontrol.png}}
+
+%Při instalaci je dobré předvolené možnosti ponechat, pokud se odškrtne spuštění 
+
+\subsection*{Rosetta@Home}
+
+Podobný projekt je Rosetta@Home založený na programu BOINC (\url{https://boinc.berkeley.edu}), kde si uživatel volí projekt, který se bude počítat.
+
+
+
+%\newpage
+\subsection*{Foldit}
+
+Možná klíčový projekt je Foldit (\url{https://fold.it/}), který bioinformatické problémy transformuje na hry. Zakladatelem je Seth Cooper.
+
+Instalace byla bez problémů, pro hackery her dokonce adresáře plné zajímavých souborů (PDB, TXT ad.). \TeX isty možná zaujme možnost užití Lua, viz na fóru recepty/recipes (\url{https://fold.it/portal/recipes}).
+
+Petr Hudeček, spolužák ze Zlína, se do hraní intenzívně pustil. Zmínil, že mu počítač pomáhá v závěrečné fázi složení proteinů, předtím však musí zasahovat on. Zde je náhled na rozhraní pokročilého kola. Trochu mi to připomnělo začátek filmu Muž bez stínu (Hollow Man, 2000).%
+\smallskip
+
+\noindent
+\fbox{\includegraphics[width=\delka]{foldit2.png}}
+
+\enlargethispage{\baselineskip}
+
+
+
+\subsection*{Detekce viru}
+
+Problém je i detekce koronaviru z rentgenových snímků, více o tom na stránkách (\url{https://www.pyimagesearch.com/2020/03/16/detecting-covid-}\\ \texttt{19-in-x-ray-images-with-keras-tensorflow-and-deep-learning/}). 
+
+OpenCV a práci Adriana Rosebrocka (PyImageSearch) asi netřeba blíž představovat, znají ji především uživatelé mikropočítačů typu Raspberry Pi.
+
+

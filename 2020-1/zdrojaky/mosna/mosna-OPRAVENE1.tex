@@ -1,0 +1,313 @@
+﻿% !TEX TS-program = LuaLaTeX
+% !TEX encoding = UTF-8 Unicode
+% !TEX root = ../../!hlavni-soubor.tex
+
+\newdimen\delkas \delkas=\textwidth
+\fboxrule=1pt
+\fboxsep=0pt
+\advance\delkas by -2\fboxrule
+
+
+\gdef\mujnazevCS{Neparametrické metody a~program Statistica}
+\nazev{Neparametrické metody\\[2pt] a~program Statistica}
+
+\gdef\mujnazevEN{Nonparametric methods and Statistica software}
+\nazev{Nonparametric methods and\\[2pt] Statistica software}
+
+\gdef\mujnazevPR{\mujnazevCS}
+\gdef\mujnazevDR{\mujnazevEN}
+
+\gdef\mujauthor{František Mošna}
+\author{\mujauthor}
+
+\Adresa{Česká zemědělská univerzita v~Praze, Provozně ekonomická fakulta, Kamýcká 129, 165\,21 Praha~6}
+
+\Email{mosna@pef.czu.cz}
+
+\Abstrakt{Vhodným doplňkem výuky statistiky na vysokých školách bývá užití některých statistických programů.
+Tyto nástroje poskytují mnohdy výsledky, které se ne vždy shodují se vzorci v učebnicích, což platí zejména u neparametrických metod.
+Například u výsledků Wilcoxonova dvouvýběrového testu se uplatňují korekce na spojitost či na shody, přičemž některé učebnice je ani nezmiňují.
+Také pro výpočet Spearmanova korelačního koeficientu lze užívat dvou vzorců a výsledky se mohou lišit.
+Cílem příspěvku je ukázat u~těchto dvou neparametrických metod, které hodnoty zde počítá a~poskytuje program Statistica.}
+\smallskip
+\KlicovaSlova{neparametrické metody, Spearmanův korelační koeficient, Wilcoxonův dvouvýběrový test, program Statistica}
+
+\Abstract{Use of some statistical program is a~suitable complement to the teaching of statistics at universities.
+These tools often provide results which do not always coincide with formulas in textbooks, especially in the case of nonparametric methods.
+For instance, the continuity correction and correction for ties are applied  at Wilcoxon rank-sum test, although they are not even
+mentioned in some textbooks.
+Also, two formulas can be used to calculate Spearman correlation coefficient and the results may be different.
+The aim of this contribution is to show for these two nonparametric methods, which values are calculated and provided by Statistica program.}
+\smallskip
+\KeyWords{nonparametric methods, Spearman correlation coefficient, Wilcoxon rank-sum test, Statistica software}
+
+
+\section{Výpočetní technika ve výuce statistiky}
+
+Součástí kurzů statistiky na vysokých školách bývá zpravidla také seznámení s~nějakým statistickým programem nebo s~vhodnými statistickými prvky
+výpočetní techniky. Mezi nejvíce užívané programy patří SPSS, Statistica, SAS, bezplatné programy R, JAMOVI, JASP a~podobně. Provádění  statistických
+výpočtů umožňují také Microsoft Excel, Mathematica, Matlab a~další produkty.
+
+Užívání statistických programů může být někdy spojeno s~jistým nebezpečím.
+Uvedené programy nabízejí velké množství výpočtů a~grafů a~studenti se v~nich ne vždy dovedou orientovat. Někdy neumí vložit data, mají problémy se zadáváním správných požadavků,
+se čtením a~získáváním poskytovaných informací.
+ Mnohdy nerozumí, co vlastně obdrželi, nejsou schopni výsledky správně vyhodnotit a~následně interpretovat.
+
+ Seznámení s~počítačovými programy je jistě vhodnou součástí výuky.
+   Před tím je však potřeba správně porozumět principům statistických metod a~vědět, co vlastně tyto nástroje
+provádějí, co počítají, co znamenají čísla, která programy poskytují.
+Bývá vhodné prověřit si výpočty nejprve na jednoduchých datech velmi malého rozsahu a~porovnat čísla získaná \uv{ručně}
+s~hodnotami získanými pomocí počítače. Tím docházíme k~porozumění výsledkům, které programy nabízejí. Následně lze užívat programy
+pro větší \uv{skutečná} (z~praxe získaná) data.
+
+K~prověření metod testování hypotéz mohou dobře posloužit také některé webové stránky, například
+{\tt http://statisticsonweb.tf.czu.cz}, viz [6].
+
+Někdy býváme postaveni před rozhodnutí, které programy bychom měli pro výuku zvolit. Patrně příliš nezáleží na tom, pro který
+program se rozhodneme a~který budeme při výuce používat. Studenti si dovedou zpravidla k~ostatním
+programům najít cestu poměrně snadno. 
+
+Zdeněk Pinc v~[8] na str. 69 uvádí: \uv{%
+Na dotaz amerických univerzit, které programovací jazyky by měli své studenty učit, aby zvýšili jejich šanci na uplatnění u~firmy IBM,
+firma odpovídala, to je úplně lhostejné, nebudete-li nám posílat hloupé, tj. uzavřené, zablokované absolventy, potřebný jazyk se naučí během pár měsíců,
+který to bude, lze obtížně predikovat, patrně některý z~těch, které ještě neexistují...}
+
+Podíváme se nyní na dvě neparametrické metody a~přiblížíme si, jak si s~nimi poradí oblíbený program Statistica 12 od firmy Statsoft. Ukážeme si na příkladech malých souborů dat, co vlastně tento program počítá, podle jakých vzorců a~jaké jsou u~těchto metod výstupy.
+
+Neparametrické metody fungují na základě \uv{pořadových statistik}. Nevyžadují normalitu dat, předpokládají pouze spojitost
+příslušných distribučních funkcí.
+
+\newpage
+\section{Wilcoxonův dvouvýběrový test}
+
+Představíme si nejprve Wilcoxonův\footnote{Frank Wilcoxon (1892\,--\,1965), irsko-americký chemik a~statistik.}
+ dvouvýběrový test (Wilcoxon rank-sum test), ekvivalentně formulovaný také pod názvem
+Mann-Whitneyův test. Jde o~dvouvýběrový test, porovnává tedy dva soubory dat, podobně jako další takové testy,
+například Studentův $t$ test, Aspinové-Welchův test, Cochran\z Coxův test, Kolmogorov-Smirnovův test či Wald-Wolfowitzův test.
+
+Uvažujme dva nezávislé výběry $X_{1},\dots,X_{m}$  a~$Y_{1},\dots,Y_{n}$ ze dvou spojitých rozdělení.
+Wilcoxonův dvouvýběrový test nám umožňuje rozhodnout o~shodnosti distribuční funkce těchto dvou rozdělení.
+Popíšeme si postup, viz třeba [1,\,2,\,9]. Přiřadíme nejprve všem hodnotám $X_1,\dots, X_m, Y_1,\dots,Y_n$ pořadí nebo v~případě stejných hodnot průměr pořadí. Dále označíme $T_1=$ součet pořadí~$X_k$ a~$T_2=$ součet pořadí~$Y_k$ a~vypočítáme výslednou statistiku
+\begin{gather*}
+U=\min(U_1,U_2),\\
+\mbox{kde} \quad U_1=mn+\frac12m(m+1) -T_1 \quad  \mbox{a} \quad U_2=mn+\frac12n(n+1) -T_2.
+\end{gather*}
+
+Nulovou hypotézu o~rovnosti rozdělení $X_k$ a~$Y_k$ zamítneme (s~rizikem chyby prvního druhu $\alpha$), právě když bude statistika
+$U$ menší nebo rovna kritické hodnotě $W(\alpha)$, kterou zjistíme v~příslušných tabulkách (např. v~[1] na str. 335).
+
+ Pro větší rozsahy $m$, $n$ můžeme použít také aproximace
+$$ Z=\frac{|U_1-\frac12 mn|}{\sqrt{\frac1{12}mn(m+n+1)}}\approx N(0;1) .$$
+Nulovou hypotézu pak zamítneme, právě když $  Z\geq u(1-\tfrac{\alpha}2)$,
+kde $u$ značí kvantil normálního rozdělení $N(0 ;1)$.
+
+Podobně jako mnoho neparametrických metod vyžaduje tento test spojitost distribuční funkce. Pokud nemůžeme tuto vlastnost zaručit, lze provést jistou úpravu -- tzv. {\bf korekci na spojitost}, viz například [3]. Spočívá v~tom, že čitatel ve výše uvedeném vzorci zmenšíme o~$\frac12$, vypočítáme tedy statistiku
+$$Z=\frac{|U_1-\frac12mn|-\frac12}{\sqrt{\frac1{12}mn(m+n+1)}} .$$
+Program Statistica umí na požádání poskytnout také tuto hodnotu.
+
+Navíc najdeme ve výsledcích programu také jakousi upravenou hodnotu, při které uplatňujeme  tzv. {\bf korekci na shody}, viz opět například [3].
+Jestliže se ve zkoumaném souboru dat vyskytují skupiny shodných hodnot, statistiku~$Z$ vydělíme konstantou
+$$ C_Z=\sqrt{1-\frac{\sum_{k=1}^s (t_k^3-t_k)}{(m+n)^3-(m+n)}} , $$
+kde $t_1,\dots , t_s$ jsou rozsahy skupin stejných hodnot veličin $X_k$ a~$Y_k$. Pro statistiku $Z$ (ať už u~ní provádíme korekci na spojitost, nebo ne)
+počítáme tedy hodnotu upravenou s~ohledem na korekci na shody
+$$ Z_{adj}=\frac{Z}{C_{Z}}. $$
+
+Přiblížíme si vše na následujícím příkladu.
+
+\subsection*{Příklad 1}
+Máme porovnat spotřebu (v~l/100 km) u~dvou typů automobilů Citroen C3 a~BMW 7 na základě záznamů dvanácti řidičů:
+
+\begin{table}[!ht]
+\centering
+\begin{tabular}{lccccccccccc}
+Citroen C3  & 6,3 & 6,5 & 7,0 & 6,3 & 6,4 &     & \\[3pt]
+BMW 7       & 6,0 & 6,1 & 6,3 & 6,6 & 5,7 & 6,1 & 5,9
+\end{tabular}
+\end{table}
+
+Budeme postupovat podle návodu. Máme $m=5$ a~$n=7$. Přiřadíme datům z~první i~druhé skupiny dohromady pořadí:
+
+\begin{table}[!ht]
+\centering
+\begin{tabular}{lccccccccccc}
+Citroen C3  & 6,3 & 6,5 & 7,0 & 6,3 & 6,4 &     & \\
+Pořadí      & 7   &  10 &  12 &  7  &  9  &     & \\
+\hline
+BMW 7       & 6,0 & 6,1 & 6,3 & 6,6 & 5,7 & 6,1 & 5,9 \\
+Pořadí      & 3   & 4,5 &  7  & 11  &  1  & 4,5 & 2
+\end{tabular}
+\end{table}
+
+A~vypočítáme součty pořadí $T_1=45$, $T_2=33$ a~statistiky
+$$U_1=5\cdot 7 + \frac12 \cdot 5\cdot 6 -33=5 , \
+U_2=5\cdot 7 + \frac12 \cdot 7\cdot 8 -45=30 \ \mbox{a} \ U=\min(U_1,U_2)=5 .$$
+
+Protože $U=5$ je menší nebo rovno mezní hodnotě $W(0{,}05)=5$ (např. v~[1] na str. 335), shodnost rozdělení těchto dvou skupin veličin můžeme zamítnout na hladině $\alpha = 0{,}05$.
+
+Pro výpočet pomocí programu Statistica upravíme data následujícícm způsobem. Zahrneme spotřebu obou typů automobilů do jednoho sloupce a~ve vedlejším sloupci provedeme rozlišení třeba pomocí číslic 1 a~2. K~Wilcoxonovu dvouvýběrovému testu získáme přístup prostřednictvím záložek {\it Statistiky}, {\it Neparametrické statistiky}, {\it Porovnání dvou nezávislých vzorků (skupiny)} a~{\it Mann-Whitneyův \b{U}-test}, vše vidíme na  obrázku 1.
+
+\begin{figure}[!ht]
+\fbox{\includegraphics[width=\delkas]{WIL1.jpg}}%\\
+\caption{Zadání Wilcoxonova testu v~programu Statistica.}
+\end{figure}
+
+Ve výsledcích programu Statistica vidíme kromě součtů $T_1$, $T_2$ a~statistiky~$U$ také příslušnou $p$-hodnotu $p=0{,}047980$, viz obrázek 2.
+
+\begin{figure}[!hbt]
+\fbox{\includegraphics[width=\delkas]{WIL2.jpg}}%\\
+\caption{Výsledky Wilcoxonova testu bez korekce na spojitost.}
+\end{figure}
+
+Shodnost spotřeby u~obou typů automobilů můžeme tedy zamítnout s~rizikem chyby prvního druhu cca 4,8\,\%.
+
+Program Statistica však obsahuje také aproximaci
+$$ Z=5\cdot \sqrt{ \frac{15}{91}} =2{,}029994857 $$
+a~příslušnou $p$-hodnotu $p=0{,}042358$.
+
+Pokud navíc uplatníme korekci na shody, obdržíme upravenou statistiku
+$$ Z_{adj}=5\cdot \sqrt{ \frac{15}{91}}\cdot \sqrt{\frac{286}{281}} =2{,}047975677 $$
+a~příslušnou $p$-hodnotu $p=0{,}040563$.
+
+Pro výpočet $C_Z$ jsme si uvědomili, že v~našem příkladu máme dvě skupiny stejných veličin,  $t_1=2$ (dvě hodnoty 6,1)  a~$t_2=3$ (tři hodnoty 6,3), a~proto dostáváme konstantu
+$$C_Z=\sqrt{1-\frac{(2^3-2) + (3^3-3)}{12^3-12}}=\sqrt{\frac{281}{286}} .$$
+
+Na obrázku 1 vidíme také políčko, jehož zaškrtnutím lze zadat pro Wilcoxonův (Mann-Whitneyův) test volbu provedení korekce na spojitost.
+
+
+Pak dostaneme trošku jiné aproximované statistiky
+  $$Z=24\cdot \sqrt{ \frac{3}{455}} =1{,}948795063 $$
+  s~příslušnou $p$-hodnotou $p=0{,}051321$. Uplatníme-li navíc korekci na shody, obdržíme upravenou statistiku
+  $$Z_{adj}=24\cdot \sqrt{ \frac{3}{455}}\cdot \sqrt{\frac{286}{281}} =1{,}96605665 $$
+  s~příslušnou $p$-hodnotou $p=0{,}049293$, viz obrázek 3.
+
+\begin{figure}[!bht]
+\fbox{\includegraphics[width=\delkas]{WIL3.jpg}}%\\
+\caption{Výsledky Wilcoxonova testu s~korekcí na spojitost.}
+\end{figure}
+
+ Poznamenejme, že pro malé rozsahy výběrů nejsou poslední čtyři statistiky vhodné, pro tento příklad jsme je uvedli pouze na ukázku toho, jaké výpočty provádí program Statistica.
+
+
+\section{Spearmanův korelační koeficient}
+
+Pro vyjádření závislosti či nezávislosti veličin počítáme zpravidla korelační koeficienty. Kromě Pearsonova nebo Kendallova koeficientu užíváme neparametrickou metodu založenou
+na tzv. Spearmanovu\footnote{Charles Spearman (1863\,--\,1945), anglický psycholog a~statistik.}
+ korelačním koeficientu.
+
+Uvažujme náhodný výběr $(X_{1},Y_{1}),\dots,(X_{n},Y_{n})$ ze spojitého dvourozměrného rozdělení. Chceme testovat, že náhodné veličiny $X_k$ a $Y_k$ jsou nezávislé.
+Nejprve přiřadíme  hodnotám $X_1,\dots, X_n$ pořadí $Q_1,\dots, Q_n$ a
+ hodnotám $Y_1,\dots, Y_n$  pořadí $R_1,\dots, R_n$. Spearmanův korelační koeficient počítáme zpravidla podle vzorce
+$$ r_S=1-\frac6{n(n^2-1)}\cdot \sum_{k=1}n (R_k-Q_k)^2 ,$$
+viz například [1,\,2,\,9].
+
+ Nulovou hypotézu o~nezávislosti $X_k$ a~$Y_k$  zamítneme (na hladině $\alpha$), právě když
+$ |r_S| $ překročí příslušnou kritickou mez $r_S(\alpha)$, kterou najdeme v~tabulkách (např. v~[1] na str. 330).
+
+Programu Statistica ale užívá jiný vzorec pro tento koeficient. Při tomto postupu vlastně uplatníme běžný Pearsonův korelační koeficient na pořadí $Q_1,\dots, Q_n$ a~$R_1,\dots, R_n$, tedy
+$$r_{S, adj}= r_{Q,R}=\frac{S_{Q,R}}{\sqrt{ S_Q^2 \cdot S_R^2}} ,$$
+viz například [3].
+Pokud v~souborech nejsou shodné hodnoty, oba postupy dávají stejný výsledek.
+
+ Ukážeme si opět na následujícím příkladu.
+
+
+\subsection*{Příklad 2}
+
+Máme k~dispozici údaje o~průměrném znečištění ovzduší oxidy síry (v~{$\mu$}g/m{$^3$}) v~sedmi oblastech a~o~výskytu dětské alergie (v~\%) v~těchto regionech:
+
+\begin{table}[!ht]
+\centering
+\begin{tabular}{l *{7}{r} }
+Znečištění  & 320 & 240 & 130 & 360 & 210 & 200 & 150 \\
+Alergie     & \phantom3 45  &  \phantom2 30 &  \phantom1 25
+  &  \phantom3 40 & \phantom2 25  &  \phantom2 20 & \phantom1 25
+\end{tabular}
+\end{table}
+
+Souvisejí spolu tyto dvě veličiny?
+
+Počet měření je $n=7$. Přiřadíme každé skupině dat příslušná pořadí:
+
+\begin{table}[!ht]
+\centering
+\begin{tabular}{lccccccccccc}
+Znečištění  & 320 & 240 & 130 & 360 & 210 & 200 & 150 \\
+Pořadí      &  6  &  5  &  1  &  7  &  4  &  3  &  2  \\[2pt]
+\hline
+Alergie     & 45  &  30 &  25 &  40 & 25  &  20 & 25  \\
+Pořadí      &  7  &  5  &  3  &  6  &  3  &  1  &  3
+\end{tabular}
+\end{table}
+
+Odtud vypočítáme Spearmanův korelační koeficient (podle uvedeného vzorce)
+$$r_S=1-\frac{6}{7\cdot 48}\cdot \left(1^2+0^2+2^2+1^2+1^2+2^2+1^2 \right)=\frac{11}{14}= 0{,}7857.$$
+Protože absolutní hodnota z~$r_S$ překročí kritickou hodnotu $r_S(0{,}05)=0{,}7450$ (viz [1], str. 330),
+nezávislost veličin zamítáme. Můžeme tedy prohlásit, že (s~rizikem chyby prvního druhu 5\,\%) uvedené veličiny spolu souvisejí.
+
+Program Statistica provádí alternativní výpočet Spearmanova korelačního koeficientu
+$$
+S_Q^2= \frac{14}{3}, \quad S_R^2=\frac{13}{3} , \quad S_{Q,R}=\frac{7}{2} \quad \mbox{a} \quad r_{S,adj} =\frac32\sqrt{\frac{7}{26}}=0{,}7783117825 .
+$$
+
+\begin{figure}[!hbt]
+\centering
+\fbox{\includegraphics[width=\delkas]{SPEAR.jpg}}%\\
+\caption{Zadání a~výsledek pro Spearmanův korelační koeficient.}
+\end{figure}
+
+
+Přístup k~tomuto korelačnímu koeficientu provádíme opět pomocí záložek
+{\it Statistiky}, {\it Neparametrické statistiky}, {\it Korelace (Spearmanův...)} a~{\it S\b{p}earmanův koef. R}. Zadání i~výsledek vidíme na obrázku 4.
+
+
+\newpage
+\section*{Závěrem}
+
+Je známo, že zotročování je možné provádět velmi účinně nejen za pomoci nejrůznějších prvků násilí, byrokracie, cenzury, 
+ale také prostřednictvím rozsáhlé a~masivní nabídky.
+Počítačové programy přinášejí často nepřeberné množství výsledků, které se někdy mohou lišit od výsledků uvedených v~některých
+učebnicích nebo se v~nich vůbec nevyskytují.
+Taková situace vzbuzuje u~studentů a~jiných uživatelů jisté rozpaky. Máme sice mnoho čísel či grafů, ale nevíme co znamenají. Výhoda snadných výpočtů je zkalena nesrozumitelností výsledků.
+
+V~orientaci nepomáhá většinou ani dokumentace programů. Mnohé informace a~první nasměrování lze často vyhledat na internetu. Nalezené postupy je pak nutné 
+ověřit a vyzkoušet v~příslušných programech. Následně uživatel zjistí, že ve svém úsilí nebyl sám a~nebyl první, kdo se
+pokoušel podobné nesrovnalosti řešit. Potřebné vzorce většinou nakonec dohledá v~literatuře nebo se o~nich dozví od kolegů. 
+
+Dvojí způsob výpočtu Spearmanova korelačního koeficientu je
+popsán v~mnoha (byť ne ve všech) učebnicích, např. 
+[3], str.\,257, 
+[4], str.\,778, 
+[5], str.\,34, 
+[7], str.\,134, 
+[10], str.\,92 
+a~[11], str.\,153.
+
+Naopak zmínky o~korekcích u~Wilcoxonova testu se vyskytují poměrně zřídka, např. 
+[5], str.\,25, 
+[7], str.\,134, 
+[10], str.\,150 
+a~[11], str.\,102.
+
+Porozumění tomu, co vlastně počítačové programy počítají a~poskytují, přináší jisté osvobození z~otroctví nabídky a~tyto
+nástroje se pak stanou dobrým pomocníkem.
+
+
+\renewcommand{\refname}{Literatura}
+\begin{thebibliography}{10}
+\setlength\itemsep{2pt}
+\selectlanguage{english}
+\frenchspacing
+\bibitem{1} Anděl, J. (1985): {\it Matematická statistika.} SNTL Praha, Alfa Bratislava, 1985.
+\bibitem{2} Anděl, J. (2007): {\it Statistické metody.} Matfyzpress Praha, 2007.
+\bibitem{3} Anděl, J. (2007): {\it Základy matematické statistiky.} Matfyzpress Praha, 2007.
+\bibitem{4} Meloun, M., Militký, J. (2004): {\it Statistická analýza experimentálních dat.} Academia Praha, 2007.
+\bibitem{5} Mošna, F. (2017): {\it Základní statistické metody.} PedF UK Praha, 2017.
+\bibitem{6} Mošna, F., Lubanda, D.\,M. (2015): Webové stránky pro testování hypotéz. {\it Matematika-Fyzika-Informatika} {\bf 24}(5), 371--377.
+\bibitem{7} Pecáková, J. (2011): {\it Statistika v terénních průzkumech.} Professional Publishing Praha, 2011.
+\bibitem{8} Pinc, Z. (1999): {\it Fragmenty k filosofii výchovy.} Oikoymenh Praha, 1999.
+\bibitem{9} Reif, J. (2000): {\it Metody matematické statistiky.} Západočeská univerzita Plzeň, 2000.
+\bibitem{10} Řezanková, H. (2010): {\it Analýza dat z dotazníkových šetření.} Professional Publishing Praha, 2010.
+\bibitem{11} Zvára, K. (2004): {\it Biostatistika.} Matfyzpress Praha, 2004.
+\end{thebibliography}
+
+

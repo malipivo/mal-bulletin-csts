@@ -1,0 +1,49 @@
+% !TEX TS-program = xelatex
+%! xelatex...
+\documentclass{article}
+\pagestyle{empty}
+\usepackage{tikz}
+\usepackage{fontspec}
+%\usepackage{lmodern}
+%\usepackage[T1]{fontenc}
+%\usepackage[utf8]{inputenc}
+%\paperwidth=2\paperwidth
+\textwidth=3\textwidth
+%\pdfpagewidth=\paperwidth
+\addtolength{\hoffset}{-1.5in}
+
+\usepackage[english,slovak,czech,german]{babel} % english bylo na začátku
+\parindent=0pt
+\makeatletter
+%\def\active{13}
+\input ../!hlavni-soubor.aux
+\makeatother
+\def\odskoc{\par }%\par
+\def\emph#1{\textit{#1}\par}
+\def\pr#1{\par$<$td$>$\pageref{#1}$<$/td$>$\par$<$/tr$>$\par\mbox{}\ \par}
+\def\IeC{}
+\def\prostor{\mbox{}\ \par}
+
+\begin{document}
+\shorthandoff{-}
+%\shorthandoff{^} % new
+%\shorthandoff{"} % new
+%\shorthandoff{'} % new
+
+\newcount\rocnik
+\newcount\cislo
+\input ../cislo.tex
+\newcount\hodnotaA
+\newcount\hodnotaB
+\hodnotaA=\rocnik
+\advance\hodnotaA by 2008
+\hodnotaB=\hodnotaA
+\advance\hodnotaA by -2000
+
+\def\xbonus{}
+\tiny
+\setmainfont{[csr10]}
+\input ../maosnovab.tex
+
+\end{document}
+

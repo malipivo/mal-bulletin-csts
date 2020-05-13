@@ -1,0 +1,500 @@
+% !TEX TS-program = LuaLaTeX
+% !TEX encoding = UTF-8 Unicode 
+% !TEX root = ../../!hlavni-soubor.tex
+
+\def\balicek#1{\textsf{\mbox{#1}}}
+\def\knihovna#1{\texttt{#1}}
+\def\TikZ{Ti\textit{k}Z}
+\def\TeX{T\kern-.1667em\lower.5ex\hbox{E}\kern-.125emX} % bylo na \protect\TeX ???
+
+\gdef\mujnazevCS{PF2020! aneb Když nestačí ani R, ani \TeX}
+\nazev{\mujnazevCS}
+
+\gdef\mujnazevEN{PF2020! or When neither R nor \TeX\ are sufficient}
+\nazev{PF2020! or When neither R nor \TeX\\[2pt] are sufficient}
+
+\gdef\mujnazevPR{\mujnazevCS}
+\gdef\mujnazevDR{\mujnazevEN}
+
+
+\gdef\mujauthor{Pavel Stříž}
+\author{\mujauthor}
+
+%\Adresa{}
+%\endinput
+
+\Email{pavel@striz.cz}
+
+\Abstrakt{Článek zmiňuje úvahy a kroky vedoucí k vysázení loga PF2020! Logo je vysázené z šestiúhelníkových nálepek, více o kolekcích v GitHub repozitářích \balicek{hex-stickers} (Rstudio) a \balicek{BiocStickers} (Bioconductor). Hlavní zdroj inspirace bylo logo z konference useR! 2018, které vytvořil Mitchell O'Hara\z Wild za použití jeho R skriptu \balicek{hexwall}.}
+\smallskip
+\KlicovaSlova{R, ImageMagick, \balicek{hexwall}, \balicek{raster}, \balicek{gglogo}, \balicek{magick}, \balicek{tidyverse}, \balicek{ggplot2}, \balicek{sf}, \TeX, Lua, Bash, GraphicsMagick, \balicek{png}, \balicek{pacman}}
+
+\Abstract{The article describes a thinking process and a problem-solving approach of creating a PF2020! logo. It's typeset of hexagon stickers, see Rstudio's \balicek{hex-stickers} and Bioconductor's \balicek{BiocStickers} repositories in GitHub. The main inspiration came from the useR! 2018 logo which was created by Mitchell O'Hara\z Wild using his \balicek{hexwall} R script.}
+\smallskip
+\KeyWords{R, ImageMagick, \balicek{hexwall}, \balicek{raster}, \balicek{gglogo}, \balicek{magick}, \balicek{tidyverse}, \balicek{ggplot2}, \balicek{sf}, \TeX, Lua, Bash, GraphicsMagick, \balicek{png}, \balicek{pacman}}
+
+
+%\endinput 
+\section{Problém typu word cloud}
+Word cloud / wordle / tag cloud se běžně řeší tak, že slova či obrázky se převedou do rastrových obrázků a následně se zkoumají přesahy na úrovni pixelů\footnote{\texttt{https://www.jasondavies.com/wordcloud/about/}}.
+Dlouhodobě se zabýváme vektorovým řešením tohoto problému na úrovni \TeX u. To lze zrealizovat např. přes \MP\ a příkaz \texttt{bisect}, ale to je vše \uv{na dlouhé lokte}. Proto nás zaujalo logo z konference userR!~2018, které má svou mřížku z~šestiúhelníků, ale nálepky (angl. stickers) jsou sázeny jen uvnitř polygonů, v jejich případě mapy Austrálie%\,+\,Nového Zélandu
+. Návod lze nalézt na blogu autora, viz webová stránka 
+%\mbox{
+\url{https://www.mitchelloharawild.com/blog/user-2018-feature-wall/}.
+%}.
+
+\section{První dojmy}
+Zkusili jsme v~tomto duchu připravit PF2020!, v R, co nejrychleji\ldots{} Ale!
+Shrneme-li problémy: je potřeba doinstalovat knihovny v R a k tomu je potřeba mít nástroje a knihovny. Užili jsme Linux a omlouváme se uživatelům Microsoft Windows, že jsme testy nezkoušeli pod tímto operačním systémem. Instalovali jsme jednotlivé knihovny jednu po druhé a sledovali v~R chybové zprávy. Tímto způsobem jsme se vrátili pod Linux a doinstalovali vždy to, co bylo potřeba. A opětovně instalovali konkrétní knihovnu v R. Jednalo se postupně o~knihovny 
+\knihovna{libmagick++-dev}, 
+\knihovna{librsvg2-dev},
+\knihovna{libssl-dev}, 
+\knihovna{libogdi3.2-dev}, 
+\knihovna{libcurl4-openssl-dev},
+\knihovna{gdal-bin} a
+\knihovna{libwebp-dev}.
+Je však možné, že jsme některé nástroje již měli nainstalované, proto není výčet úplný.
+
+Funkce \texttt{hexwall} je závislá na knihovně \balicek{magick}, který nám pro velký počet souborů přestane fungovat. V našem případě kolem tisícího souboru. Nehledě na časovou náročnost práce s obřím rastrovým obrázkem v pozadí. 
+
+Další problém byl, že se nám za půlden testů zaplnil pracovní adresář \texttt{/tmp/} o~500\,GB. Hledejme proto jiné nástroje.
+
+Poslední problém byl, že jsme nechtěli mapu (geografická data), ale texty, případně užít obecný (černobílý) rastrový obrázek. Na tohle jsme se zaměřili.
+
+\section{Zdárné kroky s knihovnou \balicek{gglogo}}
+Při hledání převodu znaků do polygonů jsme objevili tuto knihovnu. Pracovali jsme v adresáři, kam jsme si uložili skript \balicek{hexwall}:
+
+\begin{lstlisting}
+$ git clone https://github.com/mitchelloharawild/hexwall.git; \
+> cd hexwall
+\end{lstlisting}
+
+Ačkoliv jsme zápasili s převody mezi datovými typy, zde je použitelný výsledek. Mezi pokusy jsme na vyčištění používali příkaz \texttt{rm(list=ls())}. 
+
+\begin{lstlisting}
+library(gglogo)
+letter <- letterToPolygon("PF2020!", fontfamily="Helvetica", dim=c(5000,800))
+library(raster)
+Sr1 = Polygon(cbind(letter$x,letter$y))
+Srs1 = Polygons(list(Sr1), "s1")
+SpP = SpatialPolygons(list(Srs1), 1:1)
+library(sf)
+hex_points <- SpP %>% spsample(type = "hexagonal", cellsize = 20)
+hex_points@coords
+
+library(ggplot2)
+library(tidyverse)
+as_tibble(hex_points@coords)
+aus_hex <- HexPoints2SpatialPolygons(hex_points, dx = 20)
+#pdf("nahled.pdf")
+ggplot() + geom_sf(data=st_as_sf(aus_hex), colour="blue", fill=NA)
+#dev.off()
+\end{lstlisting}
+
+\newpage
+\begin{lstlisting}
+source("hexwall.R")
+mojkovo <- hexwall("samplehex", sticker_width=20, coords=hex_points@coords, sort_mode="filename")
+plot(mojkovo)
+#image_write(mojkovo,"pf2020-pres-hexwall.png")
+\end{lstlisting}
+
+%\end{lstlisting}
+%\begin{lstlisting}
+
+
+%výsledek
+\noindent
+\includegraphics[width=\textwidth]{nahled-crop.pdf}
+
+%náhled hexíků
+\noindent
+\includegraphics[width=\textwidth]{pf2020-pres-hexwall.png}
+
+V této ukázce se nám nelíbilo, že je tam málo nálepek (5 souborů), nemůžeme užít zúženou mezeru za PF i netradičně před vykřičník, abychom poškádlili typografický svět, a chtěli jsme si zkusit výběr bez vracení s vracením (vysvětlíme). Pokusme se v další části článku tyto úkoly vyřešit.
+
+\section{První krok s knihovnou \balicek{raster}}
+Jistým vývojovým mezistupněm se nám stala \uv{zakázka}, chceme-li experiment, pro organizátory konference OSSConf v Žilině, \url{http://ossconf.soit.sk/}. 
+Vzali jsme logo roku 2019, zvětšili, v GIMPu zasáhli do roku, drobně jsme roztáhli cifry a vyčistili vyhlazování typické u obrázků na internetu (Colors$\rightarrow$Threshold) plus úprava pixelů \uv{zde, tu a támhle}. Tím jsme si zajistili obrázek přesně se čtyřmi barvami a bílým pozadím (v případě nutnosti průhledným).
+
+Zkusili jsme načíst rastrový obrázek a do vzniklých polygonů vkreslit šestiúhelníky. Abychom se procvičili v R, zkusili jsme cyklus \texttt{for} přes barvy. Přes \texttt{data[]} jsme zjistili, že červená barva je v~intenzitách 66, 55, 153 a~77. Příslušné RGB hodnoty jsme vyčetli v GIMPu. Zkušenější uživatelé R by jistě přišli na to, jak unikátní RGB hodnoty získat přímo v R a na tom postavit cyklus. Ručně to u 4 barev šlo, kdyby jich bylo víc, bylo by potřeba celý postup zautomatizovat.
+%chtělo by to zautomatizovat.
+% unique(data)
+% unique(data)[unique(data)<200]
+
+Nepodařilo se nám hexa hodnotu barev vytáhnout z \texttt{data.frame} po spojení proměnných \texttt{hodnoty} a \texttt{barvy}. Zůstalo nám to jako otevřený problém.
+
+Zde je výsledek našich snah.
+\newpage
+\begin{lstlisting}
+library(raster)
+library(ggplot2)
+library(sf)
+data<-raster("tux/ossconf-2020-upravene.png")
+hodnoty<-c(66,55,153,77)
+\end{lstlisting}
+
+% pozor, otočené xy vůči GIMPu
+% data<-stack("tux/ossconf-2020-upravene.png")
+% as.hexmode( data[50,50] )
+% as.hexmode( data[250,40] )
+% as.hexmode( data[410,115] )
+% as.hexmode( data[57,422] )
+
+%\newpage
+\begin{lstlisting}
+barvy<-c("#426baa","#37a9e9","#999999","#4d4d4d")
+mojkovo<-ggplot()
+for (volim in 1:length(hodnoty)) {
+  polygony <- rasterToPolygons(data, dissolve=TRUE, fun=function(x){x==hodnoty[volim]})
+  hexiky <- polygony %>% spsample(type = "hexagonal", cellsize = 8)
+  nahled <- HexPoints2SpatialPolygons(hexiky, dx = 8)
+  mojkovo <- mojkovo + geom_sf(data=st_as_sf(nahled), colour=barvy[volim], fill=NA)
+  }
+mojkovo <- mojkovo + theme_void(); mojkovo
+#pdf("2020-logo-ossconf.pdf"); mojkovo; dev.off()
+\end{lstlisting}
+
+\def\sipka#1{\raisebox{1cm}[0pt][0pt]{$\xrightarrow{\text{#1}}$}}
+\noindent
+\includegraphics[width=0.28\textwidth]{ossconf-2019.png}%
+\sipka{Ručně}%
+\includegraphics[width=0.28\textwidth]{ossconf-2020-upravene.png}%
+\sipka{\ R\ } % 
+\includegraphics[width=0.28\textwidth]{klukum-crop.pdf}%
+
+%\endinput
+
+\section{Druhý krok s knihovnou \balicek{raster}}
+Připravili jsme si obecný rastrový obrázek. Začali jsme v \TeX u ve složce \texttt{sazba} sázet soubor \knihovna{pf2020.tex}:
+\begin{lstlisting}
+\documentclass{article}
+\pagestyle{empty}
+\usepackage{graphicx}
+\begin{document}
+\centering\bf\sffamily
+\resizebox{9.5mm}{!}{PF}\par2020!\par ČStS%
+\end{document}
+\end{lstlisting}
+
+Získali jsme postupně pdf a poté tif soubor v linuxovém prostředí:
+%(soubor \texttt{pf2020.tex}):
+\begin{lstlisting}
+$ lualatex pf2020.tex; \
+> pdfcrop --hires --margins 5 pf2020.pdf; \
+> gm convert -density 300 -monochrome pf2020-crop.pdf pf2020-crop.tif
+\end{lstlisting}
+
+V R jsme užili tento skript:
+\newpage
+\begin{lstlisting}
+library(raster)
+library(tidyverse)
+library(sf)
+data <- raster("sazba/pf2020-crop.tif")
+polygony <- rasterToPolygons(data, dissolve=TRUE, fun=function(x){x>0})
+hexiky <- polygony %>% spsample(type = "hexagonal", cellsize = 1.5)
+as_tibble(hexiky)
+nahled <- HexPoints2SpatialPolygons(hexiky, dx = 1.5)
+ggplot() + geom_sf(data=st_as_sf(nahled), colour="brown", fill=NA)
+\end{lstlisting}
+
+Zajistili jsem si tak, že můžeme pracovat s libovolným černobílým rastrovým obrázkem a libovolným rozlišením. V této chvíli jsme však neužili skript \balicek{hexwall}, ale vyexportovali jsme si nalezené souřadnice středů šestiúhelníků.
+
+\begin{lstlisting}
+write.table(hexiky@coords, "hexagony.csv", sep=",", col.names=FALSE)
+\end{lstlisting}
+
+První řádky souboru \texttt{hexagony.csv} vypadaly takto:
+\begin{lstlisting}
+"1",62.7959799161181,21.6272033299488 
+"2",64.2959799161181,21.6272033299488 
+"3",65.7959799161181,21.6272033299488 
+\end{lstlisting}
+
+
+\section{Sesypání šestiúhelníkových nálepek}
+Objevili jsme dva velké repozitáře s nálepkami, stáhli jsem si je přes:
+\begin{lstlisting}
+$ git clone https://github.com/rstudio/hex-stickers.git; \
+> git clone https://github.com/Bioconductor/BiocStickers.git
+\end{lstlisting}
+
+Nakopírovali jsme si png do nové složky \texttt{pfhex}, u \balicek{hex-stickers} to bylo rychlé. U \balicek{BioStickers} jsme použili pomocný skript v Lua, který nám naparsoval \texttt{README.md} a vytáhl si png soubory nálepek z podadresářů:
+\begin{lstlisting}
+soubor=io.open("README.md")
+obsah=soubor:read("*all")
+soubor:close()
+kam=io.open("spust.sh","w")
+unicode.utf8.gsub(obsah, "<img src=\"([^\"]-%.png)\"", function(s)
+  print(s)
+  kam:write("cp "..s.." ../hexwall-master/pfhex\n")
+  end)
+kam:close()
+\end{lstlisting}
+
+Soubor jsme spustili přes \texttt{texlua} dostupný v \TeX Live a vzniklý dávkový soubor přes \texttt{sh}.
+
+Posledním úkolem bylo připravit si podklady. Připravili jsme si složku \texttt{pfhex\z output} a spustili následující (šikovný administrátor si snadno převede do skriptu): % (je to zároveň zajímavost, jak spustit více řádků): 
+%skript přes \texttt{sh}:
+
+\newpage
+\begin{lstlisting}
+$ cd pfhex; \
+> for file in `find -type f -iname \*.png -printf "%f\n"`; do \
+>   echo $file; \
+>   gm convert $file -transparent white ../pfhex-output/$file; \
+> done
+\end{lstlisting}
+
+Tím jsme zajistili, že jsou soubory průhledné, nezlobí tam barevný profil ICC (ImageMagick) a můžeme operativně zasáhnout do velikosti obrázků přes parametr \texttt{resize}.
+
+\section{Luujeme}
+Nyní máme stavební kameny a opustíme R. V \TeX u je práce s datovými soubory možná, my použijeme Lua skript a v \TeX u budeme jen sázet výsledek. Je to obdoba generování HTML přes PHP či JavaScript. Kvůli čitelnosti však nemícháme Lua skript uvnitř \TeX u, což je možné, ale oddělíme jej.
+
+Lua jako skriptovací jazyk se stal neocenitelným pomocníkem v \TeX ovém světě. Příchod \LaTeX u3, nemluvě o \ConTeXt u, sice umí mnohé, ale pro \uv{obyčejné} programátory je Lua jen jiná forma C++, Javy, JavaScriptu, Pythonu či Perlu. Ukažme si prvně střípky programování v Lua.
+
+\subsection{Výběr s vracením}
+Kdybychom chtěli vybrat 13 čísel od 1 do 52, 
+%obě hranice včetně, 
+můžeme to učinit takto:
+\begin{lstlisting}
+for k=1,13 do
+  print(math.random(1,52))
+end -- končí cyklus for
+\end{lstlisting}
+Takový soubor bychom spustili přes \texttt{texlua} z \TeX Live. Nabízí se možnost programu \texttt{lua}, např. z balíku \texttt{lua5.2}, případně \texttt{lua5.3} z balíku \texttt{lua5.3}.
+
+\subsection{Výběr bez vracení}
+Vytvoříme si prázdné pole a vyplníme jej hodnotami 1 až 52. Postupně volíme pořadí z pole a vypisujeme hodnotu na dané pozici. Tuto hodnotu pak z pole odebereme.
+\begin{lstlisting}
+hodnoty={}
+for x=1,52 do table.insert(hodnoty,x) end
+for k=1,13 do
+  vyber=math.random(1,#hodnoty)
+  print(hodnoty[vyber])
+  table.remove(hodnoty,vyber)
+end -- končí cyklus for
+\end{lstlisting}
+
+\subsection{Výběr bez vracení s vracením}
+Taková vánoční drobnost. U novoročenky jsme chtěli výběr bez vracení, ale nalezených šestiúhelníků jsme měli víc než nálepek. Místo nějaké formy stratifikovaného výběru jsme z pole hodnoty odebírali a~jakmile bylo pole prázdné, vyplnili jsme si jej všemi dostupnými nálepkami znovu. Tím jsme zajistili, že jsou výběry náhodné, ale že se žádná nálepka neopakuje výrazně vícekrát než jiné. Základem Lua je práce s tabulkami, při jejich kopírování přebíráme jednotlivé položky (angl. deep copy), prosté \uv{rovná se} by nám nepomohlo.
+
+Pojďme na školní ukázku. Z 52 čísel jich vybereme 117. Znak \texttt{\#} nám zjistí aktuální velikost pole.
+
+%\newpage
+\begin{lstlisting}
+hodnoty={}; vsechny={}
+for x=1,52 do 
+  table.insert(hodnoty,x) 
+  table.insert(vsechny,x) 
+end -- končí cyklus for
+for k=1,117 do
+  vyber=math.random(1,#hodnoty) 
+  io.write(hodnoty[vyber].." ") -- místo print
+  table.remove(hodnoty,vyber)
+  if #hodnoty==0 then -- deep copy
+    for k,v in pairs(vsechny) do hodnoty[k]=v end
+  end -- končí podmínka if
+end -- končí cyklus for
+\end{lstlisting}
+
+Náš pokus by mohl dopadnout takto:
+%\begin{lstlisting}
+%\begingroup
+%\tt\footnotesize 
+34 13 35 46 7 12 48 43 4 42 47 16 50 20 14 32 31 44 8 29 27 22 51 15 17 38 18 30 3 1 41 37 11 25 28 21 39 24 9 45 10 5 2 23 36 26 52 6 19 33 49 40 29 40 4 44 27 21 24 34 22 14 18 39 42 51 6 25 26 16 11 46 28 13 3 1 36 52 9 43 7 50 32 35 38 31 20 12 2 48 47 23 10 15 8 49 17 30 33 41 37 19 45 5 51 33 10 30 34 19 20 38 18 48 16 5 28.
+%\endgroup
+%\end{lstlisting}
+
+Pozorný čtenář jistě brzy zjistí, že 39 hodnot se opakuje přesně dvakrát, 13~hodnot přesně třikrát. Obdoba by byla, když rozdáváme balíček karet, a~jakmile jsme všechny karty rozdali, použijeme další balíček karet. Kdybychom rozdávali po 13 kartách, rozdali jsme karty 9 hráčům, spotřebovali bychom dva celé a jednu čtvrtinu balíčku žolíkových karet bez žolíků.
+
+\section{R\,+\,Lua\,+\,\TeX}
+Bokem si uložíme z adresáře \texttt{pfhex-output} seznam nálepek:
+\begin{lstlisting}
+$ ls *.png >../soubory-pfhex.txt
+\end{lstlisting}
+
+V R jsme provedli výpočty a získali jsme soubor \texttt{hexagony.csv}. Nyní si přes Lua skript tyto dva soubory načteme. Náš cíl je vygenerovat \TikZ ový zdrojový kód, který vysázíme. Navíc jsme si v~Lua skriptu nastavili jednoduché měřítko. Výsledek našich snah by mohl vypadat takto:
+\begin{lstlisting}
+math.randomseed(1)
+soubory=io.open("soubory-pfhex.txt") -- seznam nálepek
+obsah=soubory:read("*all")
+soubory:close()
+pngs={}
+pngsfull={}
+\end{lstlisting}
+
+%\newpage
+\begin{lstlisting}
+unicode.utf8.gsub(obsah, "([^\n]-)\n", function(s)
+  table.insert(pngs,s) -- pracovní tabulka s nálepkami
+  table.insert(pngsfull,s) -- neměnná tabulka všech nálepek
+  end)
+soubor=io.open("hexagony.csv") -- seznam nalezených souřadnic šestiúhelníků
+obsah=soubor:read("*all")
+soubor:close()
+kam=io.open("zdrojak.tex","w") -- TikZový zdrojový soubor
+kam:write("\\begin{tikzpicture}[remember picture, overlay]\n")
+unicode.utf8.gsub(obsah, ",([^,]-),([^\n]-)\n", function(s,t)
+  tos=s/1; tot=t/1 -- jednoduchá škála, je-li nutná
+  pickup=math.random(1,#pngs) -- výběr bez vracení
+  kam:write("  \\node[m] at ("..tos.."pt,"..tot.."pt) {\\includegraphics[width=\\maldimen]{"..pngs[pickup].."}};\n")
+  table.remove(pngs,pickup) -- odebere vybrané logo
+  if #pngs==0 then -- vrátit všechny nálepky, deep copy
+    for k,v in pairs(pngsfull) do pngs[k] = v end -- for
+  end -- if
+end) -- unicode.utf8.gsub
+kam:write("\\end{tikzpicture}\n")
+kam:close()
+\end{lstlisting}
+
+Postupně se generuje soubor \texttt{zdrojak.tex}, první řádky vypadají takto:
+\begin{lstlisting}
+\begin{tikzpicture}[remember picture, overlay]
+  \node[m] at (62.795979916118pt,21.627203329949pt) {\includegraphics[width=\maldimen]{glue.png}};
+  \node[m] at (64.295979916118pt,21.627203329949pt) {\includegraphics[width=\maldimen]{scmap.png}};
+\end{lstlisting}	
+
+Náš poslední úkol je načíst si tento \TikZ ový kód a vysázet novoročenku, soubor \texttt{pf.tex}. To provedeme v \TeX u. My jej měli ve složce \texttt{sazba}, aby se nám pomocné \TeX ové soubory nemíchaly s ostatními. 
+\begin{lstlisting}
+\documentclass[landscape]{article}
+\pagestyle{empty}
+\usepackage{tikz}
+\graphicspath{ {../pfhex-output/} }
+\newdimen\maldimen \maldimen=1.5pt % cellsize / škála v Lua souboru
+\tikzset{inner sep=0pt, outer sep=0pt, 
+  m/.style={xshift=-100pt, yshift=-100pt, draw=none} }
+\end{lstlisting}
+
+\newpage
+\begin{lstlisting}
+\begin{document}
+\input ../zdrojak.tex
+\end{document}
+\end{lstlisting}
+
+Nezbývá než si vše vysázet:
+\begin{lstlisting}
+$ lualatex pf.tex; \
+> lualatex pf.tex; \
+> pdfcrop --hires --margins 0 pf.pdf; \
+> gm convert -density 1800 pf-crop.pdf pf-crop.png
+\end{lstlisting}
+
+První dva řádky zajistí vysázení a absolutní umístění na straně. Třetí řádek nám ořeže ochrannou bílou zónu. Šikovný \TeX ista brzy zjistí, že by se to dalo zjednodušit na jeden běh \TeX u bez nástroje \knihovna{pdfcrop}. Necháváme otevřené pro badatele. Poslední řádek nám vygeneruje rastrový náhled. 
+
+Nezbývá než se pokochat vánočním dárkem, a doufat, že soubory pdf a~png nebudou moc velké, nebude se to mezi svátky dlouho vykreslovat a~do Nového roku se novoročenka celá zobrazí\ldots{}
+
+\enlargethispage{\baselineskip}
+%\endinput
+
+%\newpage
+%\mbox{}
+\vfil
+
+\noindent
+\hfil
+\includegraphics[width=0.65\textwidth]{pf-crop.png}%
+%\includegraphics[trim=58cm 110cm 28cm 2cm, clip, height=8cm]{pf-crop.png}%
+
+\ifx\relax
+\noindent
+\hfill
+%\includegraphics[angle=90,height=\textheight]{pf-crop.png}
+%\fbox{
+\includegraphics[trim=0 0 207cm 0, clip, width=\textwidth]{pf-crop.png}%
+%}
+\par
+\noindent
+%\hfil
+%\fbox{
+\includegraphics[trim=104cm 0 0 0, clip, width=\textwidth]{pf-crop.png}%
+%}
+\fi
+
+\newpage
+\section{Závěrečné tipy: ještě jedno ohlédnutí za R}
+S určitým časovým odstupem si odpovídáme na otevřené otázky u R.
+
+Při instalaci knihovny \balicek{rgdal} to chce novější verzi R než nabízí standardní linuxový repozitář (Xubuntu 18.04). Vyřešili jsme to takto. 
+
+V \texttt{/etc/apt/sources.list} jsme přidali:
+\begin{lstlisting}
+deb https://cloud.r-project.org/bin/linux/ubuntu bionic-cran35/
+\end{lstlisting}
+
+Následovala instalace R:
+\begin{lstlisting}
+$ sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9
+$ sudo apt update
+$ sudo apt upgrade
+$ sudo apt install r-cran-base
+\end{lstlisting}
+
+V případě problémů se závislostmi užíváme místo známých programů \knihovna{apt} či \knihovna{apt-get} program \knihovna{aptitude}. Hodilo se nám to při míchání 32 a 64bitových aplikací, resp. programů z různých linuxových distribucí.
+
+\enlargethispage{\baselineskip}
+V R následuje doinstalování knihoven, které použijeme. Ideální řešení je instalovat jednu knihovnu za druhou a sledovat případné chybové zprávy.
+\begin{lstlisting}
+install.packages(c("png","spex","raster","rgdal","sf","pacman"))
+\end{lstlisting}
+
+\subsection{Zjištění barvy konkrétního pixelu}
+Poněvadž jsme zápasili s datovými typy, zkusili jsme si získat barvu konkrétního pixelu a dostat jeho RGB složky, ve stylu GIMPu, ale už bez GIMPu. 
+
+Využili jsme knihovnu \balicek{raster} a funkci \texttt{brick} nebo \texttt{stack}, získali jsme složky RGB, převedli na šestnáctkové hodnoty a přidali znak \texttt{\#}.
+
+\begin{lstlisting}
+library(raster)
+data<-brick("tux/ossconf-2020-upravene.png")  # nebo
+#data<-stack("tux/ossconf-2020-upravene.png")
+danaBarva<-paste("#", paste( as.hexmode( getValues(data,50,1)[50,] ), sep="", collapse=""), sep="")
+danaBarva
+\end{lstlisting}
+
+Výstup je:
+\begin{lstlisting}
+[1] "#426baa"
+\end{lstlisting}
+To už lze přímo použít pro parametr \texttt{colour}, např. \texttt{colour=danaBarva}.
+
+\subsection{Výpis všech barev v obrázku}
+Máme za sebou barvu jednoho pixelu, podívejme se, jak lze proces zautomatizovat a získat všechny jedinečné barvy v rastrovém RGB obrázku. Použijeme knihovnu \balicek{png}.
+
+\newpage
+\begin{lstlisting}
+library(png)
+mujpng<-readPNG("tux/ossconf-2020-upravene.png")
+unique(as.raster(mujpng[,,1:3]))
+\end{lstlisting}
+
+Výstup je:
+\begin{lstlisting}
+[1] "#FFFFFF" "#4D4D4D" "#426BAA" "#37A9E9" "#FEFEFE" "#FEFFFF" "#999999"
+\end{lstlisting}
+
+U našeho konkrétního obrázku linuxového tučňáka Tuxe v logu konference OSSConf jsme zjistili, že tam máme dvě barvy (\texttt{\#426BAA}, \texttt{\#37A9E9}), dvě šedé (\texttt{\#4D4D4D}, \texttt{\#999999}), bílé pozadí (\texttt{\#FFFFFF}) a na první pohled neviditelné, řekněme \uv{parazitní}, chceme\z li přehlédnuté, téměř bílé pixely: šedé a barevné (\texttt{\#FEFEFE}, \texttt{\#FEFFFF}). 
+
+Nyní už lze barvy oddělovat (například chceme mít co barva to jeden polygon), filtrovat (nechceme např. bílé pozadí ani padesát odstínů šedi), měnit (nahradit jednu barvu za jinou), spojovat (např. spojit barvy textů, nebo vše spojit do jedné barvy) ap.
+
+\subsection{Pracovní zobrazení obrázku}
+Zkusíme si jednoduchý filtr: odstranit bílé a téměř bílé pixely a zobrazit si pracovní náhled obrázku. Zároveň pro načtení více R knihoven otestujeme knihovnu \balicek{pacman}. Zmíněné otevřené problémy v R jsou tímto uzavřené.
+\begin{lstlisting}
+#library(raster); library(sf); library(spex); library(ggplot2)
+library(pacman) # alternativní postup načtení více knihoven
+pacman::p_load("raster","sf","spex","ggplot2")
+data<-raster("tux/ossconf-2020-upravene.png")
+data[data>200] <- NA # ořez bílých a téměř bílých pixelů
+vysledek<-polygonize(data)
+#plot(vysledek) # je to pomalé, ale použitelné
+#pdf("pracovni-nahled.pdf") # uložení pro bulletinek
+ggplot()+geom_sf(data=st_as_sf(vysledek))
+#dev.off() # uzavření ukládání pdf
+\end{lstlisting}
+
+\enlargethispage{\baselineskip}
+\noindent
+\hfil
+\includegraphics[width=0.55\textwidth]{pracovni-nahled-crop.pdf}
+

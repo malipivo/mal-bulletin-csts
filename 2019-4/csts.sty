@@ -1,0 +1,216 @@
+%%% csts.sty
+%%%
+%%% Šablona pro Bulletin České statistické společnosti
+%%% Stylefile for Bulletin of the Czech Statistical Society
+%%%
+%%% 10-03-2005 created by JA
+
+\widowpenalty=10000
+ \clubpenalty=10000
+
+%%% Používané zrcadlo v Bulletinu od roku 2005 | Used mirror in Bulletin from the year 2005
+% Nastavení základních rozměrů | Setting basic margins
+\setlength{\oddsidemargin} {  0mm}
+\setlength{\evensidemargin}{  0mm}
+\setlength{\topmargin}     {  0mm}
+
+%Délka zrcadla | Width of text in mirror
+\setlength{\textwidth}     {117mm}
+%Výška zrcadla | Height of text in mirror
+\setlength{\textheight}    {168mm}
+
+%Nastavení délky přetečení | Setting length of overfull
+\overfullrule1cm%1pt
+
+%Předefinování stylu názvu příspěvku | Redefining format of the title of the paper.
+\renewcommand{\title}[1]{
+    \noindent{\def\odskoc{\\ }%
+    \large\textbf{\MakeUppercase{#1}}}%
+    \medskip
+    }
+
+\let\nazev\title
+
+%Předefinování stylu autorů | Redefining format of the authors of the paper.
+\renewcommand{\author}[1]{
+    \medskip\noindent
+    \normalsize
+    {\large{\textbf{#1}}}
+    \smallskip\extras% !!
+    }
+
+\let\authors\author
+\let\autor\author
+\let\autori\author
+
+%%%Společné prvky pro všechny články | Common elements for all articles
+\newcommand{\Zapomen}[1]{}
+\newcommand{\Email}   [1]{\noindent\textit{E-mail}: \texttt{#1}}
+\newcommand{\KlicovaSlova}[1]{\medskip\noindent\textit{Klíčová slova}: #1.}
+\newcommand{\Abstrakt}[1]{\bigskip\noindent{\textbf{Abstrakt}}: #1}
+\newcommand{\Adresa}[1]{\noindent\textit{Adresa}: #1\smallskip}
+\newcommand{\AdresaEN}[1]{\noindent\textit{Address}: #1\smallskip}
+%\newcommand{\Podekovani}[1]{\noindent\textit{Pod\v{e}kov\'an\'{\i}}: #1\smallskip}
+\newcommand{\Podekovani}[1]{\section*{Pod\v{e}kov\'an\'{\i}}#1\par}
+\newcommand{\Acknowledgement}[1]{\section*{Acknowledgements}#1\par}
+%\renewcommand\refname{Literatura}
+
+%Definování registrační značky | Defining registartion mark symbol
+\DeclareTextCommandDefault{\registered}{\textcircled{\small\scshape R}}
+
+
+%%%  APPEARANCE OF SECTIONS REDEFINED
+% Styl sekce | Style of section.
+\makeatletter
+ \renewcommand\section{\@startsection
+   {section}%
+   {1}%
+   {0mm}%
+   {-\baselineskip}%
+   {.5\baselineskip}%
+   {\normalfont\large\bfseries}%
+   }%
+\makeatother
+
+% Formát sekce | Format of section
+\makeatletter
+%  \renewcommand \thesection {\@arabic\c@section.}
+\makeatother
+
+%\def\sekce#1{\section{#1}
+%\noindent
+%}
+\let\sekce=\section
+
+% Styl podsekce | Style of subsection.
+\makeatletter
+ \renewcommand\subsection{\@startsection
+   {subsection}%
+   {2}%
+   {0mm}%
+   {-\baselineskip}%
+   {0.5\baselineskip}%
+   {\normalfont\large\bfseries}%
+   }%
+\makeatother
+
+% Formát podsekce | Format of subsection
+\makeatletter
+  %\renewcommand\thesubsection   {\thesection\@arabic\c@subsection.}
+\makeatother
+
+%Zapasování \noindent | Including \noindent
+%\def\podsekce#1{\subsection{#1}
+%\noindent
+%}
+\let\podsekce=\subsection
+
+% Styl podpodsekce | Style of subsubsection.
+\makeatletter
+ \renewcommand\subsubsection{\@startsection
+   {subsubsection}%
+   {3}%
+   {0mm}%
+   {-\baselineskip}%
+   {-0.5\baselineskip}%
+   {\normalfont\normalsize\bfseries}%
+   }%
+\makeatother
+
+% Formát podpodsekce | Format of subsubsection
+\makeatletter
+  %\renewcommand\thesubsubsection{\thesubsection\@arabic\c@subsubsection.}
+\makeatother
+
+%\def\podpodsekce#1{\subsubsection{#1}}
+\let\podpodsekce=\subsubsection
+
+\ifx\relax
+\makeatletter
+\ifx\cs@compat@latex\relax
+  \let\cs@ltxprim@s\prim@s
+  \def\csprimeson{%
+    \catcode`\`\active \catcode`\'\active \let\prim@s\bbl@prim@s}
+  \def\csprimesoff{%
+    \catcode`\`12 \catcode`\'12 \let\prim@s\cs@ltxprim@s}
+  \begingroup\catcode`\`\active
+  \def\x{\endgroup
+    \def`{\futurelet\cs@next\cs@openquote}
+    \def\cs@openquote{%
+      \ifx`\cs@next \expandafter\cs@opendq
+      \else \expandafter\clq
+      \fi}%
+  }\x
+  \begingroup\catcode`\'\active
+  \def\x{\endgroup
+    \def'{\textormath{\futurelet\cs@next\cs@closequote}
+                     {^\bgroup\prim@s}}
+    \def\cs@closequote{%
+      \ifx'\cs@next \expandafter\cs@closedq
+      \else \expandafter\crq
+      \fi}%
+  }\x
+  \def\cs@opendq{\clqq\let\cs@next= }
+  \def\cs@closedq{\crqq\let\cs@next= }
+\else
+  \initiate@active@char{"}
+  \expandafter\addto\csname extras\CurrentOption\endcsname{%
+    \bbl@activate{"}}
+  \expandafter\addto\csname noextras\CurrentOption\endcsname{%
+    \bbl@deactivate{"}}
+  \declare@shorthand{czech}{"`}{\clqq}
+  \declare@shorthand{czech}{"'}{\crqq}
+  \declare@shorthand{czech}{"<}{\flqq}
+  \declare@shorthand{czech}{">}{\frqq}
+  \declare@shorthand{czech}{"=}{\cs@splithyphen}
+\fi
+\ProvideTextCommand{\clqq}{OT1}{%
+  \set@low@box{\textquotedblright}%
+  \setbox\@ne=\hbox{l\/}\dimen\@ne=\wd\@ne
+  \setbox\@ne=\hbox{l}\advance\dimen\@ne-\wd\@ne
+  \leavevmode
+  \ifdim\dimen\@ne>\z@\kern-.1em\box\z@\kern.1em
+    \else\kern.1em\box\z@\kern-.1em\fi\allowhyphens}
+\ProvideTextCommand{\clqq}{T1}
+  {\kern.1em\quotedblbase\kern-.0158em\relax}
+\ProvideTextCommandDefault{\clqq}{\UseTextSymbol{OT1}\clqq}
+\ProvideTextCommand{\crqq}{OT1}
+  {\save@sf@q{\nobreak\kern-.07em\textquotedblleft\kern.07em}}
+\ProvideTextCommand{\crqq}{T1}
+  {\save@sf@q{\nobreak\kern.06em\textquotedblleft\kern.024em}}
+\ProvideTextCommandDefault{\crqq}{\UseTextSymbol{OT1}\crqq}
+\ProvideTextCommand{\clq}{OT1}
+  {\set@low@box{\textquoteright}\box\z@\kern.04em\allowhyphens}
+\ProvideTextCommand{\clq}{T1}
+  {\quotesinglbase\kern-.0428em\relax}
+\ProvideTextCommandDefault{\clq}{\UseTextSymbol{OT1}\clq}
+\ProvideTextCommand{\crq}{OT1}
+  {\save@sf@q{\nobreak\textquoteleft\kern.17em}}
+\ProvideTextCommand{\crq}{T1}
+  {\save@sf@q{\nobreak\textquoteleft\kern.17em}}
+\ProvideTextCommandDefault{\crq}{\UseTextSymbol{OT1}\crq}
+\ifx\cs@compat@plain\@undefined\else\let\cs@olduv=\relax\fi
+\ifx\cs@olduv\@undefined
+  \DeclareRobustCommand\uv[1]{{\leavevmode\clqq#1\crqq}}
+\else
+  \DeclareRobustCommand\uv{\bgroup\aftergroup\closequotes
+    \leavevmode\clqq\let\cs@next=}
+  \def\closequotes{\unskip\crqq\relax}
+\fi
+\DeclareRobustCommand\uv[1]{{\leavevmode\clqq#1\crqq}}
+\makeatother
+\fi
+
+%%%  UNDERPRINT
+% Vodotisk | Watermark
+% \special{! userdict begin /bop-hook{                      %
+%   gsave 100 280 translate 65 rotate                       %
+%   /cmbx12  findfont 180 scalefont setfont 0 0 moveto      %
+%   0.9 setgray (BULL) show grestore                        %
+%   gsave 250 300 translate 65 rotate                       %
+%   /cmbx12  findfont 180 scalefont setfont 0 0 moveto      %
+%   0.9 setgray (DRAFT) show grestore}                      %
+%   def end}                                                %
+
+
+% END OF CSTS.STY
