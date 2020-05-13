@@ -4,6 +4,7 @@ backup.sh
 .backup.sh.swp
 config-github
 config-gitlab
+config-bitbucket
 
 !2020-3-4/zdrojaky/striz-manim/
 2020-3-4/zdrojaky/striz-manim/**
