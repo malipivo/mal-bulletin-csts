@@ -72,6 +72,3 @@ This is a milestone for me as:
 * For some reason I was using exclamation mark in the top-level TeX file (`!hlavni-soubor.tex`; main file) and in folder `!finalizace` (final version).
 
 ---
-
----
-
